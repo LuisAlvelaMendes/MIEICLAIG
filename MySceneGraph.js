@@ -70,8 +70,8 @@ class MySceneGraph {
      * @param {XML root element} rootElement
      */
     parseXMLFile(rootElement) {
-        if (rootElement.nodeName != "SCENE")
-            return "root tag <SCENE> missing";
+        if (rootElement.nodeName != "yas")
+            return "root tag <yas> missing";
 
         var nodes = rootElement.children;
 
