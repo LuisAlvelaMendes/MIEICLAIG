@@ -1,7 +1,7 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
-var INITIALS_INDEX = 0;
+var SCENE_INDEX = 0;
 var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
@@ -86,20 +86,20 @@ class MySceneGraph {
 
         // Processes each node, verifying errors.
 
-        // <INITIALS>
+        // <scene>
         var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
         else {
-            if (index != INITIALS_INDEX)
+            if (index != SCENE_INDEX)
                 this.onXMLMinorError("tag <scene> out of order");
 
-            //Parse INITIAL block
-            if ((error = this.parseInitials(nodes[index])) != null)
+            //Parse scene block
+            if ((error = this.parseScene(nodes[index])) != null)
                 return error;
         }
 
-        // <ILLUMINATION>
+        // <ambient>
         if ((index = nodeNames.indexOf("ambient")) == -1)
             return "tag <ambient> missing";
         else {
@@ -111,7 +111,7 @@ class MySceneGraph {
                 return error;
         }
 
-        // <LIGHTS>
+        // <lights>
         if ((index = nodeNames.indexOf("lights")) == -1)
             return "tag <lights> missing";
         else {
@@ -123,24 +123,24 @@ class MySceneGraph {
                 return error;
         }
 
-        // <TEXTURES>
-        if ((index = nodeNames.indexOf("TEXTURES")) == -1)
-            return "tag <TEXTURES> missing";
+        // <textures>
+        if ((index = nodeNames.indexOf("textures")) == -1)
+            return "tag <textures> missing";
         else {
             if (index != TEXTURES_INDEX)
-                this.onXMLMinorError("tag <TEXTURES> out of order");
+                this.onXMLMinorError("tag <textures> out of order");
 
             //Parse TEXTURES block
             if ((error = this.parseTextures(nodes[index])) != null)
                 return error;
         }
 
-        // <MATERIALS>
-        if ((index = nodeNames.indexOf("MATERIALS")) == -1)
-            return "tag <MATERIALS> missing";
+        // <materials>
+        if ((index = nodeNames.indexOf("materials")) == -1)
+            return "tag <materials> missing";
         else {
             if (index != MATERIALS_INDEX)
-                this.onXMLMinorError("tag <MATERIALS> out of order");
+                this.onXMLMinorError("tag <materials> out of order");
 
             //Parse MATERIALS block
             if ((error = this.parseMaterials(nodes[index])) != null)
@@ -159,6 +159,31 @@ class MySceneGraph {
                 return error;
         }
     }
+
+    /**
+     * Parses the <scene> block.
+     */
+    parseScene(sceneNode){
+
+        if(!sceneNode.hasAttribute("root")){
+            this.onXMLError("no root found on scene");
+        }
+
+        else {
+            this.idRoot = this.reader.getString(sceneNode, 'root');
+            console.log(this.idRoot);
+        }
+
+        if(!sceneNode.hasAttribute("axis_length")){
+            this.onXMLError("no axis_length found on scene");
+        }
+
+        else {
+            this.idAxis_Length = this.reader.getString(sceneNode, 'axis_length');
+            console.log(this.idAxis_Length);
+        }
+    }
+
 
     /**
      * Parses the <INITIALS> block.
@@ -258,9 +283,7 @@ class MySceneGraph {
      */
     parseIllumination(illuminationNode) {
         // TODO: Parse Illumination node
-
         this.log("Parsed illumination");
-
         return null;
     }
 
@@ -417,9 +440,7 @@ class MySceneGraph {
      */
     parseTextures(texturesNode) {
         // TODO: Parse block
-
         console.log("Parsed textures");
-
         return null;
     }
 
@@ -431,7 +452,6 @@ class MySceneGraph {
         // TODO: Parse block
         this.log("Parsed materials");
         return null;
-
     }
 
     /**
