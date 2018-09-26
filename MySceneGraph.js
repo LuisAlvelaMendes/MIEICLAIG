@@ -88,11 +88,11 @@ class MySceneGraph {
 
         // <INITIALS>
         var index;
-        if ((index = nodeNames.indexOf("INITIALS")) == -1)
-            return "tag <INITIALS> missing";
+        if ((index = nodeNames.indexOf("scene")) == -1)
+            return "tag <scene> missing";
         else {
             if (index != INITIALS_INDEX)
-                this.onXMLMinorError("tag <INITIALS> out of order");
+                this.onXMLMinorError("tag <scene> out of order");
 
             //Parse INITIAL block
             if ((error = this.parseInitials(nodes[index])) != null)
@@ -100,11 +100,11 @@ class MySceneGraph {
         }
 
         // <ILLUMINATION>
-        if ((index = nodeNames.indexOf("ILLUMINATION")) == -1)
-            return "tag <ILLUMINATION> missing";
+        if ((index = nodeNames.indexOf("ambient")) == -1)
+            return "tag <ambient> missing";
         else {
             if (index != ILLUMINATION_INDEX)
-                this.onXMLMinorError("tag <ILLUMINATION> out of order");
+                this.onXMLMinorError("tag <ambient> out of order");
 
             //Parse ILLUMINATION block
             if ((error = this.parseIllumination(nodes[index])) != null)
@@ -112,11 +112,11 @@ class MySceneGraph {
         }
 
         // <LIGHTS>
-        if ((index = nodeNames.indexOf("LIGHTS")) == -1)
-            return "tag <LIGHTS> missing";
+        if ((index = nodeNames.indexOf("lights")) == -1)
+            return "tag <lights> missing";
         else {
             if (index != LIGHTS_INDEX)
-                this.onXMLMinorError("tag <LIGHTS> out of order");
+                this.onXMLMinorError("tag <lights> out of order");
 
             //Parse LIGHTS block
             if ((error = this.parseLights(nodes[index])) != null)
@@ -282,7 +282,7 @@ class MySceneGraph {
         // Any number of lights.
         for (var i = 0; i < children.length; i++) {
 
-            if (children[i].nodeName != "LIGHT") {
+            if (children[i].nodeName != "omni" && children[i].nodeName != "spot") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -306,7 +306,7 @@ class MySceneGraph {
 
             // Gets indices of each element.
             var enableIndex = nodeNames.indexOf("enable");
-            var positionIndex = nodeNames.indexOf("position");
+            var positionIndex = nodeNames.indexOf("location");
             var ambientIndex = nodeNames.indexOf("ambient");
             var diffuseIndex = nodeNames.indexOf("diffuse");
             var specularIndex = nodeNames.indexOf("specular");
