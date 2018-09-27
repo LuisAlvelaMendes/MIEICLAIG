@@ -207,6 +207,7 @@ class MySceneGraph {
 
         if(!sceneNode.hasAttribute("root")){
             this.onXMLError("no root found on scene");
+            return;
         }
 
         else {
@@ -215,13 +216,19 @@ class MySceneGraph {
 
         if(!sceneNode.hasAttribute("axis_length")){
             this.onXMLError("no axis_length found on scene");
+            return;
         }
 
         else {
             this.idAxis_Length = this.reader.getFloat(sceneNode, 'axis_length');
+
+            if(isNaN(this.idAxis_Length)){
+                this.onXMLError("axis length is not a number");
+                return;
+            }
         }
 
-        this.log("Parsed scene id root " + this.idRoot + " and axis " + this.idAxis_Length);
+        this.log("Parsed scene root " + this.idRoot + " and axis " + this.idAxis_Length);
     }
 
 
@@ -355,12 +362,12 @@ class MySceneGraph {
 
             // gets far component
             var near = this.reader.getFloat(children[i], 'near');
-            if (!(near != null && !isNaN(x)))
+            if (!(near != null && !isNaN(near)))
                 return "no Near defined for " + children[i].nodeName;
 
             //gets near component
             var far = this.reader.getFloat(children[i], 'far');
-            if (!(far != null && !isNaN(x)))
+            if (!(far != null && !isNaN(far)))
                 return "no Near defined for " + children[i].nodeName;
 
             // presuming the view is a perspective ..
@@ -368,7 +375,7 @@ class MySceneGraph {
 
                 //gets angle
                 var angle = this.reader.getFloat(children[i], 'angle');
-                if (!(angle != null && !isNaN(x)))
+                if (!(angle != null && !isNaN(angle)))
                     return "no angle defined for " + children[i].nodeName;
                 else this.log("Parsed perspective " + Id + " near = " + near + " far = " + far + " angle = " + angle);
 
@@ -446,22 +453,22 @@ class MySceneGraph {
 
                 //gets left
                 var left = this.reader.getFloat(children[i], 'left');
-                if (!(left != null && !isNaN(x)))
+                if (!(left != null && !isNaN(left)))
                     return "no left defined for " + children[i].nodeName;
 
                 //gets right
                 var right = this.reader.getFloat(children[i], 'right');
-                if (!(right != null && !isNaN(x)))
+                if (!(right != null && !isNaN(right)))
                     return "no right defined for " + children[i].nodeName;
 
                 //gets top
                 var top = this.reader.getFloat(children[i], 'top');
-                if (!(top != null && !isNaN(x)))
+                if (!(top != null && !isNaN(top)))
                     return "no top defined for " + children[i].nodeName;
 
                 //gets bottom
                 var bottom = this.reader.getFloat(children[i], 'bottom');
-                if (!(bottom != null && !isNaN(x)))
+                if (!(bottom != null && !isNaN(bottom)))
                     return "no bottom defined for " + children[i].nodeName;
 
                 else this.log("Parsed ortho " + Id + " near = " + near + " far = " + far + " left = " + left + " right = " + right + " top " + top + " bottom " + bottom);
