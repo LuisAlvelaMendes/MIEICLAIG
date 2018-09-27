@@ -2,11 +2,14 @@ var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
-var ILLUMINATION_INDEX = 1;
-var LIGHTS_INDEX = 2;
-var TEXTURES_INDEX = 3;
-var MATERIALS_INDEX = 4;
-var NODES_INDEX = 5;
+var VIEWS_INDEX = 1;
+var AMBIENT_INDEX = 2;
+var LIGHTS_INDEX = 3;
+var TEXTURES_INDEX = 4;
+var MATERIALS_INDEX = 5;
+var TRANSFORMATIONS_INDEX = 6;
+var PRIMITIVES_INDEX = 7;
+var COMPONENTS_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -83,11 +86,11 @@ class MySceneGraph {
         }
 
         var error;
+        var index;
 
         // Processes each node, verifying errors.
 
         // <scene>
-        var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
         else {
@@ -99,15 +102,28 @@ class MySceneGraph {
                 return error;
         }
 
+        // <views>
+        if ((index = nodeNames.indexOf("views")) == -1)
+            return "tag <views> missing";
+        else {
+            if (index != VIEWS_INDEX)
+                this.onXMLMinorError("tag <views> out of order");
+
+            //Parse views block
+            if ((error = this.parseViews(nodes[index])) != null)
+                return error;
+        }
+
+
         // <ambient>
         if ((index = nodeNames.indexOf("ambient")) == -1)
             return "tag <ambient> missing";
         else {
-            if (index != ILLUMINATION_INDEX)
+            if (index != AMBIENT_INDEX)
                 this.onXMLMinorError("tag <ambient> out of order");
 
-            //Parse ILLUMINATION block
-            if ((error = this.parseIllumination(nodes[index])) != null)
+            //Parse ambient block
+            if ((error = this.parseAmbient(nodes[index])) != null)
                 return error;
         }
 
@@ -147,15 +163,39 @@ class MySceneGraph {
                 return error;
         }
 
-        // <NODES>
-        if ((index = nodeNames.indexOf("NODES")) == -1)
-            return "tag <NODES> missing";
+        // <transformations>
+        if ((index = nodeNames.indexOf("transformations")) == -1)
+            return "tag <transformations> missing";
         else {
-            if (index != NODES_INDEX)
-                this.onXMLMinorError("tag <NODES> out of order");
+            if (index != TRANSFORMATIONS_INDEX)
+                this.onXMLMinorError("tag <transformations> out of order");
+
+            //Parse MATERIALS block
+            if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+        // <primitives>
+        if ((index = nodeNames.indexOf("primitives")) == -1)
+            return "tag <primitives> missing";
+        else {
+            if (index != PRIMITIVES_INDEX)
+                this.onXMLMinorError("tag <primitives> out of order");
+
+            //Parse MATERIALS block
+            if ((error = this.parsePrimitives(nodes[index])) != null)
+                return error;
+        }
+
+        // <components>
+        if ((index = nodeNames.indexOf("components")) == -1)
+            return "tag <components> missing";
+        else {
+            if (index != COMPONENTS_INDEX)
+                this.onXMLMinorError("tag <components> out of order");
 
             //Parse NODES block
-            if ((error = this.parseNodes(nodes[index])) != null)
+            if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
     }
@@ -171,7 +211,6 @@ class MySceneGraph {
 
         else {
             this.idRoot = this.reader.getString(sceneNode, 'root');
-            console.log(this.idRoot);
         }
 
         if(!sceneNode.hasAttribute("axis_length")){
@@ -180,8 +219,9 @@ class MySceneGraph {
 
         else {
             this.idAxis_Length = this.reader.getString(sceneNode, 'axis_length');
-            console.log(this.idAxis_Length);
         }
+
+        this.log("Parsed scene id root " + this.idRoot + " and axis " + this.idAxis_Length);
     }
 
 
@@ -278,15 +318,168 @@ class MySceneGraph {
     }
 
     /**
-     * Parses the <ILLUMINATION> block.
-     * @param {illumination block element} illuminationNode
+     * Parses the views block.
+     * @param {views block element} viewNode
      */
-    parseIllumination(illuminationNode) {
-        // TODO: Parse Illumination node
+    parseViews(viewNode){
+
+        if(!viewNode.hasAttribute("default")){
+            this.onXMLError("view has no default");
+        }
+
+        else {
+            this.default = this.reader.getString(viewNode, 'default');
+        }
+
+        var children = viewNode.children;
+        var grandChildren = [];
+        var nodeNames = [];
+        this.views = [];
+        var from = [];
+        var to = [];
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // gets id component
+            var Id = this.reader.getString(children[i], 'id');
+            if (Id == null)
+                return "no ID defined for " + children[i].nodeName;
+
+            // Checks for repeated IDs.
+            if (this.views[Id] != null)
+                return "ID must be unique for each perspective (conflict: ID = " + Id + ")";
+
+            // gets far component
+            var near = this.reader.getString(children[i], 'near');
+            if (near == null)
+                return "no Near defined for " + children[i].nodeName;
+
+            //gets near component
+            var far = this.reader.getString(children[i], 'far');
+            if (far == null)
+                return "no Near defined for " + children[i].nodeName;
+
+            // presuming the view is a perspective ..
+            if(children[i].nodeName == "perspective"){
+
+                //gets angle
+                var angle = this.reader.getString(children[i], 'angle');
+                if (angle == null)
+                    return "no angle defined for " + children[i].nodeName;
+                else this.log("Parsed perspective " + Id + " near = " + near + " far = " + far + " angle = " + angle);
+
+                grandChildren = children[i].children;
+
+                // parsing from and to grandchildren ..
+
+                //TODO: NOT SURE IF USING CONSTANT SIZE 2 IS CORRECT HERE (there is always only 2 grandchildren)?
+                // using grandChildren.size won't work, for some reason.
+                for(var j = 0; j < 2; j++){
+
+                    if (grandChildren[j].nodeName != "from" && grandChildren[j].nodeName != "to") {
+                        this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
+                        continue;
+                    }
+
+                    // from
+                    if(grandChildren[j].nodeName == "from"){
+
+                        // x
+                        var x = this.reader.getFloat(grandChildren[j], 'x');
+                        if (!(x != null && !isNaN(x)))
+                            return "unable to parse x-coordinate of the light position for ID = " + lightId;
+                        else
+                            from.push(x);
+
+                        // y
+                        var y = this.reader.getFloat(grandChildren[j], 'y');
+                        if (!(y != null && !isNaN(y)))
+                            return "unable to parse y-coordinate of the light position for ID = " + lightId;
+                        else
+                            from.push(y);
+
+                        // z
+                        var z = this.reader.getFloat(grandChildren[j], 'z');
+                        if (!(z != null && !isNaN(z)))
+                            return "unable to parse z-coordinate of the light position for ID = " + lightId;
+                        else
+                            from.push(z);
+
+                        this.log("from x = " + x + " y = " + y + " z = " + z);
+                    }
+
+                    // to
+                    if(grandChildren[j].nodeName == "to"){
+
+                        // x
+                        var x = this.reader.getFloat(grandChildren[j], 'x');
+                        if (!(x != null && !isNaN(x)))
+                            return "unable to parse x-coordinate of the light position for ID = " + lightId;
+                        else
+                            to.push(x);
+
+                        // y
+                        var y = this.reader.getFloat(grandChildren[j], 'y');
+                        if (!(y != null && !isNaN(y)))
+                            return "unable to parse y-coordinate of the light position for ID = " + lightId;
+                        else
+                            to.push(y);
+
+                        // z
+                        var z = this.reader.getFloat(grandChildren[j], 'z');
+                        if (!(z != null && !isNaN(z)))
+                            return "unable to parse z-coordinate of the light position for ID = " + lightId;
+                        else
+                            to.push(z);
+
+                        this.log("to x = " + x + " y = " + y + " z = " + z);
+                    }
+
+                }
+            }
+
+            if (children[i].nodeName == "ortho"){
+
+                //gets left
+                var left = this.reader.getString(children[i], 'left');
+                if (left == null)
+                    return "no left defined for " + children[i].nodeName;
+
+                //gets right
+                var right = this.reader.getString(children[i], 'right');
+                if (right == null)
+                    return "no right defined for " + children[i].nodeName;
+
+                //gets top
+                var top = this.reader.getString(children[i], 'top');
+                if (top == null)
+                    return "no top defined for " + children[i].nodeName;
+
+                //gets bottom
+                var bottom = this.reader.getString(children[i], 'bottom');
+                if (bottom == null)
+                    return "no bottom defined for " + children[i].nodeName;
+
+                else this.log("Parsed ortho " + Id + " near = " + near + " far = " + far + " left = " + left + " right = " + right + " top " + top + " bottom " + bottom);
+            }
+
+            //this.views[Id] = ...
+        }
+    }
+
+    /**
+     * Parses the <ambient> block.
+     * @param {ambient block element} ambientNode
+     */
+    parseAmbient(ambientNode) {
+        // TODO: Parse block
         this.log("Parsed illumination");
         return null;
     }
-
 
     /**
      * Parses the <LIGHTS> node.
@@ -455,12 +648,32 @@ class MySceneGraph {
     }
 
     /**
-     * Parses the <NODES> block.
-     * @param {nodes block element} nodesNode
+     * Parses the <transformations> node.
+     * @param {transformations block element} transformationsNode
      */
-    parseNodes(nodesNode) {
+    parseTransformations(transformationsNode) {
         // TODO: Parse block
-        this.log("Parsed nodes");
+        this.log("Parsed transformations");
+        return null;
+    }
+
+    /**
+     * Parses the <primitives> node.
+     * @param {primitives block element} primitivesNode
+     */
+    parsePrimitives(primitivesNode) {
+        // TODO: Parse block
+        this.log("Parsed primitives");
+        return null;
+    }
+
+    /**
+     * Parses the <components> block.
+     * @param {components block element} componentsNode
+     */
+    parseComponents(componentsNode) {
+        // TODO: Parse block
+        this.log("Parsed components");
         return null;
     }
 

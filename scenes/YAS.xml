@@ -7,8 +7,8 @@
         <!-- tem de existir, pelo menos, uma vista de -->
         <!-- entre as seguintes (perspective ou ortho) -->
         <perspective id="ss" near="ff" far="ff" angle="ff">
-            <from x="ff" y="ff" z="ff" />
-            <to x="ff" y="ff" z="ff" />
+            <from x="3.0" y="2.1" z="2.2" />
+            <to x="2.0" y="0.0" z="1.0" />
         </perspective>
         <ortho id="ss" near="ff" far="ff"
                left="ff" right="ff" top="ff" bottom="ff" />
