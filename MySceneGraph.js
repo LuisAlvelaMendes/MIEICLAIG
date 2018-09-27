@@ -218,7 +218,7 @@ class MySceneGraph {
         }
 
         else {
-            this.idAxis_Length = this.reader.getString(sceneNode, 'axis_length');
+            this.idAxis_Length = this.reader.getFloat(sceneNode, 'axis_length');
         }
 
         this.log("Parsed scene id root " + this.idRoot + " and axis " + this.idAxis_Length);
@@ -333,10 +333,10 @@ class MySceneGraph {
 
         var children = viewNode.children;
         var grandChildren = [];
-        var nodeNames = [];
         this.views = [];
         var from = [];
         var to = [];
+        var numViews = 0;
 
         for (var i = 0; i < children.length; i++) {
             if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
@@ -354,21 +354,21 @@ class MySceneGraph {
                 return "ID must be unique for each perspective (conflict: ID = " + Id + ")";
 
             // gets far component
-            var near = this.reader.getString(children[i], 'near');
-            if (near == null)
+            var near = this.reader.getFloat(children[i], 'near');
+            if (!(near != null && !isNaN(x)))
                 return "no Near defined for " + children[i].nodeName;
 
             //gets near component
-            var far = this.reader.getString(children[i], 'far');
-            if (far == null)
+            var far = this.reader.getFloat(children[i], 'far');
+            if (!(far != null && !isNaN(x)))
                 return "no Near defined for " + children[i].nodeName;
 
             // presuming the view is a perspective ..
-            if(children[i].nodeName == "perspective"){
+            if (children[i].nodeName == "perspective") {
 
                 //gets angle
-                var angle = this.reader.getString(children[i], 'angle');
-                if (angle == null)
+                var angle = this.reader.getFloat(children[i], 'angle');
+                if (!(angle != null && !isNaN(x)))
                     return "no angle defined for " + children[i].nodeName;
                 else this.log("Parsed perspective " + Id + " near = " + near + " far = " + far + " angle = " + angle);
 
@@ -378,7 +378,7 @@ class MySceneGraph {
 
                 //TODO: NOT SURE IF USING CONSTANT SIZE 2 IS CORRECT HERE (there is always only 2 grandchildren)?
                 // using grandChildren.size won't work, for some reason.
-                for(var j = 0; j < 2; j++){
+                for (var j = 0; j < 2; j++) {
 
                     if (grandChildren[j].nodeName != "from" && grandChildren[j].nodeName != "to") {
                         this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
@@ -386,26 +386,26 @@ class MySceneGraph {
                     }
 
                     // from
-                    if(grandChildren[j].nodeName == "from"){
+                    if (grandChildren[j].nodeName == "from") {
 
                         // x
                         var x = this.reader.getFloat(grandChildren[j], 'x');
                         if (!(x != null && !isNaN(x)))
-                            return "unable to parse x-coordinate of the light position for ID = " + lightId;
+                            return "unable to parse x-coordinate of the view position for ID = " + Id;
                         else
                             from.push(x);
 
                         // y
                         var y = this.reader.getFloat(grandChildren[j], 'y');
                         if (!(y != null && !isNaN(y)))
-                            return "unable to parse y-coordinate of the light position for ID = " + lightId;
+                            return "unable to parse y-coordinate of the view position for ID = " + Id;
                         else
                             from.push(y);
 
                         // z
                         var z = this.reader.getFloat(grandChildren[j], 'z');
                         if (!(z != null && !isNaN(z)))
-                            return "unable to parse z-coordinate of the light position for ID = " + lightId;
+                            return "unable to parse z-coordinate of the view position for ID = " + Id;
                         else
                             from.push(z);
 
@@ -413,26 +413,26 @@ class MySceneGraph {
                     }
 
                     // to
-                    if(grandChildren[j].nodeName == "to"){
+                    if (grandChildren[j].nodeName == "to") {
 
                         // x
                         var x = this.reader.getFloat(grandChildren[j], 'x');
                         if (!(x != null && !isNaN(x)))
-                            return "unable to parse x-coordinate of the light position for ID = " + lightId;
+                            return "unable to parse x-coordinate of the view position for ID = " + Id;
                         else
                             to.push(x);
 
                         // y
                         var y = this.reader.getFloat(grandChildren[j], 'y');
                         if (!(y != null && !isNaN(y)))
-                            return "unable to parse y-coordinate of the light position for ID = " + lightId;
+                            return "unable to parse y-coordinate of the view position for ID = " + Id;
                         else
                             to.push(y);
 
                         // z
                         var z = this.reader.getFloat(grandChildren[j], 'z');
                         if (!(z != null && !isNaN(z)))
-                            return "unable to parse z-coordinate of the light position for ID = " + lightId;
+                            return "unable to parse z-coordinate of the view position for ID = " + Id;
                         else
                             to.push(z);
 
@@ -442,33 +442,36 @@ class MySceneGraph {
                 }
             }
 
-            if (children[i].nodeName == "ortho"){
+            if (children[i].nodeName == "ortho") {
 
                 //gets left
-                var left = this.reader.getString(children[i], 'left');
-                if (left == null)
+                var left = this.reader.getFloat(children[i], 'left');
+                if (!(left != null && !isNaN(x)))
                     return "no left defined for " + children[i].nodeName;
 
                 //gets right
-                var right = this.reader.getString(children[i], 'right');
-                if (right == null)
+                var right = this.reader.getFloat(children[i], 'right');
+                if (!(right != null && !isNaN(x)))
                     return "no right defined for " + children[i].nodeName;
 
                 //gets top
-                var top = this.reader.getString(children[i], 'top');
-                if (top == null)
+                var top = this.reader.getFloat(children[i], 'top');
+                if (!(top != null && !isNaN(x)))
                     return "no top defined for " + children[i].nodeName;
 
                 //gets bottom
-                var bottom = this.reader.getString(children[i], 'bottom');
-                if (bottom == null)
+                var bottom = this.reader.getFloat(children[i], 'bottom');
+                if (!(bottom != null && !isNaN(x)))
                     return "no bottom defined for " + children[i].nodeName;
 
                 else this.log("Parsed ortho " + Id + " near = " + near + " far = " + far + " left = " + left + " right = " + right + " top " + top + " bottom " + bottom);
             }
 
             //this.views[Id] = ...
+            numViews++;
         }
+
+        if (numViews == 0) return "at least one view must be defined";
     }
 
     /**
