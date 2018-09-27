@@ -652,6 +652,52 @@ class MySceneGraph {
      * @param {materials block element} materialsNode
      */
     parseMaterials(materialsNode) {
+
+
+        var children = materialsNode.children;
+
+        this.material = [];
+        var numMaterials = 0;
+        var grandchildren = "";
+
+        for (var i = 0; i < children.length; i++) {
+
+            // Check the tag name in materials
+            if(children[i].nodeName != "material") 
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+            else{
+                var nodeName = "material"
+                var materialId = this.reader.getString(children[i], 'id');
+                if (materialId == null)
+                    return "no ID defined for light";
+
+                // Checks for repeated IDs.
+                if (this.lights[materialId] != null)
+                    return "ID must be unique for each light (conflict: ID = " + lightId + ")";
+                else
+                    console.log("Material ID is right.")
+
+                var materialShi = this.reader.getString(children[i], 'shininess');
+                if (materialShi == null){
+                    return "no Shi defined for light";
+                }
+
+                var emitionIndex = nodeName.indexOf("emition");
+                var ambientIndex = nodeName.indexOf("ambient");
+                var diffuseIndex = nodeName.indexOf("diffuse");
+                var specularIndex = nodeName.indexOf("specular");
+               
+
+                numMaterials++;
+            }
+        }
+
+        // Check number Materials
+        if(numMaterials == 0)
+            return "at least one Material must be defined";
+        else if (numMaterials > 8)
+            this.onXMLMinorError("too many Materials defined; WebGL imposes a limit of 2 materials");
+
         // TODO: Parse block
         this.log("Parsed materials");
         return null;

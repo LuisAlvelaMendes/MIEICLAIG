@@ -22,7 +22,7 @@
     <lights>
         <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="light01" enabled="1" >
+        <omni id="light01" enabled="1.0" >
             <location  x="1.0" y="10.0" z="0.0" w="1.0" />             
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
@@ -113,7 +113,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss" />
+                <material />
             </materials>
             <!-- declaracao obrigatoria de texture -->
             <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
