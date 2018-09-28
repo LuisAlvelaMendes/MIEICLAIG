@@ -803,8 +803,10 @@ class MySceneGraph {
                                 this.onXMLMinorError("must exist more than 1 reference.");
                             else {
 
-                                for(var z = 0; z < grandChildren[j].children.length, z++){
-                                    for (var k = 0; k < grandChildren[j].children.length, k++){
+                                for(var z = 0; z < grandChildren[j].children.length; z++){
+
+                                    for (var k = 0; k < grandChildren[j].children.length; k++){
+
                                         if(grandChildren[j].children[z].getAttribute("id") == grandChildren[j].children[k].getAttribute("id") && z != k){
                                             this.onXMLError("id must be unique");
                                             return null;
