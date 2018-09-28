@@ -784,9 +784,9 @@ class MySceneGraph {
         for (var i = 0; i < children.length; i++) {
 
             // Check the tag name in materials
-            if(children[i].nodeName != "component") 
+            if (children[i].nodeName != "component")
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-            else{
+            else {
                 var grandChildren = children[i].children
                 var componentId = this.reader.getString(children[i], 'id');
 
@@ -796,31 +796,24 @@ class MySceneGraph {
                 // Checks for repeated IDs.
                 if (this.components[componentId] != null)
                     return "ID must be unique for each component (conflict: ID = " + componentId + ")";
-                else{
-                    for(var j = 0; j<grandChildren.length;j++){
-                        if(grandChildren[j].nodeName == "children")
-                            if(grandChildren[j].children.length < 1)
+                else {
+                    for (var j = 0; j < grandChildren.length; j++) {
+                        if (grandChildren[j].nodeName == "children")
+                            if (grandChildren[j].children.length < 1)
                                 this.onXMLMinorError("must exist more than 1 reference.");
-                            else{
-                                
+                            else {
+
+                                for(var z = 0; z < grandChildren[j].children.length, z++){
+                                    for (var k = 0; k < grandChildren[j].children.length, k++){
+                                        if(grandChildren[j].children[z].getAttribute("id") == grandChildren[j].children[k].getAttribute("id") && z != k){
+                                            this.onXMLError("id must be unique");
+                                            return null;
+                                        }
+                                    }
+                                }
+
                             }
                     }
-                    
-
-                }
-
-            }
-        }
-
-        // TODO: Parse block
-
-        var children = componentsNode.children;
-        var grandChildren = [];
-
-        for(var z = 0; z < grandChildren[j].children.length, z++){
-            for (var k = 0; k < grandChildren[j].children.length, k++){
-                if(grandChildren[j].children[z].getAttribute("id") == grandChildren[j].children[k].getAttribute("id") && z != k){
-                    //Erro.
                 }
             }
         }
