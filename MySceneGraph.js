@@ -776,6 +776,43 @@ class MySceneGraph {
      * @param {components block element} componentsNode
      */
     parseComponents(componentsNode) {
+
+        var children = componentsNode.children;
+
+        this.components = [];
+        var numPrimitives = 0;
+
+        for (var i = 0; i < children.length; i++) {
+
+            // Check the tag name in materials
+            if(children[i].nodeName != "component") 
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+            else{
+                var grandChildren = children[i].children
+                var componentId = this.reader.getString(children[i], 'id');
+
+                if (componentId == null)
+                    return "no ID defined for component";
+
+                // Checks for repeated IDs.
+                if (this.components[componentId] != null)
+                    return "ID must be unique for each component (conflict: ID = " + componentId + ")";
+                else{
+                    for(var j = 0; j<grandChildren.length;j++){
+                        if(grandChildren[j].nodeName == "children")
+                            if(grandChildren[j].children.length < 1)
+                                this.onXMLMinorError("must exist more than 1 reference.");
+                            else{
+                                
+                            }
+                    }
+                    
+
+                }
+
+            }
+        }
+
         // TODO: Parse block
         this.log("Parsed components");
         return null;
@@ -815,3 +852,8 @@ class MySceneGraph {
         //TODO: Render loop starting at root of graph
     }
 }
+
+//TODO: Ver se é um warning ou return para terminar o programa
+// Porque nao esta a dar os eixos
+// como fazer display
+// por o objeto dentro do array this.views.push()
