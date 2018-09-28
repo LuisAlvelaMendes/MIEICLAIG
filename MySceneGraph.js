@@ -198,6 +198,9 @@ class MySceneGraph {
             if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
+
+     
+
     }
 
     /**
@@ -479,6 +482,8 @@ class MySceneGraph {
         }
 
         if (numViews == 0) return "at least one view must be defined";
+
+        return null;
     }
 
     /**
@@ -531,7 +536,7 @@ class MySceneGraph {
             }
 
             // Gets indices of each element.
-            var enableIndex = nodeNames.indexOf("enable");
+            var enableIndex = nodeNames.indexOf("enabled");
             var positionIndex = nodeNames.indexOf("location");
             var ambientIndex = nodeNames.indexOf("ambient");
             var diffuseIndex = nodeNames.indexOf("diffuse");
@@ -656,7 +661,7 @@ class MySceneGraph {
 
         var children = materialsNode.children;
 
-        this.material = [];
+        this.materials = [];
         var numMaterials = 0;
         var grandchildren = "";
 
@@ -668,12 +673,13 @@ class MySceneGraph {
             else{
                 var nodeName = "material"
                 var materialId = this.reader.getString(children[i], 'id');
+
                 if (materialId == null)
                     return "no ID defined for light";
 
                 // Checks for repeated IDs.
-                if (this.lights[materialId] != null)
-                    return "ID must be unique for each light (conflict: ID = " + lightId + ")";
+                if (this.materials[materialId] != null)
+                    return "ID must be unique for each materials (conflict: ID = " + materialId + ")";
                 else
                     console.log("Material ID is right.")
 
@@ -686,9 +692,10 @@ class MySceneGraph {
                 var ambientIndex = nodeName.indexOf("ambient");
                 var diffuseIndex = nodeName.indexOf("diffuse");
                 var specularIndex = nodeName.indexOf("specular");
-               
+                
 
                 numMaterials++;
+                this.materials.push(children[i]);
             }
         }
 
@@ -718,6 +725,47 @@ class MySceneGraph {
      * @param {primitives block element} primitivesNode
      */
     parsePrimitives(primitivesNode) {
+
+
+        var children = primitivesNode.children;
+
+        this.primitives = [];
+        var numPrimitives = 0;
+
+        for (var i = 0; i < children.length; i++) {
+
+            // Check the tag name in materials
+            if(children[i].nodeName != "primitive") 
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+            else{
+                var grandChildren = children[i].children
+                var primitiveId = this.reader.getString(children[i], 'id');
+
+                if (primitiveId == null)
+                    return "no ID defined for light";
+
+                // Checks for repeated IDs.
+                if (this.primitives[primitiveId] != null)
+                    return "ID must be unique for each primitive (conflict: ID = " + primitiveId + ")";
+                else{
+                    if(grandChildren.length > 1)
+                        console.log("Too many primitives.")
+                    else{
+                        /*var rectangle = nodeName.indexOf("rectangle");
+                        var triangle = nodeName.indexOf("triangle");
+                        var cylinder = nodeName.indexOf("cylinder");
+                        var sphere = nodeName.indexOf("sphere");*/
+                        
+                        if(grandChildren[0].nodeName == "rectangle"){
+                            console.log("Looking for rectangle.")
+
+                        }
+                    }
+                }
+
+            }
+        }
+
         // TODO: Parse block
         this.log("Parsed primitives");
         return null;
