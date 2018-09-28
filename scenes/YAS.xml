@@ -6,12 +6,12 @@
     <views default="view" >
         <!-- tem de existir, pelo menos, uma vista de -->
         <!-- entre as seguintes (perspective ou ortho) -->
-        <perspective id="ss" near="3.4" far="4.1" angle="10">
-            <from x="3.0" y="2.1" z="2.2" />
-            <to x="2.0" y="0.0" z="1.0" />
+        <perspective id="ss" near="0" far="0" angle="0">
+            <from x="0" y="0" z="0" />
+            <to x="0" y="0" z="0" />
         </perspective>
-        <ortho id="ss" near="4.2" far="2.3"
-               left="0.3" right="0.4" top="1" bottom="2.0" />
+        <ortho id="ss" near="0" far="0"
+               left="0" right="0" top="0" bottom="0" />
     </views>
 
     <ambient>

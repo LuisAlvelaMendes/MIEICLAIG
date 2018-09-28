@@ -482,7 +482,6 @@ class MySceneGraph {
         }
 
         if (numViews == 0) return "at least one view must be defined";
-
         return null;
     }
 
@@ -814,6 +813,18 @@ class MySceneGraph {
         }
 
         // TODO: Parse block
+
+        var children = componentsNode.children;
+        var grandChildren = [];
+
+        for(var z = 0; z < grandChildren[j].children.length, z++){
+            for (var k = 0; k < grandChildren[j].children.length, k++){
+                if(grandChildren[j].children[z].getAttribute("id") == grandChildren[j].children[k].getAttribute("id") && z != k){
+                    //Erro.
+                }
+            }
+        }
+
         this.log("Parsed components");
         return null;
     }
