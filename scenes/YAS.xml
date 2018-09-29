@@ -50,10 +50,10 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <material id="ss" shininess = "ff" >
-            <emission r="ff" g="ff" b="ff" a="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
+            <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+            <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+            <specular r="0.3" g="0.3" b="0.3" a="0.3" />
         </material>
     </materials>
 
@@ -134,7 +134,7 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <componentref id="ss" />
-                <primitiveref id="ss" />
+                <primitiveref id="aa" />
             </children>
         </component>
     </components>
