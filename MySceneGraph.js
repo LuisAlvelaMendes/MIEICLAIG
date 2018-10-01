@@ -28,8 +28,11 @@ class MySceneGraph {
         this.nodes = [];
 
         this.idRoot = null;                    // The id of the root element.
+        this.Axis_Length = 0;
 
         this.axisCoords = [];
+        this.near = 0.1;
+        this. far = 500;
         this.axisCoords['x'] = [1, 0, 0];
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
@@ -221,15 +224,15 @@ class MySceneGraph {
         }
 
         else {
-            this.idAxis_Length = this.reader.getFloat(sceneNode, 'axis_length');
+            this.Axis_Length = this.reader.getFloat(sceneNode, 'axis_length');
 
-            if(isNaN(this.idAxis_Length)){
+            if(isNaN(this.Axis_Length)){
                 this.onXMLError("axis length is not a number");
                 return;
             }
         }
 
-        this.log("Parsed scene root " + this.idRoot + " and axis " + this.idAxis_Length);
+        this.log("Parsed scene root " + this.idRoot + " and axis " + this.Axis_Length);
     }
 
 
@@ -796,11 +799,7 @@ class MySceneGraph {
                         console.log("Too many primitives.");
 
                     else{
-                        /*var rectangle = nodeName.indexOf("rectangle");
-                        var triangle = nodeName.indexOf("triangle");
-                        var cylinder = nodeName.indexOf("cylinder");
-                        var sphere = nodeName.indexOf("sphere");*/
-                        
+
                         if(grandChildren[0].nodeName == "rectangle"){
                             console.log("Looking for rectangle.");
 
@@ -833,17 +832,29 @@ class MySceneGraph {
                         }
 
                         if(grandChildren[0].nodeName == "sphere"){
+                            console.log("Sphere");
+
+                            var sphereCoords = [];
+
                             var radius = this.parsePrimitiveCoords(grandChildren[0], 'radius', "sphere");
                             var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "sphere");
                             var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "sphere");
+
+                            sphereCoords.push(radius, slices, stacks);
                         }
 
                         if(grandChildren[0].nodeName == "cylinder base"){
+                            console.log("Cylinder Base");
+
+                            var cylinderCoords = [];
+
                             var base = this.parsePrimitiveCoords(grandChildren[0], 'base', "sphere");
                             var top = this.parsePrimitiveCoords(grandChildren[0], 'top', "sphere");
                             var height = this.parsePrimitiveCoords(grandChildren[0], 'height', "sphere");
                             var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "sphere");
                             var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "sphere");
+
+                            cylinderCoords.push(base, top, height, slices, stacks);
                         }
                     }
                 }
@@ -891,7 +902,7 @@ class MySceneGraph {
                     for (var j = 0; j < grandChildren.length; j++) {
                         if (grandChildren[j].nodeName == "children")
                             if (grandChildren[j].children.length < 1)
-                                this.onXMLMinorError("must exist more than 1 reference.");
+                                this.onXMLMinorError("there must exist more than 1 reference.");
 
                         else {
 

@@ -83,6 +83,7 @@ class XMLscene extends CGFscene {
     onGraphLoaded() {
         this.camera.near = this.graph.near;
         this.camera.far = this.graph.far;
+        this.axis = new CGFaxis(this,this.graph.Axis_Length);
 
         //TODO: Change reference length according to parsed graph
         //this.axis = new CGFaxis(this, this.graph.referenceLength);
