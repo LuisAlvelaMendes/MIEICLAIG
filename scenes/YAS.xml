@@ -64,9 +64,9 @@
         <transformation id="ss">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
-            <translate x="ff" y="ff" z="ff" />
-            <rotate axis="cc" angle="ff" />
-            <scale x="ff" y="ff" z="ff" />
+            <translate x="1" y="2" z="3" />
+            <rotate axis="x" angle="4" />
+            <scale x="2" y="1" z="3" />
         </transformation>
     </transformations>
 
@@ -79,11 +79,8 @@
             <!-- rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
-            <rectangle x1="ff" y1="ff" x2="ff" y2="ff" />
-          
+            <rectangle x1="2" y1="3" x2="4" y2="5" />
         </primitive >
-
-
     </primitives >
 
     <components>
@@ -99,9 +96,9 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="ff" y="ff" z="ff" />
-                <rotate axis="cc" angle="ff" />
-                <scale x="ff" y="ff" z="ff" />
+                <translate x="1" y="2" z="3" />
+                <rotate axis="x" angle="4" />
+                <scale x="5" y="6" z="7" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -110,7 +107,12 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material />
+                <material id="ss" shininess = "ff" >
+                    <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <specular r="0.3" g="0.3" b="0.3" a="0.3" />
+                </material>
             </materials>
             <!-- declaracao obrigatoria de texture -->
             <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
@@ -127,7 +129,7 @@
             <!-- do tipo escalamento violem esta regra. -->
             <!-- Nao e' necessario aplicar fatores de escala em -->
             <!-- quadricas (esfera, cilindro...) -->
-            <texture id="ss" length_s="ff" length_t="ff" />
+            <texture id="ss" length_s="43" length_t="23" />
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
