@@ -32,7 +32,7 @@ class MySceneGraph {
 
         // Default camera coordinates:
         this.near = 0.1;
-        this. far = 500;
+        this.far = 500;
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -390,28 +390,28 @@ class MySceneGraph {
         if (!(r != null && !isNaN(r) && r >= 0 && r <= 1))
             this.onXMLError("unable to parse r component");
         else
-            result.push(r);
+            result["r"] = r;
 
         // subcomponent2
         var g = this.reader.getFloat(genericarray[index], 'g');
         if (!(g != null && !isNaN(g) && g >= 0 && g <= 1))
             this.onXMLError("unable to parse g component");
         else
-            result.push(g);
+            result["g"] = g;
 
         // subcomponent3
         var b = this.reader.getFloat(genericarray[index], 'b');
         if (!(b != null && !isNaN(b) && b >= 0 && b <= 1))
             this.onXMLError("unable to parse b component");
         else
-            result.push(b);
+            result["b"]=b;
 
         // subcomponent4
         var a = this.reader.getFloat(genericarray[index], 'a');
         if (!(a != null && !isNaN(a) && a >= 0 && a <= 1))
             this.onXMLError("unable to parse a component");
         else
-            result.push(a);
+            result["a"]=a;
 
         this.log("r = " + r + " g = " + g + " b = " + b + " a = " + a);
 
@@ -598,15 +598,15 @@ class MySceneGraph {
 
                 target = this.parseCoordinates(grandChildren[targetIndex]);
 
-                singleLight.push(lightId, enableLight, angle, exponent, target, positionLight, ambientIllumination, diffuseIllumination, specularIllumination);
+                singleLight.push(enableLight, angle, exponent, target, positionLight, ambientIllumination, diffuseIllumination, specularIllumination);
             }
             
             else{
-                singleLight.push(lightId, enableLight, positionLight, ambientIllumination, diffuseIllumination, specularIllumination);
+                singleLight.push(enableLight, positionLight, ambientIllumination, diffuseIllumination, specularIllumination);
             }
 
             // TODO: Store Light global information.
-            this.lights.push(singleLight);
+            this.lights[lightId] = singleLight;
             numLights++;
         }
 
@@ -907,7 +907,7 @@ class MySceneGraph {
 
                 else{
 
-                    this.primitives.push(primitiveId);
+                    //this.primitives.push(primitiveId);
 
                     if(grandChildren.length > 1)
                         console.log("Too many primitives.");
@@ -917,17 +917,15 @@ class MySceneGraph {
                         if(grandChildren[0].nodeName == "rectangle"){
                             console.log("Looking for rectangle.");
 
-                            var rectangleCoords = [];
-
                             var x1 = this.parsePrimitiveCoords(grandChildren[0], 'x1', "rectangle");
                             var x2 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
                             var y1 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
                             var y2 = this.parsePrimitiveCoords(grandChildren[0], 'y2', "rectangle");
 
-                            rectangleCoords.push(x1, x2, y1, y2);
+                            this.rectangle = new MyRectangle(this.scene, primitiveId, x1, x2, y1, y2);
 
                             console.log("x1 = " + x1 + " x2 = " + x2 + " y1 = " + y1 + " y2 = " + y2);
-                            this.primitives.push(rectangleCoords);
+                            this.primitives[primitiveId] = this.rectangle;
                         }
 
                         if(grandChildren[0].nodeName == "triangle"){
@@ -1297,6 +1295,7 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
+        this.primitives["ss"].display();
     }
 }
 
