@@ -615,7 +615,7 @@ class MySceneGraph {
         else if (numLights > 8)
             this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
-        this.log("Parsed lights");
+        this.log("Parsed lights");0
 
         return null;
     }
@@ -1185,6 +1185,8 @@ class MySceneGraph {
         var textures = [];
         var materials = [];
         var primOrCompRefId = null;
+        var primitiveChildren = [];
+        var componentChildren = [];
 
         for (var i = 0; i < children.length; i++) {
 
@@ -1211,17 +1213,17 @@ class MySceneGraph {
 
                         if(grandChildren[j].nodeName == "transformation"){
                             transformations = this.parseComponentTransformation(grandChildren[j]);
-                            this.components.push(transformations);
+                            //this.components.push(transformations);
                         }
 
                         if(grandChildren[j].nodeName == "materials"){
                             materials = this.parseComponentMaterial(grandChildren[j]);
-                            this.components.push(materials);
+                            //this.components.push(materials);
                         }
 
                         if(grandChildren[j].nodeName == "texture"){
                             textures = this.parseComponentTextures(grandChildren[j]);
-                            this.components.push(textures);
+                            //this.components.push(textures);
                         }
 
                         if (grandChildren[j].nodeName == "children"){
@@ -1229,7 +1231,9 @@ class MySceneGraph {
                                 this.onXMLMinorError("there must exist more than 1 reference.");
 
                             else {
+                               
                                 if(this.checkEqualId(grandChildren[j].children) == null){
+                                    this.onXMLError("two children have the same ID for component " + componentId);
                                     return null;
                                 }
 
@@ -1248,8 +1252,20 @@ class MySceneGraph {
                                         return null;
                                     }
 
-                                    else this.components.push(primOrCompRefId);
+                                    if(greatGrandChildren[k].nodeName == "primitiveref"){
+                                        console.log("DEBUG 1: " + primOrCompRefId);
+                                        primitiveChildren.push(primOrCompRefId);
+                                    }
+
+                                    else if(greatGrandChildren[k].nodeName == "componentref"){
+                                        console.log("DEBUG 2: " + primOrCompRefId);
+                                        componentChildren.push(primOrCompRefId);
+                                    }
                                 }
+
+                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives);
+
+                                this.components[componentId] = component;
                             }
                         }
 
@@ -1295,7 +1311,7 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-        this.primitives["ss"].display();
+        this.components["ss"].display();
     }
 }
 

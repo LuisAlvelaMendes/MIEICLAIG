@@ -18,6 +18,7 @@ serialInclude(['../lib/CGF.js',
     'primitives/MyUnitCubeQuad.js',
     'primitives/MyQuad.js',
     'primitives/MyRectangle.js',
+    'Component.js',
 
 main=function()
 {
