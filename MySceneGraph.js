@@ -771,7 +771,7 @@ class MySceneGraph {
         
         var children = transformationsNode.children;
 
-        var transformations = [];
+        this.transformations = [];
         var numTransformations = 0;
         var translation = [];
         var rotation = [];
@@ -801,7 +801,7 @@ class MySceneGraph {
                 return null;
             }
 
-            transformations.push(transformationId);
+            this.transformations.push(transformationId);
             numTransformations++;
 
             for(var j = 0; j < grandChildren.length; j++){
@@ -813,7 +813,7 @@ class MySceneGraph {
                 
                 if(grandChildren[j].nodeName == "translate"){
                     translation = this.parseCoordinates(grandChildren[j]);
-                    transformations.push(translation);
+                    this.transformations.push(translation);
                 }
 
                 if(grandChildren[j].nodeName == "rotate"){
@@ -836,12 +836,12 @@ class MySceneGraph {
         
                     rotation.push(axis, angle);
 
-                    transformations.push(rotation);
+                    this.transformations.push(rotation);
                 }
 
                 if(grandChildren[j].nodeName == "scale"){
                     scale = this.parseCoordinates(grandChildren[j]);
-                    transformations.push(scale);
+                    this.transformations.push(scale);
                 }
             }
         }
@@ -1263,7 +1263,7 @@ class MySceneGraph {
                                     }
                                 }
 
-                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives);
+                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations);
 
                                 this.components[componentId] = component;
                             }
@@ -1311,7 +1311,7 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-        this.components["ss"].display();
+        this.components["comp1"].display();
     }
 }
 
