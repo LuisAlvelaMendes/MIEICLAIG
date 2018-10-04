@@ -87,7 +87,6 @@
             <!-- rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
-
             <!-- IMP: x1 < x2 | y1 > y2 -->
             <rectangle x1="0" y1="5" x2="5" y2="0" />
         </primitive >
@@ -146,7 +145,7 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <primitiveref id="prim2" />
+                <primitiveref id="prim1" />
             </children>
         </component>
     </components>

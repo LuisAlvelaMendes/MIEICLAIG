@@ -23,11 +23,12 @@ class Component
 		}
 
 		for(var i = 0; i < this.childrenPrimitives.length; i++){
-			this.scene.pushMatrix();
+			//this.scene.pushMatrix();
 			//APPLY TRANSFORMATION MATRIX
+			
 			this.primitives[this.childrenPrimitives[i]].display();
-			console.log("DEBUG 3: " + this.childrenPrimitives[i]);
-			console.log(this.primitives[this.childrenPrimitives[i]] )
+			//console.log("DEBUG 3: " + this.childrenPrimitives[i]);
+			//console.log(this.primitives[this.childrenPrimitives[i]] )
 		}
 
 	};
