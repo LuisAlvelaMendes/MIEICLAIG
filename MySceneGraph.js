@@ -843,6 +843,10 @@ class MySceneGraph {
                     scale = this.parseCoordinates(grandChildren[j]);
                     this.transformations.push(scale);
                 }
+
+                translation = [];
+                rotation = [];
+                scale = [];
             }
         }
 
@@ -1047,6 +1051,10 @@ class MySceneGraph {
                 scale = this.parseCoordinates(children[j]);
                 transformations.push(scale);
             }
+
+            var translation = [];
+            var rotation = [];
+            var scale = [];
         }
 
         return transformations;

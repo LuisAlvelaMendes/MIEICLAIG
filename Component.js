@@ -16,24 +16,25 @@ class Component
 	    this.primitives = primitives;
 	    this.components = components;
 	    this.transformations = transformations;
-
+	    this.scene = scene;
 	};
 
 	display() {		
 
-		//console.log("SIZE 1: " + this.childrenComponents.length);
+		console.log(this.transformations)
 
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			this.components[this.childrenComponents[i]].display();
 			//console.log("DEBUG: COMPONENT ")
 		}
 		
-		//console.log("SIZE 2: " + this.childrenPrimitives.length);
+	
 
 		for(var i = 0; i < this.childrenPrimitives.length; i++){
 			//this.scene.pushMatrix();
 			//APPLY TRANSFORMATION MATRIX
-			//console.log(this.transformations)
+
+			
 			this.primitives[this.childrenPrimitives[i]].display();
 			//console.log("DEBUG 3: " + this.childrenPrimitives[i]);
 			//console.log(this.primitives[this.childrenPrimitives[i]] )
