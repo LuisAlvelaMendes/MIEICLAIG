@@ -112,6 +112,7 @@
     </primitives >
 
     <components>
+
         <component id="comp1">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!-- usada em nos intermédios -->
@@ -164,8 +165,8 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
+                <componentref id="comp2"/>
                 <primitiveref id="prim1" />
-                <primitiveref id="prim2" />
             </children>
         </component>
 
@@ -220,11 +221,9 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <primitiveref id="prim3" />
+                <primitiveref id="prim2" />
             </children>
         </component>
-
-       
 
     </components>
 

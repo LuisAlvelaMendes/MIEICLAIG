@@ -1252,20 +1252,26 @@ class MySceneGraph {
                                         return null;
                                     }
 
+                                    //console.log(greatGrandChildren)
+
                                     if(greatGrandChildren[k].nodeName == "primitiveref"){
                                         console.log("DEBUG 1: " + primOrCompRefId);
                                         primitiveChildren.push(primOrCompRefId);
+                                        console.log(primitiveChildren.length)
                                     }
 
                                     else if(greatGrandChildren[k].nodeName == "componentref"){
                                         console.log("DEBUG 2: " + primOrCompRefId);
-                                        componentChildren.push(primOrCompRefId);
+                                        componentChildren.push(primOrCompRefId) ;
                                     }
                                 }
 
                                 var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations);
 
                                 this.components[componentId] = component;
+
+                                primitiveChildren=[];
+                                componentChildren = [];
                             }
                         }
 
