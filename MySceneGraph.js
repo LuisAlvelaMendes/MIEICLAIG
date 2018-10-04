@@ -773,11 +773,13 @@ class MySceneGraph {
 
         this.transformations = [];
         var numTransformations = 0;
-        var translation = [];
-        var rotation = [];
-        var scale = [];
+        
 
         for(var i = 0; i < children.length; i++){
+            var translation = [];
+            var rotation = [];
+            var scale = [];
+
             if(children[i].nodeName != "transformation"){
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -801,7 +803,6 @@ class MySceneGraph {
                 return null;
             }
 
-            this.transformations.push(transformationId);
             numTransformations++;
 
             for(var j = 0; j < grandChildren.length; j++){
@@ -813,7 +814,7 @@ class MySceneGraph {
                 
                 if(grandChildren[j].nodeName == "translate"){
                     translation = this.parseCoordinates(grandChildren[j]);
-                    this.transformations.push(translation);
+                    
                 }
 
                 if(grandChildren[j].nodeName == "rotate"){
@@ -833,21 +834,21 @@ class MySceneGraph {
                     }
 
                     console.log("angle: " + angle);
-        
                     rotation.push(axis, angle);
 
-                    this.transformations.push(rotation);
                 }
 
                 if(grandChildren[j].nodeName == "scale"){
                     scale = this.parseCoordinates(grandChildren[j]);
-                    this.transformations.push(scale);
+                    console.log("SCALE");
                 }
 
-                translation = [];
-                rotation = [];
-                scale = [];
+                
             }
+
+            var transformation = new Transformation(this.scene, transformationId, translation, rotation,scale);
+
+            this.transformations.push(transformation);
         }
 
         if(numTransformations == 0){
@@ -1016,12 +1017,12 @@ class MySceneGraph {
                     return null;
                 }
 
-                transformations.push(transformationrefId);
+                //transformations.push(transformationrefId);
             }
                 
             if(children[j].nodeName == "translate"){
                 translation = this.parseCoordinates(children[j]);
-                transformations.push(translation);
+                //transformations.push(translation);
             }
 
             if(children[j].nodeName == "rotate"){
@@ -1044,17 +1045,17 @@ class MySceneGraph {
     
                 rotation.push(axis, angle);
 
-                transformations.push(rotation);
+                //transformations.push(rotation);
             }
 
             if(children[j].nodeName == "scale"){
                 scale = this.parseCoordinates(children[j]);
-                transformations.push(scale);
+                //transformations.push(scale);
             }
 
-            var translation = [];
-            var rotation = [];
-            var scale = [];
+            var transformation = new Transformation(this.scene, transformationrefId, translation, rotation, scale);
+
+            this.transformations.push(transformation);
         }
 
         return transformations;
@@ -1263,13 +1264,13 @@ class MySceneGraph {
                                     //console.log(greatGrandChildren)
 
                                     if(greatGrandChildren[k].nodeName == "primitiveref"){
-                                        console.log("DEBUG 1: " + primOrCompRefId);
+                                        
                                         primitiveChildren.push(primOrCompRefId);
                                         console.log(primitiveChildren.length)
                                     }
 
                                     else if(greatGrandChildren[k].nodeName == "componentref"){
-                                        console.log("DEBUG 2: " + primOrCompRefId);
+                                        
                                         componentChildren.push(primOrCompRefId) ;
                                     }
                                 }

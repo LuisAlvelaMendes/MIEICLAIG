@@ -19,6 +19,7 @@ serialInclude(['../lib/CGF.js',
     'primitives/MyQuad.js',
     'primitives/MyRectangle.js',
     'Component.js',
+    'Transformation.js',    
 
 main=function()
 {
