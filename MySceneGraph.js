@@ -865,16 +865,16 @@ class MySceneGraph {
         return coordinate;
     }
 
+    isInt(n) {
+        return n % 1 == 0;
+    }
+
     parsePrimitiveCoordsInteger(element, symbol, shape){
         var coordinate = this.reader.getFloat(element, symbol);
-        if (!(coordinate != null && isInt(coordinate)))
+        if (!(coordinate != null && this.isInt(coordinate)))
             this.onXMLError("unable to parse " + symbol + " of " + shape);
         
         return coordinate;
-    }
-
-    isInt(n) {
-        return n % 1 == 0;
     }
 
     /**
@@ -931,8 +931,6 @@ class MySceneGraph {
                         if(grandChildren[0].nodeName == "triangle"){
                             console.log("Triangle");
 
-                            var triangleCoords = [];
-
                             var x1 = this.parsePrimitiveCoords(grandChildren[0], 'x1', "triangle");
                             var x2 = this.parsePrimitiveCoords(grandChildren[0], 'x2', "triangle");
                             var x3 = this.parsePrimitiveCoords(grandChildren[0], 'x3', "triangle");
@@ -943,33 +941,29 @@ class MySceneGraph {
                             var z2 = this.parsePrimitiveCoords(grandChildren[0], 'z2', "triangle");
                             var z3 = this.parsePrimitiveCoords(grandChildren[0], 'z3', "triangle");
 
-                            var triangle = new MyTriangle(this.scene, primitiveId, x1, y1, x2, y2, x3, y3);
+                            var triangle = new MyTriangle(this.scene, primitiveId, x1, y1, z1, x2, y2, z2, x3, y3, z3);
                             this.primitives[primitiveId] = triangle;
                         }
 
                         if(grandChildren[0].nodeName == "sphere"){
                             console.log("Sphere");
 
-                            var sphereCoords = [];
-
                             var radius = this.parsePrimitiveCoords(grandChildren[0], 'radius', "sphere");
-                            var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "sphere");
-                            var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "sphere");
+                            var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "sphere");
+                            var stacks = this.parsePrimitiveCoordsInteger(grandChildren[0], "stacks", "sphere");
 
                             var sphere = new MySphere(this.scene, primitiveId, slices, stacks, radius);
                             this.primitives[primitiveId] = sphere;
                         }
 
-                        if(grandChildren[0].nodeName == "cylinder base"){
+                        if(grandChildren[0].nodeName == "cylinder"){
                             console.log("Cylinder Base");
-
-                            var cylinderCoords = [];
 
                             var base = this.parsePrimitiveCoords(grandChildren[0], 'base', "cylinder");
                             var top = this.parsePrimitiveCoords(grandChildren[0], 'top', "cylinder");
                             var height = this.parsePrimitiveCoords(grandChildren[0], 'height', "cylinder");
-                            var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "cylinder");
-                            var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "cylinder");
+                            var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "cylinder");
+                            var stacks = this.parsePrimitiveCoordsInteger(grandChildren[0], "stacks", "cylinder");
 
                             var cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, base, top, height);
                             this.primitives[primitiveId] = cylinder;

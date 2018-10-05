@@ -89,6 +89,11 @@
             <!-- os parametros devem ser interpretados, genericamente, -->
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
             <rectangle x1="2.0" y1="4.0" x2="4.0" y2="2.0" />
+            <!-- <triangle x1="2" y1="4" z1="3"
+            x2="4" y2="4" z2="3"
+            x3="1" y3="2" z3="2" /> -->
+            <!-- <cylinder base="3" top="3" height="3" slices="20" stacks="20" /> -->
+            <!-- <sphere radius="3" slices="20" stacks="20" /> -->
         </primitive >
 
         <primitive id="prim2">
@@ -98,15 +103,6 @@
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
             <!-- IMP: x1 < x2 | y1 > y2 -->
             <rectangle x1="0.5" y1="1.5" x2="1.5" y2="0.5" />
-        </primitive >
-
-        <primitive id="prim3">
-            <!-- apenas pode existir UMA das seguintes tags: -->
-            <!-- rectangle, triangle, cylinder, sphere, torus -->
-            <!-- os parametros devem ser interpretados, genericamente, -->
-            <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
-            <!-- IMP: x1 < x2 | y1 > y2 -->
-            <rectangle x1="1.5" y1="2.5" x2="2.5" y2="1.5" />
         </primitive >
 
     </primitives >

@@ -42,8 +42,8 @@ class MySphere extends CGFobject
         alpha = (alpha * Math.PI)/180;
 
         //radius of both surfaces
-        var radiusTop = this.radius;
-        var radiusBottom = this.radius;
+        var radiusTop = 1;
+        var radiusBottom = 1;
 
         //height of each stack
         var stackHeight = 1/this.stacks;
