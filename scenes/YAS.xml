@@ -1,7 +1,7 @@
 <yas>
     <!-- deve definir-se um objeto para raiz da arvore, assim -->
     <!-- como o comprimento dos tres eixos (cilindros) -->
-    <scene root="rootie" axis_length="3.0" />
+    <scene root="rootie" axis_length="5.0" />
 
     <views default="view" >
         <!-- tem de existir, pelo menos, uma vista de -->
@@ -64,8 +64,9 @@
         <transformation id="transf1">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
-            <translate x="1" y="1" z="0" />
-            <rotate axis="x" angle="1" />
+            <translate x="1" y="1" z="3" />
+            <rotate axis="x" angle="30" />
+            <translate x="1.5" y="1.5" z="0.6" />
             <scale x="1" y="1" z="1" />
         </transformation>
 
@@ -73,10 +74,9 @@
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
             <translate x="1" y="1" z="1" />
-            <rotate axis="x" angle="2" />
-            <scale x="2" y="2" z="2" />
+            <scale x="4" y="4" z="4" />
+            <rotate axis="y" angle="20" />
         </transformation>
-
     </transformations>
 
     <primitives>
@@ -125,9 +125,9 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="1.0" y="1.0" z="1.0" />
+               <!-- <translate x="1.0" y="1.0" z="1.0" />
                 <rotate axis="x" angle="1.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
+                <scale x="1.0" y="1.0" z="1.0" /> -->
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -176,14 +176,15 @@
             <transformation>
                 <!-- deve conter uma referencia a uma das "transformation" -->
                 <!-- declaradas anteriormente -->
-                <transformationref id="transf2" />
+               <!-- <transformationref id="transf2" />  -->
                 <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="1.0" y="1.0" z="1.0" />
-                <rotate axis="x" angle="1.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
+                <translate x="5" y="5" z="5" />
+                <translate x="-2" y="-2" z="-3" />
+                <rotate axis="z" angle="10" />
+                <scale x="3" y="3" z="3" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->

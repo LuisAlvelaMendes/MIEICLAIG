@@ -813,8 +813,7 @@ class MySceneGraph {
                 }
                 
                 if(grandChildren[j].nodeName == "translate"){
-                    translation = this.parseCoordinates(grandChildren[j]);
-                    
+                    translation.push(this.parseCoordinates(grandChildren[j]));
                 }
 
                 if(grandChildren[j].nodeName == "rotate"){
@@ -834,21 +833,19 @@ class MySceneGraph {
                     }
 
                     console.log("angle: " + angle);
-                    rotation.push(axis, angle);
+                    rotation.push([axis, angle]);
 
                 }
 
                 if(grandChildren[j].nodeName == "scale"){
-                    scale = this.parseCoordinates(grandChildren[j]);
-                    console.log("SCALE");
+                    scale.push(this.parseCoordinates(grandChildren[j]));
                 }
-
                 
             }
 
             var transformation = new Transformation(this.scene, transformationId, translation, rotation,scale);
 
-            this.transformations.push(transformation);
+            this.transformations[transformationId] = transformation;
         }
 
         if(numTransformations == 0){
@@ -912,8 +909,6 @@ class MySceneGraph {
 
                 else{
 
-                    //this.primitives.push(primitiveId);
-
                     if(grandChildren.length > 1)
                         console.log("Too many primitives.");
 
@@ -927,10 +922,10 @@ class MySceneGraph {
                             var y1 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
                             var y2 = this.parsePrimitiveCoords(grandChildren[0], 'y2', "rectangle");
 
-                            this.rectangle = new MyRectangle(this.scene, primitiveId, x1, x2, y1, y2);
+                            var rectangle = new MyRectangle(this.scene, primitiveId, x1, y1, x2, y2);
 
                             console.log("x1 = " + x1 + " x2 = " + x2 + " y1 = " + y1 + " y2 = " + y2);
-                            this.primitives[primitiveId] = this.rectangle;
+                            this.primitives[primitiveId] = rectangle;
                         }
 
                         if(grandChildren[0].nodeName == "triangle"){
@@ -948,8 +943,8 @@ class MySceneGraph {
                             var z2 = this.parsePrimitiveCoords(grandChildren[0], 'z2', "triangle");
                             var z3 = this.parsePrimitiveCoords(grandChildren[0], 'z3', "triangle");
 
-                            triangleCoords.push(x1, x2, x3, y1, y2, y3, z1, z2, z3);
-                            this.primitives.push(triangleCoords);
+                            var triangle = new MyTriangle(this.scene, primitiveId, x1, y1, x2, y2, x3, y3);
+                            this.primitives[primitiveId] = triangle;
                         }
 
                         if(grandChildren[0].nodeName == "sphere"){
@@ -961,8 +956,8 @@ class MySceneGraph {
                             var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "sphere");
                             var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "sphere");
 
-                            sphereCoords.push(radius, slices, stacks);
-                            this.primitives.push(sphereCoords);
+                            var sphere = new MySphere(this.scene, primitiveId, slices, stacks, radius);
+                            this.primitives[primitiveId] = sphere;
                         }
 
                         if(grandChildren[0].nodeName == "cylinder base"){
@@ -970,14 +965,14 @@ class MySceneGraph {
 
                             var cylinderCoords = [];
 
-                            var base = this.parsePrimitiveCoords(grandChildren[0], 'base', "sphere");
-                            var top = this.parsePrimitiveCoords(grandChildren[0], 'top', "sphere");
-                            var height = this.parsePrimitiveCoords(grandChildren[0], 'height', "sphere");
-                            var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "sphere");
-                            var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "sphere");
+                            var base = this.parsePrimitiveCoords(grandChildren[0], 'base', "cylinder");
+                            var top = this.parsePrimitiveCoords(grandChildren[0], 'top', "cylinder");
+                            var height = this.parsePrimitiveCoords(grandChildren[0], 'height', "cylinder");
+                            var slices = this.parseCoordinatesInteger(grandChildren[0], "slices", "cylinder");
+                            var stacks = this.parseCoordinatesInteger(grandChildren[0], "stacks", "cylinder");
 
-                            cylinderCoords.push(base, top, height, slices, stacks);
-                            this.primitives.push(cylinderCoords);
+                            var cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, base, top, height);
+                            this.primitives[primitiveId] = cylinder;
                         }
                     }
                 }
@@ -993,13 +988,23 @@ class MySceneGraph {
         return null;
     }
 
+    checkIfReferenceExists(reference, arrayWhereReferenceIsSupposedToBe){
+        if(arrayWhereReferenceIsSupposedToBe[reference] != null){
+            return 1;
+        }
+        
+        else{
+            return 0;
+        }
+    }
+
     parseComponentTransformation(subNodeTransformation){
         
         var children = subNodeTransformation.children;
         var translation = [];
         var rotation = [];
         var scale = [];
-        var transformations = [];
+        var explicitTransformation = null;
         var transformationrefId = null;
         
         for(var j = 0; j < children.length; j++){
@@ -1017,48 +1022,50 @@ class MySceneGraph {
                     return null;
                 }
 
-                //transformations.push(transformationrefId);
+                if(!(this.checkIfReferenceExists(transformationrefId, this.transformations))){
+                    this.onXMLError("reference doesn't point to any known transformation: " + transformationrefId);
+                    return null;
+                }
+
+                return transformationrefId;
             }
+
+            else {
                 
-            if(children[j].nodeName == "translate"){
-                translation = this.parseCoordinates(children[j]);
-                //transformations.push(translation);
-            }
-
-            if(children[j].nodeName == "rotate"){
-                var axis = this.reader.getString(children[j], "axis");
-
-                if(axis == null || (axis != "x" && axis != "y" && axis != "z")){
-                    this.onXMLError("Axis wrongly declared, must be x, y or z for component");
-                    return null;
+                if(children[j].nodeName == "translate"){
+                    translation.push(this.parseCoordinates(children[j]));
                 }
 
-                console.log("axis: " + axis);
-    
-                var angle = this.reader.getFloat(children[j], "angle");
-                if(angle == null || isNaN(angle)){
-                    this.onXMLError("invalid angle for component");
-                    return null;
+                if(children[j].nodeName == "rotate"){
+                    var axis = this.reader.getString(children[j], "axis");
+
+                    if(axis == null || (axis != "x" && axis != "y" && axis != "z")){
+                        this.onXMLError("Axis wrongly declared, must be x, y or z for component");
+                        return null;
+                    }
+
+                    console.log("axis: " + axis);
+        
+                    var angle = this.reader.getFloat(children[j], "angle");
+                    if(angle == null || isNaN(angle)){
+                        this.onXMLError("invalid angle for component");
+                        return null;
+                    }
+
+                    console.log("angle: " + angle);
+        
+                    rotation.push([axis, angle]);
                 }
 
-                console.log("angle: " + angle);
-    
-                rotation.push(axis, angle);
-
-                //transformations.push(rotation);
+                if(children[j].nodeName == "scale"){
+                    scale.push(this.parseCoordinates(children[j]));
+                }
             }
-
-            if(children[j].nodeName == "scale"){
-                scale = this.parseCoordinates(children[j]);
-                //transformations.push(scale);
-            }
-
-            var transformation = new Transformation(this.scene, transformationrefId, translation, rotation, scale);
-
-            this.transformations.push(transformation);
         }
 
-        return transformations;
+        explicitTransformation = new Transformation(this.scene, "specificTransf", translation, rotation, scale);
+
+        return explicitTransformation;
     }
 
     parseComponentMaterial(subNodeMaterial){
@@ -1148,6 +1155,7 @@ class MySceneGraph {
             return null;
         }
 
+        console.log("Parsed materials");
         return materials;
     }
 
@@ -1190,12 +1198,6 @@ class MySceneGraph {
         var children = componentsNode.children;
 
         this.components = [];
-        var transformations = [];
-        var textures = [];
-        var materials = [];
-        var primOrCompRefId = null;
-        var primitiveChildren = [];
-        var componentChildren = [];
 
         for (var i = 0; i < children.length; i++) {
 
@@ -1216,23 +1218,26 @@ class MySceneGraph {
 
                 else {
 
-                    this.components.push(componentId);
+                    var primitiveChildren = [];
+                    var componentChildren = [];
+                    var transformations = null;
+                    var textures = [];
+                    var materials = [];
+                    var primOrCompRefId = null;
 
                     for (var j = 0; j < grandChildren.length; j++) {
 
                         if(grandChildren[j].nodeName == "transformation"){
                             transformations = this.parseComponentTransformation(grandChildren[j]);
-                            //this.components.push(transformations);
+                            console.log(transformations);
                         }
 
                         if(grandChildren[j].nodeName == "materials"){
                             materials = this.parseComponentMaterial(grandChildren[j]);
-                            //this.components.push(materials);
                         }
 
                         if(grandChildren[j].nodeName == "texture"){
                             textures = this.parseComponentTextures(grandChildren[j]);
-                            //this.components.push(textures);
                         }
 
                         if (grandChildren[j].nodeName == "children"){
@@ -1261,26 +1266,28 @@ class MySceneGraph {
                                         return null;
                                     }
 
-                                    //console.log(greatGrandChildren)
-
                                     if(greatGrandChildren[k].nodeName == "primitiveref"){
                                         
+                                        if(!(this.checkIfReferenceExists(primOrCompRefId, this.primitives))){
+                                            this.onXMLError("Invalid primitive reference " + primOrCompRefId);
+                                            return null;
+                                        }
+
                                         primitiveChildren.push(primOrCompRefId);
-                                        console.log(primitiveChildren.length)
                                     }
 
                                     else if(greatGrandChildren[k].nodeName == "componentref"){
-                                        
                                         componentChildren.push(primOrCompRefId) ;
                                     }
                                 }
 
+                                console.log(this.transformations);
+
+                                console.log(transformations);
+
                                 var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations);
 
                                 this.components[componentId] = component;
-
-                                primitiveChildren=[];
-                                componentChildren = [];
                             }
                         }
 
@@ -1329,7 +1336,3 @@ class MySceneGraph {
         this.components["comp1"].display();
     }
 }
-
-//TODO: Ver se é um warning ou return para terminar o programa
-// entender melhor a função initLights()
-// como fazer display

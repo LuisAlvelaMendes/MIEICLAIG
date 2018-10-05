@@ -2,17 +2,21 @@
  * MyCylinder
  * @constructor
  */
- function MyCylinder(scene, slices, stacks) {
+ function MyCylinder(scene, id, slices, stacks, base, top, height) {
  	CGFobject.call(this,scene);
 
 	//if slices not define, set to 6
  	slices = typeof slices !== 'undefined' ? slices : 6;
 
  	//if stacks not define, set to 5
- 	stacks = typeof stacks !== 'undefined' ? stacks : 5;
-	
+	 stacks = typeof stacks !== 'undefined' ? stacks : 5;
+	 
+	this.id = id;
 	this.slices = slices;
 	this.stacks = stacks;
+	this.base = base;
+	this.top = top;
+	this.height = height;
 
  	this.initBuffers();
  };
