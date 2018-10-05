@@ -58,6 +58,7 @@ class XMLscene extends CGFscene {
                 var light = this.graph.lights[key];
 
                 //lights are predefined in cgfscene
+                
                 this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
                 this.lights[i].setAmbient(light[2][0], light[2][1], light[2][2], light[2][3]);
                 this.lights[i].setDiffuse(light[3][0], light[3][1], light[3][2], light[3][3]);

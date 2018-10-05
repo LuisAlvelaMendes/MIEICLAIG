@@ -302,6 +302,11 @@ class MySceneGraph {
             if (Id == null)
                 return "no ID defined for " + children[i].nodeName;
 
+            if(this.checkEqualId(children) == null){
+                this.onXMLError("ID repeated for views " + Id);
+                return null;
+            }
+
             // gets near component
             var near = this.reader.getFloat(children[i], 'near');
             if (!(near != null && !isNaN(near)))
@@ -343,7 +348,7 @@ class MySceneGraph {
 
                 }
 
-                singleView.push(Id, near, far, angle, from, to);
+                singleView.push(near, far, angle, from, to);
             }
 
             if (children[i].nodeName == "ortho") {
@@ -369,14 +374,17 @@ class MySceneGraph {
 
                 else this.log("Parsed ortho " + Id + " near = " + near + " far = " + far + " left = " + left + " right = " + right + " top " + top + " bottom " + bottom);
                 
-                singleView.push(Id, near, far, left, right, top, bottom);
+                singleView.push(near, far, left, right, top, bottom);
             }
 
-            this.views.push(singleView);
+            this.views[Id] = singleView;
             numViews++;
         }
 
         if (numViews == 0) this.onXMLMinorError("at least one view must be defined");
+
+        console.log(this.views);
+
         this.log("Parsed views");
         return null;
     }
@@ -448,9 +456,8 @@ class MySceneGraph {
     }
 
     /**
-     * Checks if the light ID is already in the <lights> block or not
+     * Checks equal IDs
      * @param {*} children 
-     * @param {*} lightID 
      */
     checkEqualId(children){
         for(var i = 0; i < children.length; i++){
@@ -482,6 +489,9 @@ class MySceneGraph {
         // Any number of lights.
         for (var i = 0; i < children.length; i++) {
 
+            var angle = null;
+            var exponent = null;
+
             if (children[i].nodeName != "omni" && children[i].nodeName != "spot") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -497,6 +507,7 @@ class MySceneGraph {
             }
 
             if(this.checkEqualId(children) == null){
+                this.onXMLError("ID repeated for lights " + lightId);
                 return null;
             }
             
@@ -516,22 +527,6 @@ class MySceneGraph {
                     this.onXMLMinorError("unable to parse value component of the 'enable light' field for ID = " + lightId + "; assuming 'value = 1'");
                 else
                     enableLight = aux == 0 ? false : true;
-            }
-
-            if(children[i].nodeName == "spot"){
-               
-                var angle = this.reader.getFloat(children[i], 'angle');
-                if(angle == null || isNaN(angle)){
-                    this.onXMLError("Angle is null for light of id " + lightId);
-                    return null;
-                }
-               
-                var exponent = this.reader.getFloat(children[i], 'exponent');
-                if(exponent == null || isNaN(exponent)){
-                    this.onXMLError("Exponent is null for " + lightId);
-                    return null;
-                }
-
             }
 
             // Specifications for the current light.
@@ -592,6 +587,19 @@ class MySceneGraph {
             }
 
             if(children[i].nodeName == "spot"){
+                
+                angle = this.reader.getFloat(children[i], 'angle');
+                if(angle == null || isNaN(angle)){
+                    this.onXMLError("Angle is null for light of id " + lightId);
+                    return null;
+                }
+                
+                exponent = this.reader.getFloat(children[i], 'exponent');
+                if(exponent == null || isNaN(exponent)){
+                    this.onXMLError("Exponent is null for " + lightId);
+                    return null;
+                }
+
                 var targetIndex = nodeNames.indexOf("target");
                 
                 var target = [];
@@ -614,9 +622,10 @@ class MySceneGraph {
            this.onXMLMinorError("At least one light must be defined");
         else if (numLights > 8)
             this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
-
-        this.log("Parsed lights");0
-
+        
+        console.log(this.lights);
+        
+        this.log("Parsed lights");
         return null;
     }
 
@@ -646,6 +655,7 @@ class MySceneGraph {
             }
 
             if(this.checkEqualId(children) == null){
+                this.onXMLError("Repeated ID texture" + textureId);
                 return null;
             }
 
@@ -657,11 +667,13 @@ class MySceneGraph {
             }
 
             console.log("Parsed texture id " + textureId + " and file " + file + ".");
-            this.textures.push(textureId, file);
+            this.textures[textureId] = [textureId, file];
             numTextures++;
         }
 
         if(numTextures == 0) this.onXMLMinorError("at least one Texture must be defined");
+
+        console.log(this.textures);
         console.log("Parsed textures");
         return null;
     }
@@ -695,8 +707,9 @@ class MySceneGraph {
                     console.log("Material ID is right.")
 
                 var materialShi = this.reader.getFloat(children[i], 'shininess');
-                if (materialShi == null){
-                    return "no shininess defined for material";
+                if (materialShi == null || isNaN(materialShi)){
+                    this.onXMLError("invalid shininess for material " + materialId);
+                    return null;
                 }
 
                 var grandChildren = children[i].children;
@@ -748,7 +761,7 @@ class MySceneGraph {
                     this.onXMLError("no specular component");
                 }
 
-                this.materials.push(materialId, materialShi, emission, ambient, diffuse, specular);
+                this.materials[materialId] = [materialShi, emission, ambient, diffuse, specular];
                 numMaterials++;
             }
         }
@@ -759,6 +772,7 @@ class MySceneGraph {
         else if (numMaterials > 8)
             this.onXMLMinorError("too many Materials defined; WebGL imposes a limit of 8 materials");
 
+        console.log(this.materials);
         this.log("Parsed materials");
         return null;
     }
@@ -793,6 +807,7 @@ class MySceneGraph {
             }
 
             if(this.checkEqualId(children) == null){
+                this.onXMLError("Repeated ID transformation" + transformationId);
                 return null;
             }
 
@@ -1080,14 +1095,16 @@ class MySceneGraph {
                     return "no ID defined for material";
 
                 // Checks for repeated IDs.
-                if (this.materials[materialId] != null)
+                if (materials[materialId] != null)
                     return "ID must be unique for each materials (conflict: ID = " + materialId + ")";
                 else
                     console.log("Material ID is right.")
 
                 var materialShi = this.reader.getFloat(children[i], 'shininess');
-                if (materialShi == null){
-                    return "no shininess defined for material";
+
+                if (materialShi == null || isNaN(materialShi)){
+                    this.onXMLError("material shininess invalid for component");
+                    return null;
                 }
 
                 var grandChildren = children[i].children;
@@ -1139,7 +1156,7 @@ class MySceneGraph {
                     this.onXMLError("no specular component");
                 }
 
-                this.materials.push(materialId, materialShi, emission, ambient, diffuse, specular);
+                materials[materialId] = [materialShi, emission, ambient, diffuse, specular];
                 numMaterials++;
             }
         }
@@ -1149,6 +1166,7 @@ class MySceneGraph {
             return null;
         }
 
+        console.log(materials);
         console.log("Parsed materials");
         return materials;
     }
@@ -1163,15 +1181,12 @@ class MySceneGraph {
             return null;
         }
 
-        textures.push(textureId);
-
         var length_s = this.reader.getFloat(subNodeTextures, "length_s");
         if(length_s == null || isNaN(length_s)){
             this.onXMLError("Length_s invalid");
             return null;
         }
 
-        textures.push(length_s);
      
         var length_t = this.reader.getFloat(subNodeTextures, "length_t");
         if(length_t == null || isNaN(length_t)){
@@ -1179,7 +1194,9 @@ class MySceneGraph {
             return null;
         }
 
-        textures.push(length_t);
+        textures[textureId] = [textureId, length_s, length_t];
+
+        console.log(textures);
 
         return textures;
     }

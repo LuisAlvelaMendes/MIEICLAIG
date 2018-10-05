@@ -6,11 +6,11 @@
     <views default="view" >
         <!-- tem de existir, pelo menos, uma vista de -->
         <!-- entre as seguintes (perspective ou ortho) -->
-        <perspective id="ss" near="0" far="0" angle="0">
+        <perspective id="prespective" near="0" far="0" angle="0">
             <from x="0" y="0" z="0" />
             <to x="0" y="0" z="0" />
         </perspective>
-        <ortho id="ss" near="0" far="0"
+        <ortho id="ortho" near="0" far="0"
                left="0" right="0" top="0" bottom="0" />
     </views>
 
@@ -24,12 +24,12 @@
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="light01" enabled="0" >
             <location  x="1.0" y="1.0" z="1.0" w="1.0"/>             
-            <ambient r="1.0" g="1.0" b="1.0" a="0.1"/>          
-            <diffuse r="1.0" g="1.0" b="1.0" a="0.4"/>        
-            <specular r="1.0" g="1.0" b="1.0" a="0.5"/>   
+            <ambient r="0.3" g="0.3" b="0.3" a="0.1"/>          
+            <diffuse r="0.1" g="0.2" b="0.3" a="0.4"/>        
+            <specular r="0.5" g="1.0" b="0.7" a="0.5"/>   
 
         </omni>
-
+        
         <spot id="spot01" enabled="0" angle="2" exponent="1.0">
             <!-- atencao, "target" e' diferente de "direction" -->
             <target x="2.0" y="2.0" z="2.0" />
@@ -43,13 +43,14 @@
     <textures>
         <!-- Deve existir um ou mais blocos "texture" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <texture id="ss" file="ss" />
+        <texture id="newtexture" file="disk/something.jpg" />
+        <texture id="newt" file="disk/some.jpg" />
     </textures>
 
     <materials>
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="ss" shininess = "ff" >
+        <material id="somematerial" shininess = "0.3" >
             <emission r="0.3" g="0.3" b="0.3" a="0.3" />
             <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
             <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
@@ -132,7 +133,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss" shininess = "ff" >
+                <material id="supermat" shininess = "0.3" >
                     <emission r="0.3" g="0.3" b="0.3" a="0.3" />
                     <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
                     <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
@@ -154,7 +155,7 @@
             <!-- do tipo escalamento violem esta regra. -->
             <!-- Nao e' necessario aplicar fatores de escala em -->
             <!-- quadricas (esfera, cilindro...) -->
-            <texture id="ss" length_s="43" length_t="23" />
+            <texture id="atexture" length_s="43" length_t="23" />
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
@@ -189,7 +190,7 @@
             <!-- o material muda para o proximo material da lista; do -->
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="ss" shininess = "ff" >
+                <material id="othermat" shininess = "0.3" >
                     <emission r="0.3" g="0.3" b="0.3" a="0.3" />
                     <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
                     <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
@@ -211,7 +212,7 @@
             <!-- do tipo escalamento violem esta regra. -->
             <!-- Nao e' necessario aplicar fatores de escala em -->
             <!-- quadricas (esfera, cilindro...) -->
-            <texture id="ss" length_s="43" length_t="23" />
+            <texture id="someothertexutre" length_s="43" length_t="23" />
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
