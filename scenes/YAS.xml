@@ -84,7 +84,7 @@
         <!-- Uma "primitive" e' uma primitiva e pode ser usada em nos folha -->
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <primitive id="prim1">
+        <primitive id="myQuad">
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!-- rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
@@ -95,15 +95,6 @@
             x3="1" y3="2" z3="2" /> -->
             <!-- <cylinder base="3" top="3" height="3" slices="20" stacks="20" /> -->
             <!-- <sphere radius="3" slices="20" stacks="20" /> -->
-        </primitive >
-
-        <primitive id="prim2">
-            <!-- apenas pode existir UMA das seguintes tags: -->
-            <!-- rectangle, triangle, cylinder, sphere, torus -->
-            <!-- os parametros devem ser interpretados, genericamente, -->
-            <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
-            <!-- IMP: x1 < x2 | y1 > y2 -->
-            <rectangle x1="0.5" y1="1.5" x2="1.5" y2="0.5" />
         </primitive >
 
     </primitives >
@@ -161,12 +152,12 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <componentref id="comp2"/>
-                <primitiveref id="prim1" />
+                <componentref id="myRectangle"/>
+                <primitiveref id="myQuad" />
             </children>
         </component>
 
-        <component id="comp2">
+        <component id="myRectangle">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!-- usada em nos intermédios -->
             <!-- bloco "transformation" e' obrigatorio -->
@@ -178,10 +169,9 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="5" y="5" z="5" />
-                <translate x="-2" y="-2" z="-3" />
-                <rotate axis="z" angle="10" />
-                <scale x="3" y="3" z="3" />
+                <translate x="-4" y="-4" z="2" />
+                <rotate axis="z" angle="0" />
+                <scale x="1" y="2" z="1" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -218,7 +208,7 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <primitiveref id="prim2" />
+                <primitiveref id="myQuad" />
             </children>
         </component>
 
