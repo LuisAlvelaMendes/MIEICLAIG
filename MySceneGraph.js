@@ -1023,6 +1023,8 @@ class MySceneGraph {
                 continue;
             }
 
+            //If Transformation is a Reference
+            // TODO :: loop needs to be done for more refenrences
             if(children[j].nodeName == "transformationref"){
                 transformationrefId = this.reader.getString(children[j], "id");
                 
@@ -1036,9 +1038,11 @@ class MySceneGraph {
                     return null;
                 }
 
+                console.log("ID Ref: " + transformationrefId )
                 return transformationrefId;
             }
 
+            //If trasnformation is specific
             else {
                 
                 if(children[j].nodeName == "translate"){
@@ -1239,6 +1243,8 @@ class MySceneGraph {
                     for (var j = 0; j < grandChildren.length; j++) {
 
                         if(grandChildren[j].nodeName == "transformation"){
+
+                            //get all  transformations & transf_REF in <Transformations> section
                             transformations = this.parseComponentTransformation(grandChildren[j]);
                             console.log(transformations);
                         }
