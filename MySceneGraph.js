@@ -82,7 +82,8 @@ class MySceneGraph {
             return "root tag <yas> missing";
 
         var nodes = rootElement.children;
-
+        this.nodes = nodes;
+        
         // Reads the names of the nodes to an auxiliary buffer.
         var nodeNames = [];
 
@@ -838,8 +839,6 @@ class MySceneGraph {
                         this.onXMLError("Axis wrongly declared, must be x, y or z for transformation: " + transformationId);
                         return null;
                     }
-
-                    console.log("axis: " + axis);
         
                     var angle = this.reader.getFloat(grandChildren[j], "angle");
                     if(angle == null || isNaN(angle)){
@@ -847,7 +846,6 @@ class MySceneGraph {
                         return null;
                     }
 
-                    console.log("angle: " + angle);
                     rotation.push([axis, angle]);
 
                 }
@@ -930,8 +928,7 @@ class MySceneGraph {
                     else{
 
                         if(grandChildren[0].nodeName == "rectangle"){
-                            console.log("Looking for rectangle.");
-
+                            
                             var x1 = this.parsePrimitiveCoords(grandChildren[0], 'x1', "rectangle");
                             var x2 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
                             var y1 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
@@ -939,12 +936,10 @@ class MySceneGraph {
 
                             var rectangle = new MyRectangle(this.scene, primitiveId, x1, y1, x2, y2);
 
-                            console.log("x1 = " + x1 + " x2 = " + x2 + " y1 = " + y1 + " y2 = " + y2);
                             this.primitives[primitiveId] = rectangle;
                         }
 
                         if(grandChildren[0].nodeName == "triangle"){
-                            console.log("Triangle");
 
                             var x1 = this.parsePrimitiveCoords(grandChildren[0], 'x1', "triangle");
                             var x2 = this.parsePrimitiveCoords(grandChildren[0], 'x2', "triangle");
@@ -963,7 +958,6 @@ class MySceneGraph {
                         }
 
                         if(grandChildren[0].nodeName == "sphere"){
-                            console.log("Sphere");
 
                             var radius = this.parsePrimitiveCoords(grandChildren[0], 'radius', "sphere");
                             var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "sphere");
@@ -974,7 +968,6 @@ class MySceneGraph {
                         }
 
                         if(grandChildren[0].nodeName == "cylinder"){
-                            console.log("Cylinder Base");
 
                             var base = this.parsePrimitiveCoords(grandChildren[0], 'base', "cylinder");
                             var top = this.parsePrimitiveCoords(grandChildren[0], 'top', "cylinder");
@@ -1039,8 +1032,6 @@ class MySceneGraph {
                     this.onXMLError("reference doesn't point to any known transformation: " + transformationrefId);
                     return null;
                 }
-
-                console.log("ID Ref: " + transformationrefId )
                 return transformationrefId;
             }
 
@@ -1058,16 +1049,12 @@ class MySceneGraph {
                         this.onXMLError("Axis wrongly declared, must be x, y or z for component");
                         return null;
                     }
-
-                    console.log("axis: " + axis);
         
                     var angle = this.reader.getFloat(children[j], "angle");
                     if(angle == null || isNaN(angle)){
                         this.onXMLError("invalid angle for component");
                         return null;
                     }
-
-                    console.log("angle: " + angle);
         
                     rotation.push([axis, angle]);
                 }
@@ -1300,12 +1287,8 @@ class MySceneGraph {
                                     }
                                 }
 
-                                console.log(this.transformations);
-
                                 console.log(transformations);
-
                                 var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations);
-
                                 this.components[componentId] = component;
                             }
                         }
@@ -1315,7 +1298,7 @@ class MySceneGraph {
                 }
             }
         }
-        console.log(this.components)
+
         this.log("Parsed components");
         return null;
     }
@@ -1352,6 +1335,7 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-        this.components["cena1"].display();
+        //console.log(this.nodes)
+        this.components["root_cena"].display();
     }
 }

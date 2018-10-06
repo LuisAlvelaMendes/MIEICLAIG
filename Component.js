@@ -30,7 +30,7 @@ class Component
 			for(var i = 0; i < this.rotateComponent.length; i++){
 
 				if(this.rotateComponent[i][0] == 'x'){
-					console.log("ANGULO: "+ this.rotateComponent[i][1])
+					
 					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 1, 0, 0);
 				}
 
