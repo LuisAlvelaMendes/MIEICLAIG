@@ -16,7 +16,7 @@
 
     <ambient>
         <ambient r="0.1" g="0.5" b="0.5" a="1.0" />
-        <background r="0.2" g="0.1" b="0.4" a="0.3" />
+        <background r="0.4" g="0.4" b="0.1" a="0.2" />
     </ambient>
 
     <lights>
@@ -65,18 +65,17 @@
         <transformation id="transf1">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
-            <translate x="1" y="1" z="3" />
-            <rotate axis="x" angle="30" />
             <translate x="1.5" y="1.5" z="0.6" />
-            <scale x="1" y="1" z="1" />
+            <rotate axis="x" angle="0" />
+            <scale x="2" y="2" z="2" />
         </transformation>
 
         <transformation id="transf2">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
             <translate x="1" y="1" z="1" />
-            <scale x="4" y="4" z="4" />
             <rotate axis="y" angle="20" />
+            <scale x="4" y="4" z="4" />
         </transformation>
     </transformations>
 
@@ -85,7 +84,7 @@
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <!-- rectangle, triangle, cylinder, sphere, torus -->
-        
+
         <primitive id="myRectangle">
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!-- os parametros devem ser interpretados, genericamente, -->
@@ -113,7 +112,7 @@
 
     <components>
 
-        <component id="comp1">
+        <component id="cena1">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!-- usada em nos intermédios -->
             <!-- bloco "transformation" e' obrigatorio -->
@@ -164,13 +163,16 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
+
                 <componentref id="myQuad"/>
-                <primitiveref id="myRectangle" />
-                <primitiveref id="myTriangle" />
-                <primitiveref id="myCylinder" />
-                <primitiveref id="mySphere" />
+                <componentref id="myRectangle"/>
+                <componentref id="myTriangle"/>
+                <componentref id="myCylinder"/>
+                <componentref id="mySphere"/>
             </children>
         </component>
+
+        <!-- Primitives -->
 
         <component id="myQuad">
             <!-- Uma "component" e' um objeto composto e pode ser -->
@@ -224,6 +226,226 @@
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
                 <primitiveref id="myRectangle" />
+            </children>
+        </component>
+
+        <component id="myRectangle">
+            <!-- Uma "component" e' um objeto composto e pode ser -->
+            <!-- usada em nos intermédios -->
+            <!-- bloco "transformation" e' obrigatorio -->
+            <transformation>
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+               <!-- <transformationref id="transf2" />  -->
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <translate x="-4" y="-9" z="0" />
+                <rotate axis="z" angle="0" />
+                <scale x="1" y="3" z="1" />
+            </transformation>
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="othermat" shininess = "0.3" >
+                    <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <specular r="0.3" g="0.3" b="0.3" a="0.3" />
+                </material>
+            </materials>
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <!-- length_s e length_t sao fatores de escala de textura:-->
+            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+            <!-- comprimento, deve cobrir um comprimento igual -->
+            <!-- a 3 unidades; -->
+            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
+            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
+            <!-- do tipo escalamento violem esta regra. -->
+            <!-- Nao e' necessario aplicar fatores de escala em -->
+            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <primitiveref id="myRectangle" />
+            </children>
+        </component>
+
+        <component id="myTriangle">
+            <!-- Uma "component" e' um objeto composto e pode ser -->
+            <!-- usada em nos intermédios -->
+            <!-- bloco "transformation" e' obrigatorio -->
+            <transformation>
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+               <!-- <transformationref id="transf2" />  -->
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <translate x="-4" y="-2" z="2" />
+                <rotate axis="z" angle="0" />
+                <scale x="1" y="2" z="1" />
+            </transformation>
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="othermat" shininess = "0.3" >
+                    <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <specular r="0.3" g="0.3" b="0.3" a="0.3" />
+                </material>
+            </materials>
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <!-- length_s e length_t sao fatores de escala de textura:-->
+            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+            <!-- comprimento, deve cobrir um comprimento igual -->
+            <!-- a 3 unidades; -->
+            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
+            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
+            <!-- do tipo escalamento violem esta regra. -->
+            <!-- Nao e' necessario aplicar fatores de escala em -->
+            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <primitiveref id="myTriangle" />
+            </children>
+        </component>
+
+        <component id="myCylinder">
+            <!-- Uma "component" e' um objeto composto e pode ser -->
+            <!-- usada em nos intermédios -->
+            <!-- bloco "transformation" e' obrigatorio -->
+            <transformation>
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+               <!-- <transformationref id="transf2" />  -->
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <translate x="4" y="-1" z="0" />
+                <rotate axis="z" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="othermat" shininess = "0.3" >
+                    <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <specular r="0.3" g="0.3" b="0.3" a="0.3" />
+                </material>
+            </materials>
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <!-- length_s e length_t sao fatores de escala de textura:-->
+            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+            <!-- comprimento, deve cobrir um comprimento igual -->
+            <!-- a 3 unidades; -->
+            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
+            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
+            <!-- do tipo escalamento violem esta regra. -->
+            <!-- Nao e' necessario aplicar fatores de escala em -->
+            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="mySphere">
+            <!-- Uma "component" e' um objeto composto e pode ser -->
+            <!-- usada em nos intermédios -->
+            <!-- bloco "transformation" e' obrigatorio -->
+            <transformation>
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+               <!-- <transformationref id="transf2" />  -->
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <translate x="-4" y="-6" z="2" />
+                <rotate axis="z" angle="0" />
+                <scale x="1" y="2" z="1" />
+            </transformation>
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="othermat" shininess = "0.3" >
+                    <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <specular r="0.3" g="0.3" b="0.3" a="0.3" />
+                </material>
+            </materials>
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <!-- length_s e length_t sao fatores de escala de textura:-->
+            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+            <!-- comprimento, deve cobrir um comprimento igual -->
+            <!-- a 3 unidades; -->
+            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
+            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
+            <!-- do tipo escalamento violem esta regra. -->
+            <!-- Nao e' necessario aplicar fatores de escala em -->
+            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <primitiveref id="mySphere" />
             </children>
         </component>
 
@@ -351,8 +573,8 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-6" z="0" />
-                <rotate axis="z" angle="0" />
+                
+                <rotate axis="x" angle="-90" />
                 <scale x="1" y="2" z="1" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->

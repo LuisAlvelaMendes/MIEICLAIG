@@ -1026,7 +1026,7 @@ class MySceneGraph {
             }
 
             //If Transformation is a Reference
-            // TODO :: loop needs to be done for more refenrences
+            
             if(children[j].nodeName == "transformationref"){
                 transformationrefId = this.reader.getString(children[j], "id");
                 
@@ -1315,7 +1315,7 @@ class MySceneGraph {
                 }
             }
         }
-
+        console.log(this.components)
         this.log("Parsed components");
         return null;
     }
@@ -1352,6 +1352,6 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-        this.components["myCubeQuad"].display();
+        this.components["cena1"].display();
     }
 }

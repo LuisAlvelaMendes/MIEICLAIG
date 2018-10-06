@@ -30,15 +30,16 @@ class Component
 			for(var i = 0; i < this.rotateComponent.length; i++){
 
 				if(this.rotateComponent[i][0] == 'x'){
-					this.scene.rotate(this.rotateComponent[i][1], 1, 0, 0);
+					console.log("ANGULO: "+ this.rotateComponent[i][1])
+					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 1, 0, 0);
 				}
 
 				if(this.rotateComponent[i][0] == 'y'){
-					this.scene.rotate(this.rotateComponent[i][1], 0, 1, 0);
+					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 0, 1, 0);
 				}
 
 				if(this.rotateComponent[i][0] == 'z'){
-					this.scene.rotate(this.rotateComponent[i][1], 0, 0, 1);
+					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 0, 0, 1);
 				}
 			}
 		}
@@ -67,7 +68,7 @@ class Component
 	}
 
 	applyTransformationNoReference(){
-		
+
 		this.translateComponent = this.tranf.translate;
 		this.rotateComponent = this.tranf.rotate;
 		this.scaleComponent = this.tranf.scale;
@@ -83,17 +84,18 @@ class Component
 
 	display() {		
 
-
-
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.components[this.childrenComponents[i]] != null){
+				this.scene.scale(1,1,1);
 				this.components[this.childrenComponents[i]].display();
 			} 
+			
 		}
 
 		for(var i = 0; i < this.childrenPrimitives.length; i++){
 			//APPLY TRANSFORMATION MATRIX
 
+			///If isn't a Reference 
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
 				this.applyTransformationNoReference();
