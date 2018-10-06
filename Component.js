@@ -78,6 +78,14 @@ class Component
 		return null;
 	}
 
+	applyTransformationWithRef(){
+
+	}
+
+	applyTransformationNoRef(){
+
+	}
+
 	isString(x) {
 		return Object.prototype.toString.call(x) === "[object String]"
 	}
@@ -86,7 +94,14 @@ class Component
 
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.components[this.childrenComponents[i]] != null){
-				this.scene.scale(1,1,1);
+				// TODO :: GENERICO - pareceido com as primitivas etc...
+
+				if(!(this.isString(this.tranf))){
+					this.applyTransformationNoReference();
+				} else {
+					this.applyTransformationReference();
+				}
+
 				this.components[this.childrenComponents[i]].display();
 			} 
 			

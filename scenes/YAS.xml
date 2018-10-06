@@ -65,9 +65,9 @@
         <transformation id="transf1">
             <!-- instrucoes a usar sem limite nem ordem -->
             <!-- deve existir pelo menos uma transformacao -->
-            <translate x="1.5" y="1.5" z="0.6" />
+            <translate x="0" y="0" z="0" />
             <rotate axis="x" angle="0" />
-            <scale x="2" y="2" z="2" />
+            <scale x="1" y="1" z="1" />
         </transformation>
 
         <transformation id="transf2">
@@ -169,6 +169,7 @@
                 <componentref id="myTriangle"/>
                 <componentref id="myCylinder"/>
                 <componentref id="mySphere"/>
+                
             </children>
         </component>
 
@@ -186,7 +187,7 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-6" z="2" />
+                <translate x="-0.5" y="-6" z="0" />
                 <rotate axis="z" angle="0" />
                 <scale x="1" y="2" z="1" />
             </transformation>
@@ -241,7 +242,7 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-9" z="0" />
+                <translate x="-4.5" y="-9" z="0" />
                 <rotate axis="z" angle="0" />
                 <scale x="1" y="3" z="1" />
             </transformation>
