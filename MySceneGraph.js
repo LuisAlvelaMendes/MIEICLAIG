@@ -956,6 +956,8 @@ class MySceneGraph {
                             var z2 = this.parsePrimitiveCoords(grandChildren[0], 'z2', "triangle");
                             var z3 = this.parsePrimitiveCoords(grandChildren[0], 'z3', "triangle");
 
+                            console.log("VAL: " + x1 + " "  +  x2 + " "  +  x3 + " "  +y1 + y2 + y3 + z1 + z2 + z3)
+
                             var triangle = new MyTriangle(this.scene, primitiveId, x1, y1, z1, x2, y2, z2, x3, y3, z3);
                             this.primitives[primitiveId] = triangle;
                         }

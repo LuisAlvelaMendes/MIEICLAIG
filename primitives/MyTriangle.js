@@ -27,14 +27,13 @@ class MyTriangle extends CGFobject
 	{	
 		
 		this.vertices = [
-		this.x1, this.y1, this.z1,  
-		this.x2,this.y2, this.z2, 
-		this.x3,this.y3, this.z3
+			this.x1, this.y1, this.z1,  // ( 0,0,0)
+			this.x2,this.y2, this.z2,   // (0,2,0)
+			this.x3,this.y3, this.z3  // (0,2,2)
 		];
 
 		this.indices = [
-		1,0,2,
-		3,1,2
+		0,1,2
 		];
 		
 		this.primitiveType = this.scene.gl.TRIANGLES;
