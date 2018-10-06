@@ -1352,6 +1352,6 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-        this.components["comp1"].display();
+        this.components["myCubeQuad"].display();
     }
 }
