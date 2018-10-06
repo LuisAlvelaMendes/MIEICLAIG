@@ -15,8 +15,8 @@
     </views>
 
     <ambient>
-        <ambient r="0.1" g="0.5" b="0.5" a="1.0" />
-        <background r="0.4" g="0.4" b="0.1" a="0.2" />
+        <ambient r="0.1" g="0.3" b="0.35" a="0.9" />
+        <background r="1" g="1" b="1" a="0.1" />
     </ambient>
 
     <lights>
@@ -26,7 +26,7 @@
             <location  x="1.0" y="1.0" z="1.0" w="1.0"/>             
             <ambient r="0.3" g="0.3" b="0.3" a="0.1"/>          
             <diffuse r="0.1" g="0.2" b="0.3" a="0.4"/>        
-            <specular r="0.5" g="1.0" b="0.7" a="0.5"/>   
+            <specular r="0.9" g="1.0" b="0.7" a="0.1"/>   
 
         </omni>
         
@@ -169,7 +169,7 @@
                 <componentref id="myTriangle"/>
                 <componentref id="myCylinder"/>
                 <componentref id="mySphere"/>
-                
+                <componentref id="myCubeQuad"/>
             </children>
         </component>
 
@@ -242,7 +242,7 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4.5" y="-9" z="0" />
+                <translate x="2.5" y="-9" z="0" />
                 <rotate axis="z" angle="0" />
                 <scale x="1" y="3" z="1" />
             </transformation>
@@ -464,8 +464,8 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-6" z="0" />
-                <rotate axis="z" angle="0" />
+                <translate x="-4" y="8" z="0" />
+                <rotate axis="x" angle="180" />
                 <scale x="1" y="2" z="1" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -574,7 +574,7 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                
+                <translate x="-4" y="2" z="8" />
                 <rotate axis="x" angle="-90" />
                 <scale x="1" y="2" z="1" />
             </transformation>
@@ -629,8 +629,8 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-6" z="2" />
-                <rotate axis="z" angle="0" />
+                <translate x="0" y="-6" z="4" />
+                <rotate axis="y" angle="90" />
                 <scale x="1" y="2" z="1" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -684,8 +684,8 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-6" z="2" />
-                <rotate axis="z" angle="0" />
+                <translate x="-2" y="-6" z="-2" />
+                <rotate axis="y" angle="-90" />
                 <scale x="1" y="2" z="1" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -739,8 +739,8 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-4" y="-6" z="2" />
-                <rotate axis="z" angle="0" />
+                <translate x="-4" y="0" z="-6" />
+                <rotate axis="x" angle="90" />
                 <scale x="1" y="2" z="1" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -837,6 +837,8 @@
                 <componentref id="myWall2"/>
                 <componentref id="myWall3"/>
                 <componentref id="myWall4"/>
+                <componentref id="myWall5"/>
+                <componentref id="myWall6"/>
             </children>
         </component>
 
