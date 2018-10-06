@@ -353,7 +353,7 @@
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
                 <translate x="4" y="-1" z="0" />
                 <rotate axis="z" angle="0" />
-                <scale x="1" y="1" z="1" />
+                <scale x="1" y="1" z="4" />
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->

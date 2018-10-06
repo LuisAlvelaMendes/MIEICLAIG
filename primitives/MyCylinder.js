@@ -1,66 +1,45 @@
 /**
- * MyCylinder
+ * MyWheel
  * @constructor
  */
- function MyCylinder(scene, id, slices, stacks, base, top, height) {
- 	CGFobject.call(this,scene);
 
-	//if slices not define, set to 6
- 	slices = typeof slices !== 'undefined' ? slices : 6;
+class MyCylinder extends CGFobject
+{
+    constructor(scene, id, slices, stacks, base, top, height) 
+    {
+        super(scene);
 
- 	//if stacks not define, set to 5
-	 stacks = typeof stacks !== 'undefined' ? stacks : 5;
-	 
-	this.id = id;
-	this.slices = slices;
-	this.stacks = stacks;
-	this.base = base;
-	this.top = top;
-	this.height = height;
+        this.cylinder = new MyCylinderBody(this.scene,100,100,1,1,1,1);
+        this.circleFront = new MyCircle(this.scene,100);
+        this.circleBack = new MyCircle(this.scene,100);
 
- 	this.initBuffers();
- };
+    };
 
- MyCylinder.prototype = Object.create(CGFobject.prototype);
- MyCylinder.prototype.constructor = MyCylinder;
+    display() 
+    {
+    
+        // cylinder
+        this.scene.pushMatrix();
+        this.scene.scale(0.7,0.7, 0.5);
+        this.cylinder.display();
+        this.scene.popMatrix();
 
- MyCylinder.prototype.initBuffers = function() {
- 	var sides = this.slices;
- 	var stacks = this.stacks;
-	var n = 2*Math.PI / sides;
-	var z=1/this.stacks;
-	this.vertices = [];
-	this.normals = [];
-	this.indices = [];
-	var indice=0;
-	
+        //Cilinder A
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 0);
+        this.scene.rotate((-180*(3.14/180)), 1, 0,0);
+        this.scene.scale(0.7,0.7, 0.5);
+        this.circleFront.display();
+        this.scene.popMatrix();
+
+        //Cilinder B
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 0.5);
+        this.scene.scale(0.7,0.7, 0.5);
+        this.circleBack.display();
+        this.scene.popMatrix();
 
 
-	for(var x = 0; x < this.stacks; x++){
-					
-		
-				for(var i = 0; i < sides; i++){
-			
-					this.vertices.push(Math.cos(i * n), Math.sin(i* n), z*x);
-					this.vertices.push(Math.cos(i * n), Math.sin(i* n), z*(x+1));
-					this.vertices.push(Math.cos((i+1) * n), Math.sin((i+1)* n), z*x);
-					this.vertices.push(Math.cos((i+1) * n), Math.sin((i+1)* n), z*(x+1));
 
-					this.indices.push(indice, indice+2, indice+3);
-					this.indices.push(indice+1, indice, indice+3);
-
-					this.normals.push(Math.cos((i) * n), Math.sin((i) * n), 0);
-					this.normals.push(Math.cos((i) * n), Math.sin((i) * n), 0);
-					this.normals.push(Math.cos((i+1) * n), Math.sin((i+1) * n), 0);
-					this.normals.push(Math.cos((i+1) * n), Math.sin((i+1) * n), 0);
-	
-					indice = indice + 4;
-		}
-
-	}
-	
-	
- 	this.primitiveType = this.scene.gl.TRIANGLES;
-
- 	this.initGLBuffers();
- };
+    };
+};
