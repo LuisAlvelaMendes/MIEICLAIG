@@ -54,8 +54,11 @@ class Component
 
 	applyTransformationReference(){
 
+		//Transformation in X
 		this.translateComponent = this.transformations[this.tranf].translate;
+		//Transformation in Y
 		this.rotateComponent = this.transformations[this.tranf].rotate;
+		//Transformation in Z
 		this.scaleComponent = this.transformations[this.tranf].scale;
 
 		this.applyTransformation();
@@ -64,7 +67,7 @@ class Component
 	}
 
 	applyTransformationNoReference(){
-
+		
 		this.translateComponent = this.tranf.translate;
 		this.rotateComponent = this.tranf.rotate;
 		this.scaleComponent = this.tranf.scale;
