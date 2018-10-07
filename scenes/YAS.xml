@@ -312,9 +312,9 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <translate x="-8" y="0" z="32" />
+                <rotate axis="x" angle="-90" />
                 <scale x="4" y="8" z="4" />
-                <translate x="0" y="-24" z="16"/>
-                <rotate axis="x" angle="90"/>
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
