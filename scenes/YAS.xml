@@ -179,9 +179,9 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-
-                <componentref id="myQuad"/>
-                <componentref id="myRectangle"/>
+                <componentref id="myRoomWallRight"/>
+                <componentref id="myRoomWallLeft"/>
+                <componentref id="myRoomFloor"/>
                 <componentref id="myTriangle"/>
                 <componentref id="myCylinder"/>
                 <componentref id="mySphere"/>
@@ -191,7 +191,7 @@
 
         <!-- Primitives -->
 
-        <component id="myQuad">
+        <component id="myRoomWallRight">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!-- usada em nos intermédios -->
             <!-- bloco "transformation" e' obrigatorio -->
@@ -203,9 +203,63 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="-0.5" y="-6" z="0" />
-                <rotate axis="z" angle="0" />
-                <scale x="1" y="2" z="1" />
+                <scale x="4" y="8" z="4" />
+                <translate x="-8" y="-24" z="0"/>
+            </transformation> 
+            <!-- declaracao obrigatoria de pelo menos um material; -->
+            <!-- o material id="inherit", mantem (herda) material do "pai" -->
+            <!-- se varios materiais declarados, o default e' o -->
+            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
+            <!-- o material muda para o proximo material da lista; do -->
+            <!-- ultimo material da lista volta ao primeiro -->
+            <materials>
+                <material id="othermat" shininess = "0.3" >
+                    <emission r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
+                    <specular r="0.3" g="0.3" b="0.3" a="0.3" />
+                </material>
+            </materials>
+            <!-- declaracao obrigatoria de texture -->
+            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
+            <!-- id="none" remove a textura recebida do pai -->
+            <!-- a textura declarada sobrepoe a textura recebida do -->
+            <!-- objecto "pai" -->
+            <!-- length_s e length_t sao fatores de escala de textura:-->
+            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
+            <!-- comprimento, deve cobrir um comprimento igual -->
+            <!-- a 3 unidades; -->
+            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
+            <!-- largura, deve cobrir uma largura igual a 0.4 unidades. -->
+            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
+            <!-- do tipo escalamento violem esta regra. -->
+            <!-- Nao e' necessario aplicar fatores de escala em -->
+            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <!-- bloco "children" obrigatorio num "component" -->
+            <children>
+                <!-- deve existir uma ou mais tags "componentref" e/ou -->
+                <!-- "primitiveref", identificando outros -->
+                <!-- componentes ou primitivas -->
+                <primitiveref id="myRectangle" />
+            </children>
+        </component>
+
+        <component id="myRoomWallLeft">
+            <!-- Uma "component" e' um objeto composto e pode ser -->
+            <!-- usada em nos intermédios -->
+            <!-- bloco "transformation" e' obrigatorio -->
+            <transformation>
+                <!-- deve conter uma referencia a uma das "transformation" -->
+                <!-- declaradas anteriormente -->
+               <!-- <transformationref id="transf2" />  -->
+                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
+                <!-- usando zero ou mais das instrucoes seguintes, sem -->
+                <!-- limite nem ordem -->
+                <!-- ex: bloco transformation pode ficar sem conteudo -->
+                <scale x="4" y="8" z="4" />
+                <translate x="0" y="-24" z="16"/>
+                <rotate axis="y" angle="90"/>
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -246,7 +300,7 @@
             </children>
         </component>
 
-        <component id="myRectangle">
+        <component id="myRoomFloor">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!-- usada em nos intermédios -->
             <!-- bloco "transformation" e' obrigatorio -->
@@ -258,9 +312,9 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="2.5" y="-9" z="0" />
-                <rotate axis="z" angle="0" />
-                <scale x="1" y="3" z="1" />
+                <scale x="4" y="8" z="4" />
+                <translate x="0" y="-24" z="16"/>
+                <rotate axis="x" angle="90"/>
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
@@ -812,7 +866,6 @@
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
-               
             </transformation>
             <!-- declaracao obrigatoria de pelo menos um material; -->
             <!-- o material id="inherit", mantem (herda) material do "pai" -->
