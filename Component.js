@@ -1,3 +1,5 @@
+var DEGREE_TO_RAD = (Math.PI / 180);
+
 /**
 /**
  * Component
@@ -28,18 +30,17 @@ class Component
 
 		if (this.rotateComponent != undefined && this.rotateComponent.length != 0) {
 			for(var i = 0; i < this.rotateComponent.length; i++){
-
+				
 				if(this.rotateComponent[i][0] == 'x'){
-					
-					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 1, 0, 0);
+					this.scene.rotate(this.rotateComponent[i][1]*DEGREE_TO_RAD, 1, 0, 0);
 				}
 
 				if(this.rotateComponent[i][0] == 'y'){
-					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 0, 1, 0);
+					this.scene.rotate(this.rotateComponent[i][1]*DEGREE_TO_RAD, 0, 1, 0);
 				}
 
 				if(this.rotateComponent[i][0] == 'z'){
-					this.scene.rotate(this.rotateComponent[i][1]*(Math.PI/180), 0, 0, 1);
+					this.scene.rotate(this.rotateComponent[i][1]*DEGREE_TO_RAD, 0, 0, 1);
 				}
 			}
 		}
@@ -51,7 +52,7 @@ class Component
 		}
 
 		return null;
-	}
+	};
 
 	applyTransformationReference(){
 
@@ -65,7 +66,7 @@ class Component
 		this.applyTransformation();
 
 		return null;
-	}
+	};
 
 	applyTransformationNoReference(){
 
@@ -76,19 +77,22 @@ class Component
 		this.applyTransformation();
 
 		return null;
-	}
+	};
 
-	applyTransformationWithRef(){
-
-	}
-
-	applyTransformationNoRef(){
-
+	applyMaterial(){
+		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mas aquele gimmick de trocar de material pressionando M.
+		this.ComponentAppearance = new CGFappearance(this.scene);
+		this.ComponentAppearance.setShininess(this.mat[0][1]);
+		this.ComponentAppearance.setEmission(this.mat[0][2]["r"], this.mat[0][2]["g"], this.mat[0][2]["b"], this.mat[0][2]["a"]);
+		this.ComponentAppearance.setAmbient(this.mat[0][3]["r"], this.mat[0][3]["g"], this.mat[0][3]["b"], this.mat[0][3]["a"]);
+		this.ComponentAppearance.setDiffuse(this.mat[0][4]["r"], this.mat[0][4]["g"], this.mat[0][4]["b"], this.mat[0][4]["a"]);
+		this.ComponentAppearance.setSpecular(this.mat[0][5]["r"], this.mat[0][5]["g"], this.mat[0][5]["b"], this.mat[0][5]["a"]);
+		this.ComponentAppearance.apply();
 	}
 
 	isString(x) {
 		return Object.prototype.toString.call(x) === "[object String]"
-	}
+	};
 
 	display() {		
 
@@ -96,6 +100,10 @@ class Component
 			if(this.components[this.childrenComponents[i]] != null){
 				// TODO :: GENERICO - pareceido com as primitivas etc...
 
+				this.scene.pushMatrix();
+
+				this.applyMaterial();
+				
 				if(!(this.isString(this.tranf))){
 					this.applyTransformationNoReference();
 				} else {
@@ -103,8 +111,8 @@ class Component
 				}
 
 				this.components[this.childrenComponents[i]].display();
+				this.scene.popMatrix;
 			} 
-			
 		}
 
 		for(var i = 0; i < this.childrenPrimitives.length; i++){

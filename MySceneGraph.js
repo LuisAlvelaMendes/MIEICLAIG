@@ -1149,7 +1149,7 @@ class MySceneGraph {
                     this.onXMLError("no specular component");
                 }
 
-                materials[materialId] = [materialShi, emission, ambient, diffuse, specular];
+                materials[i] = [materialId, materialShi, emission, ambient, diffuse, specular];
                 numMaterials++;
             }
         }

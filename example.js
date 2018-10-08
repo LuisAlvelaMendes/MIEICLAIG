@@ -1,4 +1,4 @@
-var DEGREE_TO_RAD = Math.PI / 180;
+var DEGREE_TO_RAD = (Math.PI / 180);
  
 // Order of the groups in the XML document.
 var INITIALS_INDEX = 0;

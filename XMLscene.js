@@ -27,13 +27,14 @@ class XMLscene extends CGFscene {
         this.initCameras();
 
         this.enableTextures(true);
-
+        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
+        this.materialDefault = new CGFappearance(this);
     }
 
     /**
@@ -120,6 +121,7 @@ class XMLscene extends CGFscene {
         if (this.sceneInited) {
             // Draw axis
             this.axis.display();
+            this.materialDefault.apply();
 
             var i = 0;
             for (var key in this.lightValues) {
@@ -143,6 +145,7 @@ class XMLscene extends CGFscene {
         else {
             // Draw axis
             this.axis.display();
+            this.materialDefault.apply();
         }
 
         this.popMatrix();
