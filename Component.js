@@ -80,7 +80,7 @@ class Component
 	};
 
 	applyMaterial(){
-		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mas aquele gimmick de trocar de material pressionando M.
+		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mais aquele gimmick de trocar de material pressionando M.
 		this.ComponentAppearance = new CGFappearance(this.scene);
 		this.ComponentAppearance.setShininess(this.mat[0][1]);
 		this.ComponentAppearance.setEmission(this.mat[0][2]["r"], this.mat[0][2]["g"], this.mat[0][2]["b"], this.mat[0][2]["a"]);
