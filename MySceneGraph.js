@@ -1072,96 +1072,28 @@ class MySceneGraph {
 
     parseComponentMaterial(subNodeMaterial){
         var children = subNodeMaterial.children;
-
-        var materials = [];
-        var numMaterials = 0;
+        var materialId = [];
 
         for (var i = 0; i < children.length; i++) {
-
             // Check the tag name in materials
             if(children[i].nodeName != "material") 
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
             else{
-                var materialId = this.reader.getString(children[i], 'id');
+                var matID = this.reader.getString(children[i], 'id');
 
-                if (materialId == null)
+                if (matID == null)
                     return "no ID defined for material";
 
-                // Checks for repeated IDs.
-                if (materials[materialId] != null)
-                    return "ID must be unique for each materials (conflict: ID = " + materialId + ")";
-                else
-                    console.log("Material ID is right.")
-
-                var materialShi = this.reader.getFloat(children[i], 'shininess');
-
-                if (materialShi == null || isNaN(materialShi)){
-                    this.onXMLError("material shininess invalid for component");
+                if(this.materials[matID] == null && matID != "inherit"){
+                    this.onXMLError("No material that is declared exists: " + matID);
                     return null;
                 }
 
-                var grandChildren = children[i].children;
-               
-                var nodeNames = [];
-                
-                for (var j = 0; j < grandChildren.length; j++) {
-                    nodeNames.push(grandChildren[j].nodeName);
-                }
-
-                var emissionIndex = nodeNames.indexOf("emission");
-                var ambientIndex = nodeNames.indexOf("ambient");
-                var diffuseIndex = nodeNames.indexOf("diffuse");
-                var specularIndex = nodeNames.indexOf("specular");
-
-                var emission = [];
-                if(emissionIndex != -1){
-                    emission = this.rgbParser(grandChildren, emissionIndex);
-                }
-
-                else {
-                    this.onXMLError("no emission component");
-                }
-
-                var ambient = [];
-                if(ambientIndex != -1){
-                    ambient = this.rgbParser(grandChildren, ambientIndex);
-                }
-
-                else {
-                    this.onXMLError("no ambient component");
-                }
-                
-                var diffuse = [];
-                if(diffuseIndex != -1){
-                    diffuse = this.rgbParser(grandChildren, diffuseIndex);
-                }
-
-                else {
-                    this.onXMLError("no diffuse component");
-                }
-                
-                var specular = [];
-                if(specularIndex != -1){
-                    specular = this.rgbParser(grandChildren, specularIndex);
-                }
-
-                else {
-                    this.onXMLError("no specular component");
-                }
-
-                materials[i] = [materialId, materialShi, emission, ambient, diffuse, specular];
-                numMaterials++;
+                materialId.push(matID);
             }
         }
-        
-        if(numMaterials == 0){
-            this.onXMLError("you must declare a material for the materials block in components");
-            return null;
-        }
 
-        console.log(materials);
-        console.log("Parsed materials");
-        return materials;
+        return materialId;
     }
 
     parseComponentTextures(subNodeTextures){
@@ -1287,8 +1219,8 @@ class MySceneGraph {
                                     }
                                 }
 
-                                console.log(transformations);
-                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations);
+                                console.log(materials);
+                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations, this.materials);
                                 this.components[componentId] = component;
                             }
                         }
@@ -1336,6 +1268,6 @@ class MySceneGraph {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
         //console.log(this.nodes)
-        this.components["root_cena"].display();
+        this.components[this.idRoot].display();
     }
 }

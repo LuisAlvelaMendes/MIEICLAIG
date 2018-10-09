@@ -7,7 +7,7 @@ var DEGREE_TO_RAD = (Math.PI / 180);
  */
 class Component
 {
-	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents, primitives, components, transformations) 
+	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents, primitives, components, transformations, materials) 
 	{
 		this.id = id;
 		this.tranf = tranf; 
@@ -19,6 +19,7 @@ class Component
 	    this.components = components;
 	    this.transformations = transformations;
 		this.scene = scene;
+		this.materials = materials;
 	};
 
 	applyTransformation(){
@@ -81,12 +82,21 @@ class Component
 
 	applyMaterial(){
 		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mais aquele gimmick de trocar de material pressionando M.
+		
+		if(this.mat[0] == "inherit"){
+			var material = this.materials["mat_grey"];
+		}
+
+		else{
+			var material = this.materials[this.mat[0]];
+		}
+
 		this.ComponentAppearance = new CGFappearance(this.scene);
-		this.ComponentAppearance.setShininess(this.mat[0][1]);
-		this.ComponentAppearance.setEmission(this.mat[0][2]["r"], this.mat[0][2]["g"], this.mat[0][2]["b"], this.mat[0][2]["a"]);
-		this.ComponentAppearance.setAmbient(this.mat[0][3]["r"], this.mat[0][3]["g"], this.mat[0][3]["b"], this.mat[0][3]["a"]);
-		this.ComponentAppearance.setDiffuse(this.mat[0][4]["r"], this.mat[0][4]["g"], this.mat[0][4]["b"], this.mat[0][4]["a"]);
-		this.ComponentAppearance.setSpecular(this.mat[0][5]["r"], this.mat[0][5]["g"], this.mat[0][5]["b"], this.mat[0][5]["a"]);
+		this.ComponentAppearance.setShininess(material[0]);
+		this.ComponentAppearance.setEmission(material[1]["r"], material[1]["g"], material[1]["b"], material[1]["a"]);
+		this.ComponentAppearance.setAmbient(material[2]["r"], material[2]["g"], material[2]["b"], material[2]["a"]);
+		this.ComponentAppearance.setDiffuse(material[3]["r"], material[3]["g"], material[3]["b"], material[3]["a"]);
+		this.ComponentAppearance.setSpecular(material[4]["r"], material[4]["g"], material[4]["b"], material[4]["a"]);
 		this.ComponentAppearance.apply();
 	}
 
@@ -121,11 +131,13 @@ class Component
 			///If isn't a Reference 
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
+				this.applyMaterial();
 				this.applyTransformationNoReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
+				this.applyMaterial();
 				this.applyTransformationReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
