@@ -84,7 +84,7 @@ class Component
 		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mais aquele gimmick de trocar de material pressionando M.
 		
 		if(this.mat[0] == "inherit"){
-			var material = this.materials["mat_grey"];
+			//STILL HAVE TO FIGURE THIS ONE OUT.
 		}
 
 		else{
