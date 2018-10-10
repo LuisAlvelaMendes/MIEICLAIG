@@ -39,7 +39,5 @@ class MyCylinder extends CGFobject
         this.circleBack.display();
         this.scene.popMatrix();
 
-
-
     };
 };
