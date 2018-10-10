@@ -142,11 +142,94 @@
                 <componentref id="myRoomWallRight"/>
                 <componentref id="myRoomWallLeft"/>
                 <componentref id="myRoomFloor"/>
-                <componentref id="mySphere"/>
+                <componentref id="mySemiSphere"/>
                 <componentref id="myTable"/>
                 <componentref id="myTriangle"/>
             </children>
         </component>
+
+        <!-- My Primitives -->
+
+        <component id="myTriangle">
+
+            <transformation>>
+                <translate x="2" y="0.5" z="2" />
+                <rotate axis="y" angle="-180" />
+                <scale x="0.1" y="1" z="2" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="newt" length_s="43" length_t="23" />
+
+            <children>
+                <primitiveref id="myTriangle" />
+            </children>
+        </component>
+
+        <component id="myCylinder">
+
+            <transformation>
+                <translate x="4" y="-1" z="0" />
+                <rotate axis="z" angle="0" />
+                <scale x="1" y="1" z="4" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+  
+            <texture id="newt" length_s="43" length_t="23" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="mySemiSphere">
+
+            <transformation>
+                <translate x="11" y="4" z="2" />
+                <rotate axis="x" angle="-90" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="newt" length_s="43" length_t="23" />
+      
+            <children>
+                <primitiveref id="mySphere" />
+            </children>
+        </component>
+
+        <component id="myCubeQuad">
+
+            <transformation>
+    
+            </transformation>
+ 
+            <materials>
+                <material id="inherit" />
+            </materials>
+   
+            <texture id="someothertexutre" length_s="43" length_t="23" />
+ 
+            <children>
+                <componentref id="myWall1"/>
+                <componentref id="myWall2"/>
+                <componentref id="myWall3"/>
+                <componentref id="myWall4"/>
+                <componentref id="myWall5"/>
+                <componentref id="myWall6"/>
+            </children>
+        </component>
+
+        <!-- Room Walls -->
 
         <component id="myRoomWallRight">
 
@@ -204,64 +287,7 @@
             </children>
         </component>
 
-        <component id="myTriangle">
-
-            <transformation>>
-                <translate x="2" y="0.5" z="2" />
-                <rotate axis="y" angle="-180" />
-                <scale x="0.1" y="1" z="2" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="newt" length_s="43" length_t="23" />
-
-            <children>
-                <primitiveref id="myTriangle" />
-            </children>
-        </component>
-
-        <component id="myCylinder">
-
-            <transformation>
-                <translate x="4" y="-1" z="0" />
-                <rotate axis="z" angle="0" />
-                <scale x="1" y="1" z="4" />
-            </transformation>
- 
-            <materials>
-                <material id="othermat" />
-            </materials>
-  
-            <texture id="newt" length_s="43" length_t="23" />
-
-            <children>
-                <primitiveref id="myCylinder" />
-            </children>
-        </component>
-
-        <component id="mySphere">
-
-            <transformation>
-                <translate x="11" y="4" z="2" />
-                <rotate axis="x" angle="-90" />
-                <scale x="1" y="1" z="1" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="newt" length_s="43" length_t="23" />
-      
-            <children>
-                <primitiveref id="mySphere" />
-            </children>
-        </component>
-
-
+        <!-- Room Walls end -->
 
         <component id="myWall1">
   
@@ -389,6 +415,7 @@
             </children>
         </component>
 
+        <!-- Table -->
 
         <component id="myTable">
 
@@ -510,27 +537,9 @@
             </children>
         </component>
 
-        <component id="myCubeQuad">
+        <!-- Table end -->
 
-            <transformation>
-    
-            </transformation>
- 
-            <materials>
-                <material id="inherit" />
-            </materials>
-   
-            <texture id="someothertexutre" length_s="43" length_t="23" />
- 
-            <children>
-                <componentref id="myWall1"/>
-                <componentref id="myWall2"/>
-                <componentref id="myWall3"/>
-                <componentref id="myWall4"/>
-                <componentref id="myWall5"/>
-                <componentref id="myWall6"/>
-            </children>
-        </component>
+        
     </components>
 
 </yas>
