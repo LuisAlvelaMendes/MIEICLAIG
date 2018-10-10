@@ -217,7 +217,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <texture id="someothertexture" length_s="43" length_t="23" />
  
             <children>
                 <componentref id="myWall1"/>
@@ -242,7 +242,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="inherit" length_s="2" length_t="0.5" />
 
             <children>
                 <primitiveref id="myRectangle" />
@@ -408,8 +408,8 @@
             </materials>
 
             <texture id="newt" length_s="2" length_t="0.5" />
- 
-            <children>
+
+             <children>
 
                 <primitiveref id="myRectangle" />
             </children>
