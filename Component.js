@@ -7,7 +7,7 @@ var DEGREE_TO_RAD = (Math.PI / 180);
  */
 class Component
 {
-	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents, primitives, components, transformations, materials) 
+	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents, primitives, components, transformations, materials, textures) 
 	{
 		this.id = id;
 		this.tranf = tranf; 
@@ -20,6 +20,7 @@ class Component
 	    this.transformations = transformations;
 		this.scene = scene;
 		this.materials = materials;
+		this.textures = textures;
 	};
 
 	applyTransformation(){
@@ -80,11 +81,11 @@ class Component
 		return null;
 	};
 
-	applyMaterial(){
+	applyMaterial(parentMaterialId){
 		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mais aquele gimmick de trocar de material pressionando M.
 		
 		if(this.mat[0] == "inherit"){
-			//STILL HAVE TO FIGURE THIS ONE OUT.
+			var material = this.materials[parentMaterialId];
 		}
 
 		else{
@@ -97,6 +98,20 @@ class Component
 		this.ComponentAppearance.setAmbient(material[2]["r"], material[2]["g"], material[2]["b"], material[2]["a"]);
 		this.ComponentAppearance.setDiffuse(material[3]["r"], material[3]["g"], material[3]["b"], material[3]["a"]);
 		this.ComponentAppearance.setSpecular(material[4]["r"], material[4]["g"], material[4]["b"], material[4]["a"]);
+	}
+
+	applyTexture(parentTextureId){
+
+		if(this.tex[0] == "inherit"){
+			var texture = this.textures[parentTextureId];
+		}
+
+		else{
+			var texture = this.textures[this.tex[0]];
+		}
+
+		this.ComponentAppearance.loadTexture(texture[1]);
+		this.ComponentAppearance.setTextureWrap('REPEAT','REPEAT');
 		this.ComponentAppearance.apply();
 	}
 
@@ -104,15 +119,13 @@ class Component
 		return Object.prototype.toString.call(x) === "[object String]"
 	};
 
-	display() {		
+	display(parentMaterialId, parentTextureId) {		
 
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.components[this.childrenComponents[i]] != null){
 				// TODO :: GENERICO - pareceido com as primitivas etc...
 
 				this.scene.pushMatrix();
-
-				this.applyMaterial();
 				
 				if(!(this.isString(this.tranf))){
 					this.applyTransformationNoReference();
@@ -120,24 +133,41 @@ class Component
 					this.applyTransformationReference();
 				}
 
-				this.components[this.childrenComponents[i]].display();
+				if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
+					this.components[this.childrenComponents[i]].display(parentMaterialId, this.tex[0]);
+				}
+
+				if(this.mat[0] == "inherit" && this.tex[0] == "inherit"){
+					this.components[this.childrenComponents[i]].display(parentMaterialId, parentTextureId);
+				}
+
+				if(this.mat[0] != "inherit" && this.tex[0] == "inherit"){
+					this.components[this.childrenComponents[i]].display(this.mat[0], parentTextureId);
+				}
+
+				if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
+					this.components[this.childrenComponents[i]].display(this.mat[0], this.tex[0]);
+				}
+
 				this.scene.popMatrix;
 			} 
 		}
 
 		for(var i = 0; i < this.childrenPrimitives.length; i++){
-			//APPLY TRANSFORMATION MATRIX
+			
+			// Apply Materials
+			this.applyMaterial(parentMaterialId, parentTextureId);
+			this.applyTexture(parentTextureId,parentTextureId);
 
+			//APPLY TRANSFORMATION MATRIX
 			///If isn't a Reference 
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
-				this.applyMaterial();
 				this.applyTransformationNoReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
-				this.applyMaterial();
 				this.applyTransformationReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();

@@ -1112,14 +1112,13 @@ class MySceneGraph {
             return null;
         }
 
-     
         var length_t = this.reader.getFloat(subNodeTextures, "length_t");
         if(length_t == null || isNaN(length_t)){
             this.onXMLError("Length_t invalid");
             return null;
         }
 
-        textures[textureId] = [textureId, length_s, length_t];
+        textures.push(textureId, length_s, length_t);
 
         console.log(textures);
 
@@ -1220,7 +1219,7 @@ class MySceneGraph {
                                 }
 
                                 console.log(materials);
-                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations, this.materials);
+                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations, this.materials, this.textures);
                                 this.components[componentId] = component;
                             }
                         }
