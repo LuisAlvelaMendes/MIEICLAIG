@@ -51,8 +51,8 @@
     </lights>
 
     <textures>
-        <texture id="someothertexture" file="scenes/images/bank.jpg"/>
-        <texture id="newt" file="scenes/images/rocks.jpg"/>
+        <texture id="someothertexture" file="scenes/images/trunk-image.jpg"/>
+        <texture id="newt" file="scenes/images/leaves.jpg"/>
     </textures>
 
     <materials>
@@ -135,7 +135,7 @@
                 <material id="supermat"/>
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="someothertexture" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -159,7 +159,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="inherit" length_s="2" length_t="2" />
 
             <children>
                 <primitiveref id="myRectangle" />
@@ -178,7 +178,7 @@
                 <material id="supermat" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
   
             <children>
                 <primitiveref id="myRectangle" />
@@ -197,7 +197,7 @@
                 <material id="somematerial" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
                 <primitiveref id="myRectangle" />
@@ -216,7 +216,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
                 <primitiveref id="myTriangle" />
@@ -235,7 +235,7 @@
                 <material id="othermat" />
             </materials>
   
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
                 <primitiveref id="myCylinder" />
@@ -254,7 +254,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
       
             <children>
                 <primitiveref id="mySphere" />
@@ -276,7 +276,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="inherit" length_s="2" length_t="0.5" />
    
             <children>
 
@@ -297,7 +297,7 @@
                 <material id="inherit" />
             </materials>
   
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -318,7 +318,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="inherit" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -339,7 +339,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -360,7 +360,7 @@
                 <material id="inherit" />
             </materials>
     
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -381,7 +381,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
  ->
             <children>
 
@@ -400,7 +400,7 @@
                 <material id="supermat" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
                 <componentref id="leg1" />
@@ -424,7 +424,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
   
             <children>
 
@@ -445,7 +445,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -466,7 +466,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
     
             <children>
 
@@ -487,7 +487,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
    
             <children>
 
@@ -504,7 +504,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="newt" length_s="43" length_t="23" />
+            <texture id="newt" length_s="2" length_t="0.5" />
             <children>
                 <componentref id="myCubeQuad" />
             </children>
@@ -520,7 +520,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="someothertexutre" length_s="43" length_t="23" />
+            <texture id="someothertexture" length_s="2" length_t="0.5" />
  
             <children>
                 <componentref id="myWall1"/>

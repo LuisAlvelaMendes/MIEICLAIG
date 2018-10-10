@@ -668,7 +668,10 @@ class MySceneGraph {
             }
 
             console.log("Parsed texture id " + textureId + " and file " + file + ".");
-            this.textures[textureId] = [textureId, file];
+
+            var textureObject = new CGFtexture(this.scene, file);
+
+            this.textures[textureId] = textureObject;
             numTextures++;
         }
 

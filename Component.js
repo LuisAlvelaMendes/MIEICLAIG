@@ -110,7 +110,7 @@ class Component
 			var texture = this.textures[this.tex[0]];
 		}
 
-		this.ComponentAppearance.loadTexture(texture[1]);
+		this.ComponentAppearance.setTexture(texture);
 		this.ComponentAppearance.setTextureWrap('REPEAT','REPEAT');
 		this.ComponentAppearance.apply();
 	}
