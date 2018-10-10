@@ -63,9 +63,9 @@ class XMLscene extends CGFscene {
                 //lights are predefined in cgfscene
                 if(light.length == 5){
                     this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
-                    this.lights[i].setAmbient(light[2][0], light[2][1], light[2][2], light[2][3]);
-                    this.lights[i].setDiffuse(light[3][0], light[3][1], light[3][2], light[3][3]);
-                    this.lights[i].setSpecular(light[4][0], light[4][1], light[4][2], light[4][3]);
+                    this.lights[i].setAmbient(light[2]["r"], light[2]["g"], light[2]["b"], light[2]["a"]);
+                    this.lights[i].setDiffuse(light[3]["r"], light[3]["g"], light[3]["b"], light[3]["a"]);
+                    this.lights[i].setSpecular(light[4]["r"], light[4]["g"], light[4]["b"], light[4]["a"]);
                 }
 
                 else {
@@ -73,9 +73,9 @@ class XMLscene extends CGFscene {
                     this.lights[i].setSpotExponent(light[2]);
                     this.lights[i].setSpotDirection(light[3][0], light[3][1], light[3][2], light[3][3])
                     this.lights[i].setPosition(light[4][0], light[4][1], light[4][2], light[4][3]);
-                    this.lights[i].setAmbient(light[5][0], light[5][1], light[5][2], light[5][3]);
-                    this.lights[i].setDiffuse(light[6][0], light[6][1], light[6][2], light[6][3]);
-                    this.lights[i].setSpecular(light[7][0], light[7][1], light[7][2], light[7][3]);
+                    this.lights[i].setAmbient(light[5]["r"], light[5]["g"], light[5]["b"], light[5]["a"]);
+                    this.lights[i].setDiffuse(light[6]["r"], light[6]["g"], light[6]["b"], light[6]["a"]);
+                    this.lights[i].setSpecular(light[7]["r"], light[7]["g"], light[7]["b"], light[7]["a"]);
                 }
 
                 this.lights[i].setVisible(true);
