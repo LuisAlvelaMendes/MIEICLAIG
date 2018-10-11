@@ -420,7 +420,7 @@
         <component id="myTable">
 
             <transformation>
-      
+                <translate x="-4" y="0" z="0" />
             </transformation>
 
             <materials>
