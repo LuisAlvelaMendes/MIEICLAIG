@@ -142,7 +142,6 @@
                 <componentref id="myRoomWallRight"/>
                 <componentref id="myRoomWallLeft"/>
                 <componentref id="myRoomFloor"/>
-                <componentref id="mySemiSphere"/>
                 <componentref id="myTable"/>
                 <componentref id="myTriangle"/>
             </children>
@@ -204,6 +203,26 @@
 
             <children>
                 <primitiveref id="mySphere" />
+            </children>
+        </component>
+
+        <component id="mySphere">
+
+            <transformation>
+                <translate x="11" y="4" z="2" />
+                <rotate axis="x" angle="-90" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="newt" length_s="2" length_t="0.5" />
+
+            <children>
+                <componentref id="semi1" />
+                <componentref id="semi2" />
             </children>
         </component>
 
@@ -286,6 +305,48 @@
                 <primitiveref id="myRectangle" />
             </children>
         </component>
+
+        <!-- Other COmponents not So relevant -->
+        
+        <component id="semi1">
+
+            <transformation>
+                <translate x="1" y="1" z="1" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="newt" length_s="2" length_t="0.5" />
+
+            <children>
+                <primitiveref id="mySphere" />
+            </children>
+        </component>
+
+        <component id="semi2">
+
+            <transformation>
+                <translate x="1" y="1" z="1" />
+                <rotate axis="x" angle="-180" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="newt" length_s="2" length_t="0.5" />
+
+            <children>
+                <primitiveref id="mySphere" />
+            </children>
+        </component>
+
+        <!-- end components -->
 
         <!-- Room Walls end -->
 
