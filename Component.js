@@ -107,13 +107,15 @@ class Component
 		}
 
 		if(this.tex[0] == "inherit"){
-			var texture = this.textures[parentTextureId];
+			var texture = this.textures[parentTextureId]
+			// STILL HAVE TO WORK ON THIS PART ...
 			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
 			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
 		}
 
 		if(this.tex[0] != "inherit" && this.tex[0] != "none"){
 			var texture = this.textures[this.tex[0]];
+			// STILL HAVE TO WORK ON THIS PART ...
 			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
 			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
 		}

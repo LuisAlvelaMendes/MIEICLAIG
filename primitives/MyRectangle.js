@@ -17,8 +17,8 @@ class MyRectangle extends CGFobject
 		this.minS = 0.0;
 		this.minT = 0.0;
 
-		this.maxS = (x2-x1);
-		this.maxT = (y2-y1);
+		this.maxS = (x2-x1)//lengthS;
+		this.maxT = (y2-y1)//lengthT;
 
 		this.initBuffers();    
 	};
