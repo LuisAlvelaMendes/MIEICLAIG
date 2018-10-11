@@ -51,6 +51,10 @@
     </lights>
 
     <textures>
+        <texture id="wood" file="scenes/images/wood.jpg"/>
+        <texture id="wood2" file="scenes/images/wood2.jpg"/>
+        <texture id="wood3" file="scenes/images/wood3.jpg"/>
+        <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="someothertexture" file="scenes/images/trunk-image.jpg"/>
         <texture id="newt" file="scenes/images/leaves.jpg"/>
     </textures>
@@ -218,7 +222,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="wood2" length_s="2" length_t="0.5" />
 
             <children>
                 <componentref id="semi1" />
@@ -236,7 +240,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="someothertexture" length_s="43" length_t="23" />
+            <texture id="wood2" length_s="43" length_t="23" />
  
             <children>
                 <componentref id="myWall1"/>
@@ -320,7 +324,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="inherit" length_s="2" length_t="0.5" />
 
             <children>
                 <primitiveref id="mySphere" />
@@ -339,7 +343,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="inherit" length_s="2" length_t="0.5" />
 
             <children>
                 <primitiveref id="mySphere" />
