@@ -92,7 +92,7 @@
  
             <translate x="0" y="0" z="0" />
             <rotate axis="x" angle="0" />
-            <scale x="1" y="1" z="1" />
+            <scale x="1.5" y="1" z="2" />
         </transformation>
 
         <transformation id="transf2">
@@ -133,8 +133,9 @@
 
             <transformation>
 
-                <transformationref id="transf1" />
-
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="1" />
             </transformation>
 
             <materials>
@@ -145,11 +146,31 @@
 
             <children>
 
+                <componentref id="myRoom"/>
+                <componentref id="myChair"/>
+                <componentref id="myTable"/>
+                <componentref id="myBed"/>
+            </children>
+        </component>
+
+        <!-- myRoom -->
+
+        <component id="myRoom">
+
+            <transformation>>
+                <transformationref id="transf1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="inherit" length_s="2" length_t="2" />
+
+            <children>
                 <componentref id="myRoomWallRight"/>
                 <componentref id="myRoomWallLeft"/>
                 <componentref id="myRoomFloor"/>
-                <componentref id="myTable"/>
-                <componentref id="myTriangle"/>
             </children>
         </component>
 
@@ -486,9 +507,9 @@
 
         <component id="myBed">
             <transformation>
-                <translate x="1" y="1" z="1" />
+                <translate x="8" y="1" z="1" />
                 <rotate axis="x" angle="0" />
-                <scale x="0.5" y="0.5" z="0.5" />
+                <scale x="0.8" y="0.8" z="0.8" />
             </transformation>
             <materials>
                 <material id="othermat" />
@@ -600,9 +621,9 @@
 
         <component id="myChair">
             <transformation>
-                <translate x="1" y="1" z="1" />
+                <translate x="8" y="1" z="14" />
                 <rotate axis="x" angle="0" />
-                <scale x="0.2" y="0.5" z="0.1" />
+                <scale x="0.3" y="0.8" z="0.14" />
             </transformation>
             <materials>
                 <material id="othermat" />
@@ -715,7 +736,8 @@
         <component id="myTable">
 
             <transformation>
-                <translate x="-4" y="0" z="0" />
+                <translate x="-4" y="0" z="8" />
+                <rotate axis="z" angle="0" />
             </transformation>
 
             <materials>
@@ -739,7 +761,7 @@
 
                 <translate x="10" y="1.8" z="4" />
                 <rotate axis="x" angle="90" />
-                <scale x="0.3" y="0.3" z="4.5" />
+                <scale x="0.2" y="0.2" z="4.5" />
             </transformation>
 
             <materials>
@@ -760,7 +782,7 @@
         
                 <translate x="10" y="1.8" z="1" />
                 <rotate axis="x" angle="90" />
-                <scale x="0.3" y="0.3" z="4.5" />
+                <scale x="0.2" y="0.2" z="4.5" />
             </transformation>
 
             <materials>
@@ -781,7 +803,7 @@
 
                 <translate x="12" y="1.8" z="4" />
                 <rotate axis="x" angle="90" />
-                <scale x="0.3" y="0.3" z="4.5" />
+                <scale x="0.2" y="0.2" z="4.5" />
             </transformation>
 
             <materials>
@@ -802,7 +824,7 @@
 
                 <translate x="12" y="1.8" z="1" />
                 <rotate axis="x" angle="90" />
-                <scale x="0.3" y="0.3" z="4.5" />
+                <scale x="0.2" y="0.2" z="4.5" />
             </transformation>
      
             <materials>
@@ -821,7 +843,7 @@
             <transformation>
                 <translate x="12.5" y="2" z="0.6" />
                 <rotate axis="x" angle="90" />
-                <scale x="1.5" y="1.9" z="0.2" />
+                <scale x="1.5" y="1.9" z="0.12" />
             </transformation>
             <materials>
                 <material id="othermat" />
