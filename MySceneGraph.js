@@ -1121,6 +1121,10 @@ class MySceneGraph {
             return null;
         }
 
+        if(textureId != "inherit" && textureId != "none" && this.textures[textureId] == null){
+            this.onXMLMinorError("There is no texture declared for the reference: " + textureId);
+        }
+
         textures.push(textureId, length_s, length_t);
 
         console.log(textures);

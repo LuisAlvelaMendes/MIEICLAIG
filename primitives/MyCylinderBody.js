@@ -25,42 +25,77 @@
  MyCylinderBody.prototype.constructor = MyCylinderBody;
 
  MyCylinderBody.prototype.initBuffers = function() {
- 	var sides = this.slices;
- 	var stacks = this.stacks;
-	var n = 2*Math.PI / sides;
-	var z=1/this.stacks;
+
+	//Replaced with last year CGRA code to load textures into the cilinder - Luís Mendes
+
 	this.vertices = [];
 	this.normals = [];
 	this.indices = [];
-	var indice=0;
+	this.texCoords = [];
+
+	//alpha in degrees
+	var alpha = 360/this.slices;
+
+	//convert to radian
+	alpha = (alpha * Math.PI)/180;
+
+	//stack increment
+	var stackInc =  1/this.stacks;
+	var stackHeight = 0;
+	var prevStackHeight = 0;
+
+	//texture coordinates
+	var texS = 0;
+	var texIncS = 1/this.slices;
+	var texIncT = 1/this.stacks;
+	var prevTexT = 0;
+	var nextTexT = 0;
+
+	var sumalpha = 0;
+
+	for (var j = 0; j < this.stacks; j++) {
+
+		nextTexT += texIncT;
+		stackHeight += stackInc;
+
+		for (var i = j*this.slices*4; i < (j+1)*this.slices*4; i += 4) {
+
+			//vertice 1 da face 0
+			this.vertices.push(Math.cos(sumalpha), Math.sin(sumalpha), prevStackHeight);
+			this.normals.push(Math.cos(sumalpha), Math.sin(sumalpha), 0);
+			this.texCoords.push(texS, prevTexT);
+		   
+			//vertice 1 da face 1
+			this.vertices.push(Math.cos(sumalpha), Math.sin(sumalpha), stackHeight);
+			this.normals.push(Math.cos(sumalpha), Math.sin(sumalpha), 0);
+			this.texCoords.push(texS, nextTexT);
 	
+			sumalpha += alpha;
+			texS += texIncS;
 
+			//vertice 2 da face 0
+			this.vertices.push(Math.cos(sumalpha), Math.sin(sumalpha), prevStackHeight);
+			this.normals.push(Math.cos(sumalpha), Math.sin(sumalpha), 0);
+			this.texCoords.push(texS, prevTexT);
 
-	for(var x = 0; x < this.stacks; x++){
-					
-		
-				for(var i = 0; i < sides; i++){
-			
-					this.vertices.push(Math.cos(i * n), Math.sin(i* n), z*x);
-					this.vertices.push(Math.cos(i * n), Math.sin(i* n), z*(x+1));
-					this.vertices.push(Math.cos((i+1) * n), Math.sin((i+1)* n), z*x);
-					this.vertices.push(Math.cos((i+1) * n), Math.sin((i+1)* n), z*(x+1));
+			//vertice 2 da face 1
+			this.vertices.push(Math.cos(sumalpha), Math.sin(sumalpha), stackHeight);
+			this.normals.push(Math.cos(sumalpha), Math.sin(sumalpha), 0);
+			this.texCoords.push(texS, nextTexT);
 
-					this.indices.push(indice, indice+2, indice+3);
-					this.indices.push(indice+1, indice, indice+3);
-
-					this.normals.push(Math.cos((i) * n), Math.sin((i) * n), 0);
-					this.normals.push(Math.cos((i) * n), Math.sin((i) * n), 0);
-					this.normals.push(Math.cos((i+1) * n), Math.sin((i+1) * n), 0);
-					this.normals.push(Math.cos((i+1) * n), Math.sin((i+1) * n), 0);
-	
-					indice = indice + 4;
+			this.indices.push(i + 2);
+			this.indices.push(i + 1);
+			this.indices.push(i);
+			this.indices.push(i + 1);
+			this.indices.push(i + 2);
+			this.indices.push(i + 3);
 		}
 
+		texS = 0;
+		prevTexT = nextTexT;
+		prevStackHeight = stackHeight;
 	}
-	
-	
- 	this.primitiveType = this.scene.gl.TRIANGLES;
 
- 	this.initGLBuffers();
+	this.primitiveType = this.scene.gl.TRIANGLES;
+	this.initGLBuffers();
  };

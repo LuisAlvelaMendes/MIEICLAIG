@@ -5,7 +5,7 @@
  */
 class MyRectangle extends CGFobject
 {
-	constructor(scene, id, x1, y1, x2, y2, lengthS, lengthT) 
+	constructor(scene, id, x1, y1, x2, y2) 
 	{
 		super(scene);
 
@@ -15,13 +15,14 @@ class MyRectangle extends CGFobject
 	    this.y1 = y1; 
 		this.y2 = y2;
 		this.minS = 0.0;
-        this.minT = 0.0;
-        this.maxS = (x2-x1)//lenghtS;
-        this.maxT = (y2-y1)//lengthT;
+		this.minT = 0.0;
+
+		this.maxS = (x2-x1);
+		this.maxT = (y2-y1);
 
 		this.initBuffers();    
 	};
-
+	
 	initBuffers() 
 	{	
 		

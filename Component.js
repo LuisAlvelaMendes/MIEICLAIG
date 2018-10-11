@@ -100,14 +100,22 @@ class Component
 		this.ComponentAppearance.setSpecular(material[4]["r"], material[4]["g"], material[4]["b"], material[4]["a"]);
 	}
 
-	applyTexture(parentTextureId){
+	applyTexture(parentTextureId, primitiveId){
+
+		if(this.tex[0] == "none" || parentTextureId == "none"){
+			var texture = null;
+		}
 
 		if(this.tex[0] == "inherit"){
 			var texture = this.textures[parentTextureId];
+			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
+			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
 		}
 
-		else{
+		if(this.tex[0] != "inherit" && this.tex[0] != "none"){
 			var texture = this.textures[this.tex[0]];
+			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
+			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
 		}
 
 		this.ComponentAppearance.setTexture(texture);
@@ -149,15 +157,15 @@ class Component
 					this.components[this.childrenComponents[i]].display(this.mat[0], this.tex[0]);
 				}
 
-				this.scene.popMatrix;
+				this.scene.popMatrix();
 			} 
 		}
 
 		for(var i = 0; i < this.childrenPrimitives.length; i++){
 			
 			// Apply Materials
-			this.applyMaterial(parentMaterialId, parentTextureId);
-			this.applyTexture(parentTextureId,parentTextureId);
+			this.applyMaterial(parentMaterialId);
+			this.applyTexture(parentTextureId,this.childrenPrimitives[i]);
 
 			//APPLY TRANSFORMATION MATRIX
 			///If isn't a Reference 

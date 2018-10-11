@@ -8,11 +8,9 @@ class MyCylinder extends CGFobject
     constructor(scene, id, slices, stacks, base, top, height) 
     {
         super(scene);
-
         this.cylinder = new MyCylinderBody(this.scene,100,100,1,1,1,1);
         this.circleFront = new MyCircle(this.scene,100);
         this.circleBack = new MyCircle(this.scene,100);
-
     };
 
     display() 

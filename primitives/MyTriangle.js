@@ -1,6 +1,9 @@
 /**
 /**
  * MyTriangle
+ * 
+ * NEEDS BETTER TEXTURES!!!!!!!!
+ * 
  * @constructor
  */
 class MyTriangle extends CGFobject
@@ -19,6 +22,10 @@ class MyTriangle extends CGFobject
 		this.z3 = z3;
 		this.z1 = z1;
 		this.z2 = z2;
+		this.minS = 0.0;
+        this.minT = 0.0;
+        this.maxS = (x2-x1)//lenghtS;
+        this.maxT = (y2-y1)//lengthT;
 
 		this.initBuffers();    
 	};
@@ -43,6 +50,13 @@ class MyTriangle extends CGFobject
 		0, 0, 1,
 		0, 0, 1
 		];
+
+		this.texCoords = [
+            this.minS,this.maxT,
+            this.maxS,this.maxT,
+            this.minS,this.minT,
+            this.maxS,this.minT
+        ];
 
 		this.initGLBuffers();
 	};

@@ -51,7 +51,7 @@
     </lights>
 
     <textures>
-        <texture id="someothertexture" file="scenes/images/trunk-image.jpg"/>
+        <texture id="wood" file="scenes/images/trunk-image.jpg"/>
         <texture id="newt" file="scenes/images/leaves.jpg"/>
     </textures>
 
@@ -135,7 +135,7 @@
                 <material id="supermat"/>
             </materials>
 
-            <texture id="someothertexture" length_s="2" length_t="0.5" />
+            <texture id="wood" length_s="2" length_t="0.5" />
 
             <children>
 
@@ -217,7 +217,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="someothertexture" length_s="43" length_t="23" />
+            <texture id="wood" length_s="43" length_t="23" />
  
             <children>
                 <componentref id="myWall1"/>
@@ -242,7 +242,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="inherit" length_s="2" length_t="0.5" />
+            <texture id="inherit" length_s="100" length_t="200" />
 
             <children>
                 <primitiveref id="myRectangle" />
@@ -420,14 +420,14 @@
         <component id="myTable">
 
             <transformation>
-      
+            
             </transformation>
 
             <materials>
                 <material id="supermat" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="wood" length_s="2" length_t="0.5" />
 
             <children>
                 <componentref id="leg1" />
@@ -441,7 +441,6 @@
         <component id="leg1">
 
             <transformation>
-
                 <translate x="10" y="1.8" z="4" />
                 <rotate axis="x" angle="90" />
                 <scale x="0.3" y="0.3" z="4.5" />
@@ -451,7 +450,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="inherit" length_s="2" length_t="0.5" />
   
             <children>
 
@@ -538,25 +537,6 @@
         </component>
 
         <!-- Table end -->
-            <transformation>
-    
-            </transformation>
- 
-            <materials>
-                <material id="inherit" />
-            </materials>
-   
-            <texture id="someothertexture" length_s="2" length_t="0.5" />
- 
-            <children>
-                <componentref id="myWall1"/>
-                <componentref id="myWall2"/>
-                <componentref id="myWall3"/>
-                <componentref id="myWall4"/>
-                <componentref id="myWall5"/>
-                <componentref id="myWall6"/>
-            </children>
-        </component>
 
     </components>
 

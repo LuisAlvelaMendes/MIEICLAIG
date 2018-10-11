@@ -14,6 +14,7 @@ function MyCircle(scene,slices, minS, maxS, minT, maxT) {
 	this.maxS = maxS;
 	this.minT = minT;
 	this.maxT = maxT;
+
 	this.initBuffers();
 };
 
