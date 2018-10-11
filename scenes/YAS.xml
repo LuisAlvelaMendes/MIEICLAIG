@@ -55,6 +55,8 @@
         <texture id="wood2" file="scenes/images/wood2.jpg"/>
         <texture id="wood3" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
+        <texture id="grey" file="scenes/images/grey.jpg"/>
+        <texture id="light" file="scenes/images/light.jpg"/>
         <texture id="someothertexture" file="scenes/images/trunk-image.jpg"/>
         <texture id="newt" file="scenes/images/leaves.jpg"/>
     </textures>
@@ -213,8 +215,8 @@
         <component id="mySphere">
 
             <transformation>
-                <translate x="11" y="4" z="2" />
-                <rotate axis="x" angle="-90" />
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
                 <scale x="1" y="1" z="1" />
             </transformation>
 
@@ -222,7 +224,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="wood2" length_s="2" length_t="0.5" />
+            <texture id="light" length_s="2" length_t="0.5" />
 
             <children>
                 <componentref id="semi1" />
@@ -249,6 +251,46 @@
                 <componentref id="myWall4"/>
                 <componentref id="myWall5"/>
                 <componentref id="myWall6"/>
+            </children>
+        </component>
+
+        <!-- Other COmponents not so relevant -->
+        
+        <component id="semi1">
+
+            <transformation>
+                <translate x="1" y="1" z="1" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="inherit" length_s="2" length_t="0.5" />
+
+            <children>
+                <primitiveref id="mySphere" />
+            </children>
+        </component>
+
+        <component id="semi2">
+
+            <transformation>
+                <translate x="1" y="1" z="1" />
+                <rotate axis="x" angle="-180" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="inherit" length_s="2" length_t="0.5" />
+
+            <children>
+                <primitiveref id="mySphere" />
             </children>
         </component>
 
@@ -307,46 +349,6 @@
       
             <children>
                 <primitiveref id="myRectangle" />
-            </children>
-        </component>
-
-        <!-- Other COmponents not So relevant -->
-        
-        <component id="semi1">
-
-            <transformation>
-                <translate x="1" y="1" z="1" />
-                <rotate axis="x" angle="0" />
-                <scale x="1" y="1" z="1" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="inherit" length_s="2" length_t="0.5" />
-
-            <children>
-                <primitiveref id="mySphere" />
-            </children>
-        </component>
-
-        <component id="semi2">
-
-            <transformation>
-                <translate x="1" y="1" z="1" />
-                <rotate axis="x" angle="-180" />
-                <scale x="1" y="1" z="1" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="inherit" length_s="2" length_t="0.5" />
-
-            <children>
-                <primitiveref id="mySphere" />
             </children>
         </component>
 
@@ -480,6 +482,120 @@
             </children>
         </component>
 
+        <!-- Bed Component --> 
+
+        <component id="myBed">
+            <transformation>
+                <translate x="1" y="1" z="1" />
+                <rotate axis="x" angle="0" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="bed_top" />
+                <componentref id="bed_back" />
+                <componentref id="bed_leg1" />
+                <componentref id="bed_leg2" />
+                <componentref id="bed_leg3" />
+                <componentref id="bed_leg4" />
+            </children>
+        </component>
+
+        <component id="bed_back">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1.5" y="0.9" z="0.3" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="bed_top">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1.5" y="0.3" z="2.6" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="bed_leg1">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="bed_leg2">
+            <transformation>
+                <translate x="-2.8" y="0" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="bed_leg3">
+            <transformation>
+                <translate x="0" y="0" z="5" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="bed_leg4">
+            <transformation>
+                <translate x="-2.8" y="0" z="5" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <!-- end bed -->
+
         <!-- Table -->
 
         <component id="myTable">
@@ -499,7 +615,7 @@
                 <componentref id="leg2" />
                 <componentref id="leg3" />
                 <componentref id="leg4" />
-                <componentref id="topo" />
+                <componentref id="table_top" />
             </children>
         </component>
 
@@ -587,7 +703,7 @@
             </children>
         </component>
 
-        <component id="topo">
+        <component id="table_top">
             <transformation>
                 <translate x="12.5" y="2" z="0.6" />
                 <rotate axis="x" angle="90" />

@@ -1270,6 +1270,6 @@ class MySceneGraph {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
         //console.log(this.nodes)
-        this.components["mySphere"].display();
+        this.components["myBed"].display();
     }
 }
