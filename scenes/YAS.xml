@@ -53,6 +53,8 @@
     <textures>
         <texture id="wood" file="scenes/images/trunk-image.jpg"/>
         <texture id="newt" file="scenes/images/leaves.jpg"/>
+        <texture id="wood2" file="scenes/images/wood2.jpg"/>
+        <texture id="vidral" file="scenes/images/bank.jpg"/>
     </textures>
 
     <materials>
@@ -302,7 +304,7 @@
                 <material id="inherit"/>
             </materials>
 
-            <texture id="inherit" length_s="2" length_t="0.5" />
+            <texture id="wood2" length_s="2" length_t="0.5" />
    
             <children>
 

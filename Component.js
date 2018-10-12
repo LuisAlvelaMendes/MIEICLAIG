@@ -108,18 +108,17 @@ class Component
 
 		if(this.tex[0] == "inherit"){
 			var texture = this.textures[parentTextureId];
-			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
-			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
+			/*this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
+			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];*/
 		}
 
 		if(this.tex[0] != "inherit" && this.tex[0] != "none"){
 			var texture = this.textures[this.tex[0]];
-			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
-			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
+			/*this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
+			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];*/
 		}
 
 		this.ComponentAppearance.setTexture(texture);
-		this.ComponentAppearance.setTextureWrap('REPEAT','REPEAT');
 		this.ComponentAppearance.apply();
 	}
 
