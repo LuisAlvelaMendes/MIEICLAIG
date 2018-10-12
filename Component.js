@@ -149,7 +149,7 @@ class Component
 					this.components[this.childrenComponents[i]].display(this.mat[0], this.tex[0]);
 				}
 
-				this.scene.popMatrix;
+				this.scene.popMatrix();
 			} 
 		}
 
