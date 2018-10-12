@@ -115,6 +115,7 @@ class Component
 		}
 
 		this.ComponentAppearance.setTexture(texture);
+		//this.ComponentAppearance.setTextureWrap('REPEAT','REPEAT');
 		this.ComponentAppearance.apply();
 	}
 
@@ -123,9 +124,6 @@ class Component
 	};
 
 	display(parentMaterialId, parentTextureId) {		
-
-		var texCoordsChanged = false;
-		var originalCoords = null;
 
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.components[this.childrenComponents[i]] != null){
@@ -164,12 +162,12 @@ class Component
 			// Apply Materials
 			this.applyMaterial(parentMaterialId);
 			this.applyTexture(parentTextureId,this.childrenPrimitives[i]);
+			var texCoordsChanged = false;
 
 			//APPLY TRANSFORMATION MATRIX
 
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
-				originalCoords = this.primitives[this.childrenPrimitives[i]].texCoords;
 				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 				texCoordsChanged = true;
 				this.applyTransformationNoReference();
@@ -186,9 +184,10 @@ class Component
 			}
 
 			if(texCoordsChanged){
-				this.primitives[this.childrenPrimitives[i]].texCoords = originalCoords;
+				this.primitives[this.childrenPrimitives[i]].resetCoords();
 				this.primitives[this.childrenPrimitives[i]].updateTexCoordsGLBuffers();
 			}
+
 		}
 
 		return null;

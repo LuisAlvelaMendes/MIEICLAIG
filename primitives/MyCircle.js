@@ -81,6 +81,10 @@ MyCircle.prototype.initBuffers = function () {
  	this.initGLBuffers();
 };
 
+function resetCoords(){
+	
+}
+
 
 function scaleTextureCoords(lengthS, lengthT){
 		

@@ -39,7 +39,12 @@ class MyCylinder extends CGFobject
 
     };
 
+    resetCoords(){
+	
+    }
+
     
 	scaleTextureCoords(lengthS, lengthT){
+
     }
 };

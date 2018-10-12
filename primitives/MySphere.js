@@ -104,6 +104,9 @@ class MySphere extends CGFobject
         this.initGLBuffers();
     };
 
+	resetCoords(){
+
+	}
     
 	scaleTextureCoords(lengthS, lengthT){
 		

@@ -61,6 +61,10 @@ class MyTriangle extends CGFobject
 		this.initGLBuffers();
 	};
 
+
+	resetCoords(){
+	
+	}
 	
 	scaleTextureCoords(lengthS, lengthT){
 		
