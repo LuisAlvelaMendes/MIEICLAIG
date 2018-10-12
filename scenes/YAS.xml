@@ -55,8 +55,8 @@
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
-        <texture id="someothertexture" file="scenes/images/trunk-image.jpg"/>
-        <texture id="newt" file="scenes/images/leaves.jpg"/>
+        <texture id="someothertexture" file="scenes/images/wood2.jpg"/>
+        <texture id="newt" file="scenes/images/wood1.jpg"/>
     </textures>
 
     <materials>
@@ -261,7 +261,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="wood3" length_s="43" length_t="23" />
+            <texture id="inherit" length_s="43" length_t="23" />
  
             <children>
                 <componentref id="myWall1"/>
@@ -509,12 +509,18 @@
                 <rotate axis="x" angle="0" />
                 <scale x="0.8" y="0.8" z="0.8" />
             </transformation>
+
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="newt" length_s="2" length_t="0.5" />
+
+            <texture id="glass" length_s="2" length_t="0.5" />
+
             <children>
                 <componentref id="bed_top" />
+                <componentref id="bed_lencol" />
+                <componentref id="bed_pillow1" />
+                <componentref id="bed_pillow2" />
                 <componentref id="bed_back" />
                 <componentref id="bed_leg1" />
                 <componentref id="bed_leg2" />
@@ -523,11 +529,41 @@
             </children>
         </component>
 
+        <component id="bed_pillow1">
+            <transformation>
+                <translate x="-2.89" y="1.2" z="0.7" />
+                <rotate axis="y" angle="87" />
+                <scale x="0.2" y="0.7" z="2.7" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="bed_pillow2">
+            <transformation>
+                <translate x="-1.5" y="1.2" z="0.7" />
+                <rotate axis="y" angle="90" />
+                <scale x="0.2" y="0.7" z="2.7" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
         <component id="bed_lencol">
             <transformation>
                 <translate x="0" y="0" z="0" />
                 <rotate axis="x" angle="0" />
-                <scale x="1.5" y="0.3" z="2.6" />
+                <scale x="1.5" y="0.34" z="0.9" />
             </transformation>
             <materials>
                 <material id="othermat" />
@@ -562,7 +598,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="glass" length_s="2" length_t="0.5" />
             <children>
                 <componentref id="myCubeQuad" />
             </children>
@@ -757,7 +793,7 @@
                 <material id="supermat" />
             </materials>
 
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="glass" length_s="2" length_t="0.5" />
 
             <children>
                 <componentref id="leg1" />
@@ -868,25 +904,7 @@
         </component>
 
         <!-- Table end -->
-            <transformation>
-    
-            </transformation>
- 
-            <materials>
-                <material id="inherit" />
-            </materials>
-   
-            <texture id="someothertexture" length_s="2" length_t="0.5" />
- 
-            <children>
-                <componentref id="myWall1"/>
-                <componentref id="myWall2"/>
-                <componentref id="myWall3"/>
-                <componentref id="myWall4"/>
-                <componentref id="myWall5"/>
-                <componentref id="myWall6"/>
-            </children>
-        </component>
+
 
     </components>
 
