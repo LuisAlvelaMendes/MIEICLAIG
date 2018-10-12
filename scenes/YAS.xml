@@ -51,8 +51,6 @@
     </lights>
 
     <textures>
-        <texture id="wood" file="scenes/images/wood.jpg"/>
-        <texture id="wood2" file="scenes/images/wood2.jpg"/>
         <texture id="wood3" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
@@ -263,7 +261,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="wood2" length_s="43" length_t="23" />
+            <texture id="wood3" length_s="43" length_t="23" />
  
             <children>
                 <componentref id="myWall1"/>
@@ -522,6 +520,21 @@
                 <componentref id="bed_leg2" />
                 <componentref id="bed_leg3" />
                 <componentref id="bed_leg4" />
+            </children>
+        </component>
+
+        <component id="bed_lencol">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1.5" y="0.3" z="2.6" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="newt" length_s="2" length_t="0.5" />
+            <children>
+                <componentref id="myCubeQuad" />
             </children>
         </component>
 
