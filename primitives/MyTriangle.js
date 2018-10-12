@@ -61,4 +61,15 @@ class MyTriangle extends CGFobject
 		this.initGLBuffers();
 	};
 
+	
+	scaleTextureCoords(lengthS, lengthT){
+		
+		for (var i = 0; i < this.texCoords.length; i += 2) {
+			this.texCoords[i] = this.texCoords[i] / lengthS;
+			this.texCoords[i + 1] = this.texCoords[i+1] / lengthT;
+		}
+		
+		this.updateTexCoordsGLBuffers();
+	};
+
 };

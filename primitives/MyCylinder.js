@@ -38,4 +38,8 @@ class MyCylinder extends CGFobject
         this.scene.popMatrix();
 
     };
+
+    
+	scaleTextureCoords(lengthS, lengthT){
+    }
 };

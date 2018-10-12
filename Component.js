@@ -108,14 +108,10 @@ class Component
 
 		if(this.tex[0] == "inherit"){
 			var texture = this.textures[parentTextureId];
-			/*this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
-			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];*/
 		}
 
 		if(this.tex[0] != "inherit" && this.tex[0] != "none"){
 			var texture = this.textures[this.tex[0]];
-			/*this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
-			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];*/
 		}
 
 		this.ComponentAppearance.setTexture(texture);
@@ -127,6 +123,9 @@ class Component
 	};
 
 	display(parentMaterialId, parentTextureId) {		
+
+		var texCoordsChanged = false;
+		var originalCoords = null;
 
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.components[this.childrenComponents[i]] != null){
@@ -167,17 +166,28 @@ class Component
 			this.applyTexture(parentTextureId,this.childrenPrimitives[i]);
 
 			//APPLY TRANSFORMATION MATRIX
-			///If isn't a Reference 
+
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
+				originalCoords = this.primitives[this.childrenPrimitives[i]].texCoords;
+				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+				texCoordsChanged = true;
 				this.applyTransformationNoReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
+				originalCoords = this.primitives[this.childrenPrimitives[i]].texCoords;
+				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+				texCoordsChanged = true;
 				this.applyTransformationReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
+			}
+
+			if(texCoordsChanged){
+				this.primitives[this.childrenPrimitives[i]].texCoords = originalCoords;
+				this.primitives[this.childrenPrimitives[i]].updateTexCoordsGLBuffers();
 			}
 		}
 
