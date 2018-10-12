@@ -42,7 +42,12 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
+       /* for(var key in this.graph.views){
+            //wihgiwn
+        } */
     }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -107,6 +112,7 @@ class XMLscene extends CGFscene {
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
+        //this.interface.addViewsGroup(this.graphs.views);
 
         this.sceneInited = true;
     }

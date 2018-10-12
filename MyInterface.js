@@ -44,4 +44,24 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+
+    /**
+     * Adds a folder containing the IDs of the views passed as parameter.
+     * @param {array} views
+     */
+    addViewsGroup(views) {
+
+        var group = this.gui.addFolder("Views");
+        group.open();
+
+        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+        // e.g. this.option1=true; this.option2=false;
+
+        for (var key in views) {
+            if (views.hasOwnProperty(key)) {
+                this.scene.viewValues[key] = views[key][0];
+                group.add(this.scene.viewValues, key);
+            }
+        }
+    }
 }
