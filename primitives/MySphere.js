@@ -100,12 +100,14 @@ class MySphere extends CGFobject
 
         }
 
-        //this.primitiveType = this.scene.gl.TRIANGLES;
+        this.originalCoords = this.texCoords.slice();
+
+        this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     };
 
 	resetCoords(){
-
+        this.texCoords = this.originalCoords.slice();
 	}
     
 	scaleTextureCoords(lengthS, lengthT){

@@ -76,18 +76,19 @@ MyCircle.prototype.initBuffers = function () {
 		index+=2;	
 	}
 	this.indices.push(index-1,0,1);
+
+	this.originalCoords = this.texCoords.slice();
 	
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
 };
 
-function resetCoords(){
+MyCircle.prototype.resetCoords = function (){
+	this.texCoords = this.originalCoords.slice();
+};
+
+MyCircle.prototype.scaleTextureCoords = function(lengthS, lengthT){
 	
-}
-
-
-function scaleTextureCoords(lengthS, lengthT){
-		
 	for (var i = 0; i < this.texCoords.length; i += 2) {
 		this.texCoords[i] = this.texCoords[i] / lengthS;
 		this.texCoords[i + 1] = this.texCoords[i+1] / lengthT;
