@@ -349,7 +349,7 @@ class MySceneGraph {
 
                 }
 
-                singleView.push(near, far, angle, from, to);
+                singleView.push(from, to, near, far, angle);
             }
 
             if (children[i].nodeName == "ortho") {
@@ -397,7 +397,7 @@ class MySceneGraph {
                     }
                 }
 
-                singleView.push(near, far, left, right, top, bottom, from , to);
+                singleView.push(from, to, near, far, left, right, top, bottom);
             }
 
             this.views[Id] = singleView;

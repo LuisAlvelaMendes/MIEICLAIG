@@ -51,9 +51,21 @@ class MyInterface extends CGFinterface {
      */
     addViewsGroup(views) {
 
-        var text = { Views: 'AllViews' }
+        console.log("ADD VIEW")
+        console.log(views)
 
-        this.gui.add(text, 'Views', { View1: 'view1', View2: 'view2', View3: 'view3' });
+        var text = { Views: 'AllViews' }
+        
+
+        for (var key in views){
+            if (views.hasOwnProperty(key)){
+                this.scene.camara[key] = views[key][0];
+                console.log("")
+                this.gui.add(text, 'Views', { View1:  this.scene.camara });
+            }
+        }
+
+        
 
         this.dropdown = text
 
