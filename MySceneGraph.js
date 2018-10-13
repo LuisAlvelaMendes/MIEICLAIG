@@ -1273,7 +1273,6 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-        //console.log(this.nodes)
         this.components[this.idRoot].display();
     }
 }

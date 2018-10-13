@@ -96,6 +96,22 @@
 		prevStackHeight = stackHeight;
 	}
 
+	this.originalCoords = this.texCoords.slice();
+
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
  };
+ 
+ MyCylinderBody.prototype.resetCoords = function (){
+	this.texCoords = this.originalCoords.slice();
+}
+
+MyCylinderBody.prototype.scaleTextureCoords = function (lengthS, lengthT){
+	
+	for (var i = 0; i < this.texCoords.length; i += 2) {
+		this.texCoords[i] = this.texCoords[i] / lengthS;
+		this.texCoords[i + 1] = this.texCoords[i+1] / lengthT;
+	}
+	
+	this.updateTexCoordsGLBuffers();
+};

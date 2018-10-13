@@ -50,9 +50,25 @@ class MyRectangle extends CGFobject
             this.maxS,this.maxT,
             this.minS,this.minT,
             this.maxS,this.minT
-		]
+		];
+
+		this.originalCoords = this.texCoords.slice();
 
 		this.initGLBuffers();
+	};
+
+	resetCoords(){
+		this.texCoords = this.originalCoords.slice();
+	}
+
+	scaleTextureCoords(lengthS, lengthT){
+		
+		for (var i = 0; i < this.texCoords.length; i += 2) {
+			this.texCoords[i] = this.texCoords[i] / lengthS;
+			this.texCoords[i + 1] = this.texCoords[i+1] / lengthT;
+		}
+		
+		this.updateTexCoordsGLBuffers();
 	};
 
 };

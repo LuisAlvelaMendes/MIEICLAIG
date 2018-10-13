@@ -38,4 +38,17 @@ class MyCylinder extends CGFobject
         this.scene.popMatrix();
 
     };
+
+    resetCoords(){
+        this.circleFront.resetCoords();
+        this.circleBack.resetCoords();
+        this.cylinder.resetCoords();
+    };
+
+    
+	scaleTextureCoords(lengthS, lengthT){
+        this.circleFront.scaleTextureCoords(lengthS, lengthT);
+        this.circleBack.scaleTextureCoords(lengthS, lengthT);
+        this.cylinder.scaleTextureCoords(lengthS, lengthT);
+    };
 };

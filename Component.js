@@ -107,21 +107,14 @@ class Component
 		}
 
 		if(this.tex[0] == "inherit"){
-			var texture = this.textures[parentTextureId]
-			// STILL HAVE TO WORK ON THIS PART ...
-			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
-			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
+			var texture = this.textures[parentTextureId];
 		}
 
 		if(this.tex[0] != "inherit" && this.tex[0] != "none"){
 			var texture = this.textures[this.tex[0]];
-			// STILL HAVE TO WORK ON THIS PART ...
-			this.primitives[primitiveId].maxS = this.primitives[primitiveId].maxS / this.tex[1];
-			this.primitives[primitiveId].maxT = this.primitives[primitiveId].maxT / this.tex[2];
 		}
 
 		this.ComponentAppearance.setTexture(texture);
-		this.ComponentAppearance.setTextureWrap('REPEAT','REPEAT');
 		this.ComponentAppearance.apply();
 	}
 
@@ -168,20 +161,32 @@ class Component
 			// Apply Materials
 			this.applyMaterial(parentMaterialId);
 			this.applyTexture(parentTextureId,this.childrenPrimitives[i]);
+			var texCoordsChanged = false;
 
 			//APPLY TRANSFORMATION MATRIX
-			///If isn't a Reference 
+
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
+				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+				texCoordsChanged = true;
 				this.applyTransformationNoReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
+				originalCoords = this.primitives[this.childrenPrimitives[i]].texCoords;
+				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+				texCoordsChanged = true;
 				this.applyTransformationReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			}
+
+			if(texCoordsChanged){
+				this.primitives[this.childrenPrimitives[i]].resetCoords();
+				this.primitives[this.childrenPrimitives[i]].updateTexCoordsGLBuffers();
+			}
+
 		}
 
 		return null;

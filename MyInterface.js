@@ -44,4 +44,22 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+
+    /**
+     * Adds a folder containing the IDs of the views passed as parameter.
+     * @param {array} views
+     */
+    addViewsGroup(views) {
+
+        var text =
+        {
+        CarTextures: 'AllViews'
+        }
+
+        this.gui.add(text, 'Views', { Bubble: 'bubble', Best: 'best', Camo: 'camo', Tiger: 'tiger', Normal: 'default' });
+
+        this.dropdown = text
+
+      
+    }
 }
