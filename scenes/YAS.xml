@@ -332,6 +332,8 @@
 
             <materials>
                 <material id="othermat" />
+                <material id="supermat" />
+                <material id="somematerial" />
             </materials>
 
             <texture id="vidral" length_s="1" length_t="1" />
@@ -351,9 +353,10 @@
 
             <materials>
                 <material id="supermat" />
+                <material id="somematerial" />
             </materials>
   
-            <texture id="newt" length_s="1" length_t="1" />
+            <texture id="none" length_s="1" length_t="1" />
   
             <children>
                 <primitiveref id="myRectangle" />
@@ -370,6 +373,7 @@
  
             <materials>
                 <material id="somematerial" />
+                <material id="supermat" />
             </materials>
 
             <texture id="newt" length_s="1" length_t="1" />
@@ -393,10 +397,11 @@
             </transformation>
 
             <materials>
-                <material id="inherit"/>
+                <material id="somematerial" />
+                <material id="supermat" />
             </materials>
 
-            <texture id="wood2" length_s="0.5" length_t="0.5" />
+            <texture id="newt" length_s="0.5" length_t="0.5" />
    
             <children>
 
@@ -520,6 +525,7 @@
 
             <materials>
                 <material id="othermat" />
+                <material id="supermat" />
             </materials>
 
             <texture id="glass" length_s="2" length_t="0.5" />
@@ -545,6 +551,7 @@
             </transformation>
             <materials>
                 <material id="othermat" />
+                <material id="supermat" />
             </materials>
             <texture id="newt" length_s="2" length_t="0.5" />
             <children>
@@ -560,6 +567,7 @@
             </transformation>
             <materials>
                 <material id="othermat" />
+                <material id="supermat" />
             </materials>
             <texture id="newt" length_s="2" length_t="0.5" />
             <children>
@@ -575,6 +583,7 @@
             </transformation>
             <materials>
                 <material id="othermat" />
+                <material id="supermat" />
             </materials>
             <texture id="newt" length_s="2" length_t="0.5" />
             <children>
@@ -684,8 +693,9 @@
             </transformation>
             <materials>
                 <material id="othermat" />
+                <material id="supermat" />
             </materials>
-            <texture id="newt" length_s="2" length_t="0.5" />
+            <texture id="none" length_s="2" length_t="0.5" />
             <children>
                 <componentref id="chair_top" />
                 <componentref id="chair_back" />
@@ -718,6 +728,7 @@
                 <scale x="1.5" y="0.12" z="2.6" />
             </transformation>
             <materials>
+                <material id="supermat" />
                 <material id="othermat" />
             </materials>
             <texture id="newt" length_s="2" length_t="0.5" />
@@ -824,10 +835,9 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="vidral" length_s="1" length_t="1" />
+            <texture id="newt" length_s="1" length_t="1" />
   
             <children>
-
                 <primitiveref id="myCylinder" />
             </children>
         </component>
@@ -884,10 +894,11 @@
             </transformation>
      
             <materials>
-                <material id="inherit" />
+                <material id="othermat" />
+                <material id="supermat" />
             </materials>
 
-            <texture id="newt" length_s="1" length_t="1" />
+            <texture id="none" length_s="1" length_t="1" />
    
             <children>
 

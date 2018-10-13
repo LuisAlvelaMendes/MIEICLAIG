@@ -42,6 +42,10 @@ class MySceneGraph {
         // File reading 
         this.reader = new CGFXMLreader();
 
+        this.swapMaterial = false;
+
+        this.componentIds = [];
+
         /*
          * Read the contents of the xml file, and refer to this class for loading and error handlers.
          * After the file is read, the reader calls onXMLReady on this object.
@@ -1093,6 +1097,10 @@ class MySceneGraph {
                 }
 
                 materialId.push(matID);
+
+                if(this.matID == "inherit"){
+                    break;
+                }
             }
         }
 
@@ -1228,6 +1236,7 @@ class MySceneGraph {
                                 console.log(materials);
                                 var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations, this.materials, this.textures);
                                 this.components[componentId] = component;
+                                this.componentIds.push(componentId);
                             }
                         }
 
@@ -1267,12 +1276,32 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    checkIfKeyMPressed() {
+
+        if (this.scene.gui.isKeyPressed("KeyM")) {
+            this.swapMaterial = true;
+        }
+
+    }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
+
+        this.checkIfKeyMPressed();
+
+        if(this.swapMaterial){
+
+            for(var i = 0; i < this.componentIds.length; i++){
+                this.components[this.componentIds[i]].incrementIndex();
+            }
+
+            this.swapMaterial = false;
+        }
+
         this.components[this.idRoot].display();
     }
 }

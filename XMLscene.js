@@ -97,7 +97,6 @@ class XMLscene extends CGFscene {
         }
     }
 
-
     /* Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -170,6 +169,7 @@ class XMLscene extends CGFscene {
         }
 
         this.popMatrix();
+       
         // ---- END Background, camera and axis setup
     }
 }

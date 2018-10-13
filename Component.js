@@ -21,7 +21,18 @@ class Component
 		this.scene = scene;
 		this.materials = materials;
 		this.textures = textures;
+		this.materialCurrentIndex = 0;
 	};
+
+	incrementIndex(){
+		if(this.materialCurrentIndex < (this.mat.length)-1){
+			this.materialCurrentIndex++;
+		}
+
+		else {
+			this.materialCurrentIndex = 0;
+		}
+	}
 
 	applyTransformation(){
 		if (this.translateComponent != undefined && this.translateComponent.length != 0) {
@@ -89,7 +100,7 @@ class Component
 		}
 
 		else{
-			var material = this.materials[this.mat[0]];
+			var material = this.materials[this.mat[this.materialCurrentIndex]];
 		}
 
 		this.ComponentAppearance = new CGFappearance(this.scene);
@@ -100,7 +111,7 @@ class Component
 		this.ComponentAppearance.setSpecular(material[4]["r"], material[4]["g"], material[4]["b"], material[4]["a"]);
 	}
 
-	applyTexture(parentTextureId, primitiveId){
+	applyTexture(parentTextureId){
 
 		if(this.tex[0] == "none" || parentTextureId == "none"){
 			var texture = null;
@@ -160,7 +171,7 @@ class Component
 			
 			// Apply Materials
 			this.applyMaterial(parentMaterialId);
-			this.applyTexture(parentTextureId,this.childrenPrimitives[i]);
+			this.applyTexture(parentTextureId);
 			var texCoordsChanged = false;
 
 			//APPLY TRANSFORMATION MATRIX
@@ -174,7 +185,6 @@ class Component
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
-				originalCoords = this.primitives[this.childrenPrimitives[i]].texCoords;
 				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 				texCoordsChanged = true;
 				this.applyTransformationReference();
