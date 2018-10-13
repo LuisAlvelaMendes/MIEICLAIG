@@ -375,7 +375,29 @@ class MySceneGraph {
 
                 else this.log("Parsed ortho " + Id + " near = " + near + " far = " + far + " left = " + left + " right = " + right + " top " + top + " bottom " + bottom);
                 
-                singleView.push(near, far, left, right, top, bottom);
+                /** ****<to> and <from> **** */
+                grandChildren = children[i].children;
+
+                // parsing from and to grandchildren ..
+                for (var j = 0; j < grandChildren.length; j++) {
+
+                    if (grandChildren[j].nodeName != "from" && grandChildren[j].nodeName != "to") {
+                        this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
+                        continue;
+                    }
+
+                    // from
+                    if (grandChildren[j].nodeName == "from") {
+                        from = this.parseCoordinates(grandChildren[j]);
+                    }
+
+                    // to
+                    if (grandChildren[j].nodeName == "to") {
+                        to = this.parseCoordinates(grandChildren[j]);
+                    }
+                }
+
+                singleView.push(near, far, left, right, top, bottom, from , to);
             }
 
             this.views[Id] = singleView;
