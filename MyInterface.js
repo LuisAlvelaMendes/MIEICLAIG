@@ -51,12 +51,9 @@ class MyInterface extends CGFinterface {
      */
     addViewsGroup(views) {
 
-        var text =
-        {
-        CarTextures: 'AllViews'
-        }
+        var text = { Views: 'AllViews' }
 
-        this.gui.add(text, 'Views', { Bubble: 'bubble', Best: 'best', Camo: 'camo', Tiger: 'tiger', Normal: 'default' });
+        this.gui.add(text, 'Views', { View1: 'view1', View2: 'view2', View3: 'view3' });
 
         this.dropdown = text
 
