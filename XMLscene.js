@@ -13,7 +13,7 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
-        this.camara = [];
+        this.cameraParser = [];
     }
 
     /**
@@ -43,16 +43,31 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        //var f = this.graph.lights
-        this.camera = new CGFcamera(0.4, 0.1, 550, vec3.fromValues(20, 20, 20), vec3.fromValues(0,0, 0));      
-
+        //var f = this.graph.lights 40 20 30 , 
+        this.camera = new CGFcamera(0.6, 0.1, 550, vec3.fromValues(40, 20, 30), vec3.fromValues(0,1, 0));      
     }
 
-    initSetCamaras(){
-         for (var key in this.graph.views) {
+
+    // Take valeus from Parser to actually create CGF Cameras
+    initSetCameras(){
+        for (var key in this.graph.views) {
             if (this.graph.views.hasOwnProperty(key)) {
-               this.camara[key] = new CGFcamera(0.4, 0.1, 550, vec3.fromValues(60, 66, 66), vec3.fromValues(0,0, 0));
-               console.log("AQUI: " + key)
+                var from_x = this.graph.views[key][0][0]
+                var from_y = this.graph.views[key][0][1]
+                var from_z = this.graph.views[key][0][2]
+                var to_x = this.graph.views[key][1][0]
+                var to_y = this.graph.views[key][1][1]
+                var to_z = this.graph.views[key][1][2]
+                var near = this.graph.views[key][2]
+                var far = this.graph.views[key][3]
+                var angle = 0.4;
+                console.log(" VER: " + this.graph.views[key][2])
+                
+                if(this.graph.views[key] <= 6){
+                    angle = this.graph.views[key][1][2]
+                }
+
+                this.cameraParser[key] = new CGFcamera(angle, near, far, vec3.fromValues(from_x, from_y, from_z), vec3.fromValues(to_x,to_y,to_z));
            }
         }
     }
@@ -119,7 +134,7 @@ class XMLscene extends CGFscene {
 
 
         this.initLights();
-        this.initSetCamaras();
+        this.initSetCameras();
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
@@ -135,6 +150,13 @@ class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
+
+        if(this.interface.gui.__controllers[0].__select.selectedOptions[0] != null){
+            var option_user_selection = this.interface.gui.__controllers[0].__select.selectedOptions[0].value;
+            this.camera = this.cameraParser[option_user_selection];
+            this.camera.near = this.graph.views[option_user_selection][2];
+            this.camera.far = this.graph.views[option_user_selection][3];
+        }
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);

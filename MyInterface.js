@@ -80,19 +80,21 @@ class MyInterface extends CGFinterface {
 
         var text = { Views: 'AllViews' }
         
+        var sendID =[];
 
         for (var key in views){
             if (views.hasOwnProperty(key)){
-                this.scene.camara[key] = views[key][0];
-                console.log("")
-                this.gui.add(text, 'Views', { View1:  this.scene.camara });
+                //this.scene.camera = this.scene.cameraParser[key];
+                //this.gui.add(text, 'Views', { View1: this.scene.cameraParser });
+                sendID.push(key)
             }
         }
 
-        
+        this.gui.add(text, 'Views', sendID);
 
-        this.dropdown = text
-      */
+        this.dropdown = text;
+
+      
 
     }
 }
