@@ -41,7 +41,8 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        // send valeus to here from PARSER: 
+        this.camera = new CGFcamera(0.4, 0.1, 550, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 
        /* for(var key in this.graph.views){
             //wihgiwn
@@ -112,7 +113,8 @@ class XMLscene extends CGFscene {
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
-        //this.interface.addViewsGroup(this.graphs.views);
+
+        this.interface.addViewsGroup(this.views);
 
         this.sceneInited = true;
     }

@@ -8,8 +8,15 @@
             <from x="0" y="0" z="0" />
             <to x="0" y="0" z="0" />
         </perspective>
+
+        <perspective id="prespective2" near="0" far="0" angle="0">
+            <from x="0" y="0" z="0" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
         <ortho id="ortho" near="0" far="0"
                left="0" right="0" top="0" bottom="0" />
+
     </views>
 
     <ambient>

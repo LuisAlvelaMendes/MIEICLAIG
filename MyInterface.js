@@ -51,17 +51,15 @@ class MyInterface extends CGFinterface {
      */
     addViewsGroup(views) {
 
-        var group = this.gui.addFolder("Views");
-        group.open();
-
-        // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-        // e.g. this.option1=true; this.option2=false;
-
-        for (var key in views) {
-            if (views.hasOwnProperty(key)) {
-                this.scene.viewValues[key] = views[key][0];
-                group.add(this.scene.viewValues, key);
-            }
+        var text =
+        {
+        CarTextures: 'AllViews'
         }
+
+        this.gui.add(text, 'Views', { Bubble: 'bubble', Best: 'best', Camo: 'camo', Tiger: 'tiger', Normal: 'default' });
+
+        this.dropdown = text
+
+      
     }
 }
