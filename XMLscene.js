@@ -13,6 +13,7 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
+        this.camara = [];
     }
 
     /**
@@ -25,6 +26,7 @@ class XMLscene extends CGFscene {
         this.sceneInited = false;
 
         this.initCameras();
+        
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -41,12 +43,18 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        // send valeus to here from PARSER: 
-        this.camera = new CGFcamera(0.4, 0.1, 550, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        //var f = this.graph.lights
+        this.camera = new CGFcamera(0.4, 0.1, 550, vec3.fromValues(20, 20, 20), vec3.fromValues(0,0, 0));      
 
-       /* for(var key in this.graph.views){
-            //wihgiwn
-        } */
+    }
+
+    initSetCamaras(){
+         for (var key in this.graph.views) {
+            if (this.graph.views.hasOwnProperty(key)) {
+               this.camara[key] = new CGFcamera(0.4, 0.1, 550, vec3.fromValues(60, 66, 66), vec3.fromValues(0,0, 0));
+               console.log("AQUI: " + key)
+           }
+        }
     }
 
     /**
@@ -101,6 +109,7 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+
         this.camera.near = this.graph.near;
         this.camera.far = this.graph.far;
         this.axis = new CGFaxis(this,this.graph.Axis_Length);
@@ -108,12 +117,14 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(this.graph.ambientRGB["r"], this.graph.ambientRGB["g"], this.graph.ambientRGB["b"], this.graph.ambientRGB["a"]);
         this.gl.clearColor(this.graph.backgroundRGB["r"], this.graph.backgroundRGB["g"], this.graph.backgroundRGB["b"], this.graph.backgroundRGB["a"]);
 
+
         this.initLights();
+        this.initSetCamaras();
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
-        this.interface.addViewsGroup(this.views);
+        this.interface.addViewsGroup(this.graph.views);
 
         this.sceneInited = true;
     }
