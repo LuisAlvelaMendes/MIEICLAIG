@@ -2,11 +2,11 @@
 
     <scene root="root" axis_length="5.0" />
 
-    <views default="view" >
+    <views default="default" >
         
-        <perspective id="view1" near="0.1" far="550" angle="0.6">
-            <from x="-10" y="5" z="28" />
-            <to x="10" y="0" z="0" />
+        <perspective id="view1" near="0.1" far="550" angle="0.8">
+            <from x="40" y="20" z="30" />
+            <to x="0" y="1" z="0" />
         </perspective>
 
         <perspective id="view2" near="0.1" far="550" angle="0.6">
@@ -16,9 +16,9 @@
         
 
         <ortho id="ortho" near="100" far="500"
-               left="0" right="0" top="0" bottom="0">
-            <from x="100" y="100" z="100" />
-            <to x="0" y="0" z="0" />
+               left="-5" right="5" top="-5" bottom="5">
+            <from x="40" y="20" z="30" />
+            <to x="0" y="1" z="0" />
         </ortho>
 
     </views>
@@ -66,7 +66,7 @@
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
-        <texture id="someothertexture" file="scenes/images/wood2.jpg"/>
+        <texture id="someothertexture" file="scenes/images/wood3.jpg"/>
         <texture id="newt" file="scenes/images/wood1.jpg"/>
     </textures>
 
@@ -404,10 +404,9 @@
                 <material id="supermat" />
             </materials>
 
-            <texture id="newt" length_s="0.5" length_t="0.5" />
+            <texture id="newt" length_s="2" length_t="1" />
    
             <children>
-
                 <primitiveref id="myRectangle" />
             </children>
         </component>
@@ -446,7 +445,7 @@
                 <material id="inherit" />
             </materials>
    
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="inherit" length_s="2" length_t="1" />
 
             <children>
 
@@ -618,7 +617,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="glass" length_s="2" length_t="0.5" />
+            <texture id="glass" length_s="2" length_t="1" />
             <children>
                 <componentref id="myCubeQuad" />
             </children>
