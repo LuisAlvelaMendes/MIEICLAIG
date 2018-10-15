@@ -74,7 +74,6 @@ class MyInterface extends CGFinterface {
      * @param {array} views
      */
     addViewsGroup(views) {
-
         console.log("ADD VIEW")
         console.log(views)
 

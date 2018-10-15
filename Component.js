@@ -126,6 +126,7 @@ class Component
 		}
 
 		this.ComponentAppearance.setTexture(texture);
+		this.ComponentAppearance.setTextureWrap('REPEAT', 'REPEAT');
 		this.ComponentAppearance.apply();
 	}
 

@@ -68,7 +68,6 @@
         <texture id="light" file="scenes/images/light.jpg"/>
         <texture id="someothertexture" file="scenes/images/wood2.jpg"/>
         <texture id="newt" file="scenes/images/wood1.jpg"/>
-        
     </textures>
 
     <materials>
