@@ -1004,6 +1004,8 @@ class MySceneGraph {
                             var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "cylinder");
                             var stacks = this.parsePrimitiveCoordsInteger(grandChildren[0], "stacks", "cylinder");
 
+                            console.log("base: " + base + " top: " + top);
+
                             var cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, base, top, height);
                             this.primitives[primitiveId] = cylinder;
                         }
@@ -1325,5 +1327,6 @@ class MySceneGraph {
         }
 
         this.components[this.idRoot].display();
+        //this.components["leg4"].display();
     }
 }

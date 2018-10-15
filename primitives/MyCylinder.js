@@ -8,9 +8,15 @@ class MyCylinder extends CGFobject
     constructor(scene, id, slices, stacks, base, top, height) 
     {
         super(scene);
-        this.cylinder = new MyCylinderBody(this.scene,100,100,1,1,1,1);
-        this.circleFront = new MyCircle(this.scene,100);
-        this.circleBack = new MyCircle(this.scene,100);
+        this.id = id;
+        this.base = base;
+        this.top = top;
+        this.slices = slices;
+        this.stacks = stacks;
+        this.height = height;
+        this.circleFront = new MyCircle(this.scene, this.slices, this.top);
+        this.circleBack = new MyCircle(this.scene, this.slices, this.base);
+        this.cylinder = new MyCylinderBody(this.scene, this.slices, this.stacks, this.base, this.top, this.height);
     };
 
     display() 
@@ -25,7 +31,7 @@ class MyCylinder extends CGFobject
         //Cilinder A
         this.scene.pushMatrix();
         this.scene.translate(0, 0, 0);
-        this.scene.rotate((-180*(3.14/180)), 1, 0,0);
+        this.scene.rotate((-180*(Math.PI/180)), 1, 0,0);
         this.scene.scale(0.7,0.7, 0.5);
         this.circleFront.display();
         this.scene.popMatrix();

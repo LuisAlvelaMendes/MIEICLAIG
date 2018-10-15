@@ -127,7 +127,7 @@
         </primitive >
 
         <primitive id="myCylinder">
-            <cylinder base="2" top="3" height="3" slices="20" stacks="20" />
+            <cylinder base="1" top="1" height="1" slices="20" stacks="20" />
         </primitive>
 
         <primitive id="mySphere">

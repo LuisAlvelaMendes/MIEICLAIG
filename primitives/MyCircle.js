@@ -3,7 +3,7 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyCircle(scene,slices, minS, maxS, minT, maxT) {
+function MyCircle(scene,slices, radius, minS, maxS, minT, maxT) {
 	CGFobject.call(this,scene);
 	minS = typeof minS !== 'undefined' ? minS : 0.0;
 	maxS = typeof maxS !== 'undefined' ? maxS : 1.0;
@@ -14,6 +14,7 @@ function MyCircle(scene,slices, minS, maxS, minT, maxT) {
 	this.maxS = maxS;
 	this.minT = minT;
 	this.maxT = maxT;
+	this.radius = radius || 1;
 
 	this.initBuffers();
 };
@@ -29,7 +30,10 @@ MyCircle.prototype.initBuffers = function () {
 	this.texCoords = [];
 	
 	var angle = 2*Math.PI/this.slices;
-	var r = 1;
+	var r = this.radius;
+
+	console.log("RADIUS HERE: " + this.radius);
+
 	var index = 1;
 	
 	this.vertices.push(
