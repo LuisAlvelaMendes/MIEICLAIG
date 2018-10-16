@@ -28,17 +28,24 @@ class MyCylinder extends CGFobject
         this.cylinder.display();
         this.scene.popMatrix();
 
-        //Cilinder A
+        //Circle A
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0);
         this.scene.rotate((-180*(Math.PI/180)), 1, 0,0);
         this.scene.scale(0.7,0.7, 0.5);
         this.circleFront.display();
         this.scene.popMatrix();
 
-        //Cilinder B
+        //Circle B
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.5);
+
+        if(this.height != 1){
+            this.scene.translate(0, 0, this.height/2);
+        }
+
+        else{
+            this.scene.translate(0, 0, 0.5);
+        }
+        
         this.scene.scale(0.7,0.7, 0.5);
         this.circleBack.display();
         this.scene.popMatrix();
