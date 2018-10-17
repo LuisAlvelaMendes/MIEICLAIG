@@ -136,15 +136,23 @@ class Component
 
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
-				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
-				texCoordsChanged = true;
+				
+				if(this.tex[1] != null && this.tex[2] != null){
+					this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+					texCoordsChanged = true;
+				}
+
 				this.applyTransformationNoReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
-				this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
-				texCoordsChanged = true;
+
+				if(this.tex[1] != null && this.tex[2] != null){
+					this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+					texCoordsChanged = true;
+				}
+				
 				this.applyTransformationReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();

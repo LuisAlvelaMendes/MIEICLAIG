@@ -21,89 +21,100 @@ class MySphere extends CGFobject
 
     initBuffers()
     {
-
         this.vertices = [];
-        this.normals = [];
         this.indices = [];
+        this.normals = [];
         this.texCoords = [];
-
-        //texture coordinates
-        var texS = 0;
-        var texIncS = 1/this.slices;
-        var texIncT = 1/this.stacks;
-        var prevTexT = 0;
-        var nextTexT = 0;
-
-
-        //alpha in degrees
-        var alpha = 360/this.slices;
-
-        //convert to radian
-        alpha = (alpha * Math.PI)/180;
-
-        //radius of both surfaces
-        var radiusTop = 1;
-        var radiusBottom = 1;
-
-        //height of each stack
-        var stackHeight = 1/this.stacks;
-
-        var sumalpha = 0;
-        var heightSum = 0;
-
-        for (var j = 0; j < this.stacks; j++) {
-
-            nextTexT += texIncT;
-
-            for (var i = j*this.slices*4; i < (j+1)*this.slices*4; i += 4) {
-
-                //calculating the radius of the top
-                radiusTop = Math.sqrt(1-(((j+1)*stackHeight)*((j+1)*stackHeight)));
-
-                //vertice 1 da face 0
-                this.vertices.push(radiusBottom*Math.cos(sumalpha),radiusBottom*Math.sin(sumalpha), heightSum);
-                this.normals.push(radiusBottom*Math.cos(sumalpha), radiusBottom*Math.sin(sumalpha), 0);
-                this.texCoords.push(texS, prevTexT);
-
-                //vertice 1 da face 1
-                this.vertices.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), heightSum+stackHeight);
-                this.normals.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), 0);
-                this.texCoords.push(texS, nextTexT);
-
-                sumalpha += alpha;
-                texS += texIncS;
-
-                //vertice 2 da face 0
-                this.vertices.push(radiusBottom*Math.cos(sumalpha), radiusBottom*Math.sin(sumalpha), heightSum);
-                this.normals.push(radiusBottom*Math.cos(sumalpha),radiusBottom*Math.sin(sumalpha), 0);
-                this.texCoords.push(texS, prevTexT);
-
-                //vertice 2 da face 1
-                this.vertices.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), heightSum+stackHeight);
-                this.normals.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), 0);
-                this.texCoords.push(texS, nextTexT);
-
-                this.indices.push(i + 2);
-                this.indices.push(i + 1);
-                this.indices.push(i);
-                this.indices.push(i + 1);
-                this.indices.push(i + 2);
-                this.indices.push(i + 3);
-
+    
+        // variables
+        var delta_long = 2*Math.PI/this.slices;
+        var delta_lat = Math.PI/this.stacks;
+        var r = this.radius;
+        var index = 0;
+    
+        for(var i = 0; i <= this.stacks; i++){
+            for(var j= 0; j <= this.slices; j++){
+                
+                var teta = Math.PI-i*delta_lat;
+                
+                this.vertices.push(
+                    r * Math.sin(teta) * Math.cos(j*delta_long),
+                    r * Math.sin(teta) * Math.sin(j*delta_long),
+                    r * Math.cos(teta)
+                );
+                
+                this.normals.push(
+                    Math.sin(teta) * Math.cos(j*delta_long),
+                    Math.sin(teta) * Math.sin(j*delta_long),
+                    Math.cos(teta)
+                );
+                
+                this.texCoords.push(
+                    j/this.slices,
+                    1 - i/this.stacks
+                );
+                
+                index++;
             }
-            
-            sumalpha = 0;
-            radiusBottom = radiusTop;
-            heightSum += stackHeight;
-            texS = 0;
-            prevTexT = nextTexT;
-
         }
 
-        this.originalCoords = this.texCoords.slice();
+        for(var i = 0; i < this.stacks; i++){
 
-        this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
+            for(var j = 0; j < this.slices; j++){
+    
+                this.indices.push(
+                    i*(this.slices + 1) +j,
+                    i*(this.slices + 1) +(j+1),
+                    (i+1)*(this.slices + 1) +(j+1)
+                );
+
+                this.indices.push(
+                    (i+1)*(this.slices + 1) +(j+1),
+                    (i+1)*(this.slices + 1) +j,
+                    i*(this.slices + 1) +j
+                );
+
+            }
+        }
+    
+        if(this.bottom){
+            var lowcenter = index++;
+            this.vertices.push(0,0,0);
+            this.normals.push(0,0,-1);
+            var storedindex = index;
+        
+            //bottom
+            for(var j= 0; j < this.slices-1; j++){
+
+                this.vertices.push(
+                    r * Math.cos((j)*delta_long),
+                    r * Math.sin((j)*delta_long),
+                    0
+                );
+                
+                this.vertices.push(
+                    r * Math.cos((j+1)*delta_long),
+                    r * Math.sin((j+1)*delta_long),
+                    0
+                );
+                
+                this.indices.push(lowcenter, index+1, index);
+
+                for(var rep = 0; rep < 2 ; rep++){
+                    this.normals.push(0,0,-1);
+                }
+        
+                index+=2;
+            }
+            
+            this.indices.push(storedindex,index-1,lowcenter);
+        }
+     
+     this.originalCoords = this.texCoords.slice();
+     
+     this.primitiveType = this.scene.gl.TRIANGLES;
+     
+     this.initGLBuffers();
     };
 
 	resetCoords(){
