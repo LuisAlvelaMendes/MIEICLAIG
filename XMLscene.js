@@ -44,7 +44,6 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        //var f = this.graph.lights 40 20 30 , 
         this.camera = new CGFcamera(0.6, 0.1, 550, vec3.fromValues(40, 20, 30), vec3.fromValues(0,1,0));      
     }
 
@@ -88,12 +87,7 @@ class XMLscene extends CGFscene {
                     right = this.graph.views[key][5];
                     top = this.graph.views[key][6];
                     bottom = this.graph.views[key][7];
-                    var placeHolder = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(from_x, from_y, from_z), vec3.fromValues(to_x,to_y,to_z), null);
-                    var direction = placeHolder.calculateDirection();
-                    var sideVector = [0, 0, 0];
-                    var upVector = [0, 0, 0];
-                    this.cross(sideVector, direction, [0, 1, 0]); 
-                    this.cross(upVector, direction, sideVector);
+                    var upVector = [0, 1, 0];
                     this.cameraParser[key] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(from_x, from_y, from_z), vec3.fromValues(to_x,to_y,to_z), upVector);
                 }
            }
@@ -215,6 +209,7 @@ class XMLscene extends CGFscene {
 
             if(this.selectedCamera != ""){
                 this.camera = this.cameraParser[this.selectedCamera];
+                this.interface.setActiveCamera(camera);
                 this.selectedCamera = "";
             }
 

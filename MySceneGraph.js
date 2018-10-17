@@ -1326,7 +1326,7 @@ class MySceneGraph {
             this.swapMaterial = false;
         }
 
-        //this.components[this.idRoot].display();
-        this.components["leg4"].display();
+        this.components[this.idRoot].display();
+        //this.components["leg4"].display();
     }
 }
