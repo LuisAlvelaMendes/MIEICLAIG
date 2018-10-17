@@ -34,61 +34,18 @@ class Component
 		}
 	}
 
-	applyTransformation(){
-		if (this.translateComponent != undefined && this.translateComponent.length != 0) {
-			for(var i = 0; i < this.translateComponent.length; i++){
-				this.scene.translate(this.translateComponent[i][0], this.translateComponent[i][1], this.translateComponent[i][2]);
-			}
-		}
-
-		if (this.rotateComponent != undefined && this.rotateComponent.length != 0) {
-			for(var i = 0; i < this.rotateComponent.length; i++){
-				
-				if(this.rotateComponent[i][0] == 'x'){
-					this.scene.rotate(this.rotateComponent[i][1]*DEGREE_TO_RAD, 1, 0, 0);
-				}
-
-				if(this.rotateComponent[i][0] == 'y'){
-					this.scene.rotate(this.rotateComponent[i][1]*DEGREE_TO_RAD, 0, 1, 0);
-				}
-
-				if(this.rotateComponent[i][0] == 'z'){
-					this.scene.rotate(this.rotateComponent[i][1]*DEGREE_TO_RAD, 0, 0, 1);
-				}
-			}
-		}
-
-		if (this.scaleComponent != undefined && this.scaleComponent.length != 0) {
-			for(var i = 0; i < this.scaleComponent.length; i++){
-				this.scene.scale(this.scaleComponent[i][0], this.scaleComponent[i][1], this.scaleComponent[i][2]);
-			}
-		}
-
-		return null;
-	};
-
 	applyTransformationReference(){
+		var matrix = this.transformations[this.tranf];
 
-		//Translation
-		this.translateComponent = this.transformations[this.tranf].translate;
-		//Rotation
-		this.rotateComponent = this.transformations[this.tranf].rotate;
-		//Scale
-		this.scaleComponent = this.transformations[this.tranf].scale;
-
-		this.applyTransformation();
+		this.scene.multMatrix(matrix);
 
 		return null;
 	};
 
 	applyTransformationNoReference(){
 
-		this.translateComponent = this.tranf.translate;
-		this.rotateComponent = this.tranf.rotate;
-		this.scaleComponent = this.tranf.scale;
-
-		this.applyTransformation();
-
+		this.scene.multMatrix(this.tranf);
+		
 		return null;
 	};
 

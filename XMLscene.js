@@ -79,7 +79,7 @@ class XMLscene extends CGFscene {
                 
                 if(this.graph.views[key].length <= 5){
                     angle = this.graph.views[key][4];
-                    this.cameraParser[key] = new CGFcamera(angle, near, far, vec3.fromValues(from_x, from_y, from_z), vec3.fromValues(to_x,to_y,to_z));
+                    this.cameraParser[key] = new CGFcamera(angle*DEGREE_TO_RAD, near, far, vec3.fromValues(from_x, from_y, from_z), vec3.fromValues(to_x,to_y,to_z));
                 }
 
                 else {
@@ -162,6 +162,9 @@ class XMLscene extends CGFscene {
 
         // Adds views group.
         this.interface.addViewsGroup(this.graph.views);
+        
+        // Make sure the view selected by default is the "default" one from the views block.
+        this.selectedCamera = this.graph.defaultCamera;
 
         this.sceneInited = true;
     }
@@ -190,7 +193,7 @@ class XMLscene extends CGFscene {
             // Draw axis
             this.axis.display();
             this.materialDefault.apply();
-
+    
             var i = 0;
             for (var key in this.lightValues) {
                 if (this.lightValues.hasOwnProperty(key)) {
@@ -209,7 +212,7 @@ class XMLscene extends CGFscene {
 
             if(this.selectedCamera != ""){
                 this.camera = this.cameraParser[this.selectedCamera];
-                this.interface.setActiveCamera(camera);
+                this.interface.setActiveCamera(this.camera);
                 this.selectedCamera = "";
             }
 

@@ -284,7 +284,7 @@ class MySceneGraph {
         }
 
         else {
-            this.default = this.reader.getString(viewNode, 'default');
+            this.defaultCamera = this.reader.getString(viewNode, 'default');
         }
 
         var children = viewNode.children;
@@ -817,7 +817,6 @@ class MySceneGraph {
 
         this.transformations = [];
         var numTransformations = 0;
-        
 
         for(var i = 0; i < children.length; i++){
             var translation = [];
@@ -850,6 +849,8 @@ class MySceneGraph {
 
             numTransformations++;
 
+            var mat = mat4.create();
+
             for(var j = 0; j < grandChildren.length; j++){
 
                 if(grandChildren[j].nodeName != "translate" && grandChildren[j].nodeName != "rotate" && grandChildren[j].nodeName != "scale"){
@@ -858,7 +859,7 @@ class MySceneGraph {
                 }
                 
                 if(grandChildren[j].nodeName == "translate"){
-                    translation.push(this.parseCoordinates(grandChildren[j]));
+                    mat4.translate(mat, mat, this.parseCoordinates(grandChildren[j]));
                 }
 
                 if(grandChildren[j].nodeName == "rotate"){
@@ -875,19 +876,26 @@ class MySceneGraph {
                         return null;
                     }
 
-                    rotation.push([axis, angle]);
-
+                    if(axis == 'x'){
+                        mat4.rotate(mat, mat, angle*DEGREE_TO_RAD, [1, 0, 0]);
+                    }
+    
+                    if(axis == 'y'){
+                        mat4.rotate(mat, mat, angle*DEGREE_TO_RAD, [0, 1, 0]);
+                    }
+    
+                    if(axis == 'z'){
+                        mat4.rotate(mat, mat, angle*DEGREE_TO_RAD, [0, 0, 1]);
+                    }
                 }
 
                 if(grandChildren[j].nodeName == "scale"){
-                    scale.push(this.parseCoordinates(grandChildren[j]));
+                    mat4.scale(mat, mat, this.parseCoordinates(grandChildren[j]));
                 }
                 
             }
 
-            var transformation = new Transformation(this.scene, transformationId, translation, rotation,scale);
-
-            this.transformations[transformationId] = transformation;
+            this.transformations[transformationId] = mat;
         }
 
         if(numTransformations == 0){
@@ -959,8 +967,8 @@ class MySceneGraph {
                         if(grandChildren[0].nodeName == "rectangle"){
                             
                             var x1 = this.parsePrimitiveCoords(grandChildren[0], 'x1', "rectangle");
-                            var x2 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
                             var y1 = this.parsePrimitiveCoords(grandChildren[0], 'y1', "rectangle");
+                            var x2 = this.parsePrimitiveCoords(grandChildren[0], 'x2', "rectangle");
                             var y2 = this.parsePrimitiveCoords(grandChildren[0], 'y2', "rectangle");
 
                             var rectangle = new MyRectangle(this.scene, primitiveId, x1, y1, x2, y2);
@@ -1041,6 +1049,8 @@ class MySceneGraph {
         var scale = [];
         var explicitTransformation = null;
         var transformationrefId = null;
+
+        var mat = mat4.create();
         
         for(var j = 0; j < children.length; j++){
 
@@ -1063,14 +1073,16 @@ class MySceneGraph {
                     this.onXMLError("reference doesn't point to any known transformation: " + transformationrefId);
                     return null;
                 }
+
                 return transformationrefId;
             }
 
             //If trasnformation is specific
+
             else {
                 
                 if(children[j].nodeName == "translate"){
-                    translation.push(this.parseCoordinates(children[j]));
+                    mat4.translate(mat, mat, this.parseCoordinates(children[j]));
                 }
 
                 if(children[j].nodeName == "rotate"){
@@ -1087,18 +1099,26 @@ class MySceneGraph {
                         return null;
                     }
         
-                    rotation.push([axis, angle]);
+                    if(axis == 'x'){
+                        mat4.rotate(mat, mat, angle*DEGREE_TO_RAD, [1, 0, 0]);
+                    }
+    
+                    if(axis == 'y'){
+                        mat4.rotate(mat, mat, angle*DEGREE_TO_RAD, [0, 1, 0]);
+                    }
+    
+                    if(axis == 'z'){
+                        mat4.rotate(mat, mat, angle*DEGREE_TO_RAD, [0, 0, 1]);
+                    }
                 }
 
                 if(children[j].nodeName == "scale"){
-                    scale.push(this.parseCoordinates(children[j]));
+                    mat4.scale(mat, mat, this.parseCoordinates(children[j]));
                 }
             }
         }
 
-        explicitTransformation = new Transformation(this.scene, "specificTransf", translation, rotation, scale);
-
-        return explicitTransformation;
+        return mat;
     }
 
     parseComponentMaterial(subNodeMaterial){
@@ -1202,7 +1222,6 @@ class MySceneGraph {
                     for (var j = 0; j < grandChildren.length; j++) {
 
                         if(grandChildren[j].nodeName == "transformation"){
-
                             //get all  transformations & transf_REF in <Transformations> section
                             transformations = this.parseComponentTransformation(grandChildren[j]);
                             console.log(transformations);
@@ -1327,6 +1346,6 @@ class MySceneGraph {
         }
 
         this.components[this.idRoot].display();
-        //this.components["leg4"].display();
+        //this.components["sphere1"].display();
     }
 }

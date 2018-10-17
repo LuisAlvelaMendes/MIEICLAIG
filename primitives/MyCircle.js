@@ -14,6 +14,11 @@ function MyCircle(scene,slices, radius, minS, maxS, minT, maxT) {
 	this.maxS = maxS;
 	this.minT = minT;
 	this.maxT = maxT;
+	
+	if(radius == 0){
+
+	}
+	
 	this.radius = radius || 1;
 
 	this.initBuffers();
