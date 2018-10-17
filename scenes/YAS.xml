@@ -77,6 +77,8 @@
         <texture id="p1" file="scenes/images/p1.jpg"/>
         <texture id="p2" file="scenes/images/p2.png"/>
         <texture id="lamp" file="scenes/images/lamp.jpg"/>
+        <texture id="run" file="scenes/images/run.jpg"/>
+        <texture id="black" file="scenes/images/black.jpg"/>
     </textures>
 
     <materials>
@@ -593,6 +595,120 @@
             </children>
         </component>
 
+        <component id="myArmarioLong_A">
+
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="z" angle="-90" />
+                <scale x="3.4" y="0.8" z="3.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="newt" length_s="1" length_t="1" />
+
+             <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="myArmarioLong_B">
+
+            <transformation>
+                <translate x="0" y="0" z="7" />
+                <rotate axis="z" angle="-90" />
+                <scale x="1.1" y="0.8" z="4.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="newt" length_s="1" length_t="1" />
+
+             <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="myArmarioLong_B_UP">
+
+            <transformation>
+                <translate x="0" y="4.4" z="11" />
+                <rotate axis="z" angle="-90" />
+                <scale x="1.1" y="0.8" z="2.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="newt" length_s="1" length_t="1" />
+
+             <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="parteleira">
+
+            <transformation>
+                <translate x="0" y="4.4" z="7.5" />
+                <rotate axis="z" angle="-90" />
+                <scale x="0.1" y="0.8" z="1.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="newt" length_s="1" length_t="1" />
+
+             <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="tv">
+
+            <transformation>
+                <translate x="0.8" y="4" z="7.8" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="1.2" z="0.7" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="run" length_s="1" length_t="1" />
+
+             <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
+        <component id="tvBack">
+
+            <transformation>
+                <translate x="0.78" y="4.2" z="7.55" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="1.4" z="0.9" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="black" length_s="1" length_t="1" />
+
+             <children>
+                <componentref id="myCubeQuad" />
+            </children>
+        </component>
+
         <!-- end armarios -->
 
         <!-- myLamp1 -->
@@ -1093,6 +1209,12 @@
                 <componentref id="myArmarioR"/>
                 <componentref id="myPaiting1"/>
                 <componentref id="myPaiting2"/>
+                <componentref id="myArmarioLong_A"/>
+                <componentref id="myArmarioLong_B"/>
+                <componentref id="myArmarioLong_B_UP"/>
+                <componentref id="parteleira"/>
+                <componentref id="tv"/>
+                <componentref id="tvBack"/>
 
 
             </children>
