@@ -67,7 +67,7 @@
     </lights>
 
     <textures>
-        <texture id="woodGrey" file="scenes/images/wood2.jpg"/>
+        <texture id="woodFloor" file="scenes/images/wood2.jpg"/>
         <texture id="woodWall" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
@@ -76,6 +76,7 @@
         <texture id="rocks" file="scenes/images/rocks.jpg"/>
         <texture id="p1" file="scenes/images/p1.jpg"/>
         <texture id="p2" file="scenes/images/p2.png"/>
+        <texture id="lamp" file="scenes/images/lamp.jpg"/>
     </textures>
 
     <materials>
@@ -134,6 +135,10 @@
 
         <primitive id="myCylinder">
             <cylinder base="1" top="1" height="1" slices="60" stacks="60" />
+        </primitive>
+
+        <primitive id="myCylinderCan">
+            <cylinder base="1.5" top="1" height="1" slices="60" stacks="60" />
         </primitive>
 
         <primitive id="mySphere">
@@ -338,11 +343,12 @@
             </transformation>
  
             <materials>
-                <material id="somematerial" />
+                <material id="othermat" />
                 <material id="supermat" />
+                <material id="somematerial" />
             </materials>
 
-            <texture id="woodLight" length_s="1" length_t="1" />
+            <texture id="woodFloor" length_s="1" length_t="1" />
       
             <children>
                 <primitiveref id="myRectangle" />
@@ -591,12 +597,32 @@
 
         <!-- myLamp1 -->
 
-        <component id="myLamp1">
+        <component id="myLamp">
 
             <transformation>
                 <translate x="6.2" y="5.8" z="8" />
-                <rotate axis="x" angle="-90" />
+                <rotate axis="x" angle="0" />
                 <scale x="1" y="1" z="1" />
+            </transformation> 
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="lamp" length_s="2" length_t="1" />
+
+            <children>
+                <componentref id="lamp_bar" />
+                <componentref id="lamp" />
+            </children>
+        </component>
+
+        <component id="lamp_bar">
+
+            <transformation>
+                <translate x="0" y="2" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="1.2" />
             </transformation> 
 
             <materials>
@@ -606,7 +632,26 @@
             <texture id="newt" length_s="2" length_t="1" />
 
             <children>
-                <primitiveref id="mySphere" />
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="lamp">
+
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="-90" />
+                <scale x="1" y="1" z="1" />
+            </transformation> 
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="lamp" length_s="2" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinderCan" />
             </children>
         </component>
 
@@ -1043,11 +1088,12 @@
                 <componentref id="myChair"/>
                 <componentref id="myTable"/>
                 <componentref id="myBed"/>
-                <componentref id="myLamp1"/>
+                <componentref id="myLamp"/>
                 <componentref id="myArmarioL"/>
                 <componentref id="myArmarioR"/>
                 <componentref id="myPaiting1"/>
                 <componentref id="myPaiting2"/>
+
 
             </children>
         </component>
