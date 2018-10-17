@@ -35,10 +35,10 @@
 
     <lights>
   
-        <omni id="light01" enabled="0" >
-            <location  x="2.0" y="2.0" z="2.0" w="1.0"/>             
-            <ambient r="0.3" g="0.3" b="0.3" a="0.1"/>          
-            <diffuse r="0.1" g="0.2" b="0.3" a="0.4"/>        
+        <omni id="light01" enabled="0" > 
+            <location  x="6.2" y="6.1" z="8" w="1.0"/>             
+            <ambient r="1" g="1" b="1" a="1"/>          
+            <diffuse r="1" g="1" b="1" a="1"/>        
             <specular r="0.9" g="1.0" b="0.7" a="0.1"/>   
         </omni>
 
@@ -58,8 +58,8 @@
         
         <spot id="spot01" enabled="0" angle="2" exponent="1.0">
 
-            <target x="2.0" y="2.0" z="2.0" />
-            <location  x="3.0" y="2.0" z="3.0" w="1.0" />             
+            <target x="6.2" y="0" z="8" />
+            <location  x="6.2" y="6.1" z="8" w="1.0" />             
             <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />   
@@ -78,22 +78,22 @@
     <materials>
   
         <material id="somematerial" shininess = "0.3" >
-            <emission r="0.3" g="0.3" b="0.3" a="0.3" />
-            <ambient r="0.3" g="1.0" b="0.3" a="0.3" />
+            <emission r="0.1" g="0.1" b="0" a="0.3" />
+            <ambient r="0.1" g="0" b="0.1" a="0.3" />
             <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
             <specular r="0.3" g="0.3" b="0.3" a="0.3" />
         </material>
 
         <material id="othermat" shininess = "0.3" >
-            <emission r="1.0" g="0.3" b="0.3" a="0.3" />
-            <ambient r="0.3" g="0.3" b="0.3" a="0.3" />
+            <emission r="0.1" g="0" b="0.1" a="3" />
+            <ambient r="0" g="0.1" b="0.1" a="0.3" />
             <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
             <specular r="0.3" g="0.3" b="0.3" a="0.3" />
         </material>
 
         <material id="supermat" shininess = "0.3" >
-            <emission r="1.0" g="0.3" b="0.3" a="0.3" />
-            <ambient r="0.3" g="1.0" b="1.0" a="0.3" />
+            <emission r="0.1" g="0" b="0.1" a="0.3" />
+            <ambient r="0.1" g="0" b="0.1" a="0.3" />
             <diffuse r="0.3" g="0.3" b="0.2" a="0.3" />
             <specular r="0.3" g="0.3" b="0.3" a="0.3" />
         </material>
@@ -162,6 +162,7 @@
                 <componentref id="myChair"/>
                 <componentref id="myTable"/>
                 <componentref id="myBed"/>
+                <componentref id="myLamp1"/>
             </children>
         </component>
 
@@ -519,13 +520,36 @@
             </children>
         </component>
 
+        <!-- myLamp1 -->
+
+        <component id="myLamp1">
+
+            <transformation>
+                <translate x="6.2" y="5.8" z="8" />
+                <rotate axis="x" angle="-90" />
+                <scale x="1" y="1" z="1" />
+            </transformation> 
+
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="newt" length_s="2" length_t="1" />
+
+            <children>
+                <primitiveref id="mySphere" />
+            </children>
+        </component>
+
+        <!-- end Lamp1 --> 
+
         <!-- myBed Component --> 
 
         <component id="myBed">
             <transformation>
-                <translate x="8" y="1" z="1" />
+                <translate x="7.5" y="0.8" z="1" />
                 <rotate axis="x" angle="0" />
-                <scale x="0.8" y="0.8" z="0.8" />
+                <scale x="0.9" y="0.8" z="0.9" />
             </transformation>
 
             <materials>
@@ -692,8 +716,8 @@
 
         <component id="myChair">
             <transformation>
-                <translate x="8" y="1" z="14" />
-                <rotate axis="x" angle="0" />
+                <translate x="9.2" y="0.8" z="11.5" />
+                <rotate axis="y" angle="90" />
                 <scale x="0.3" y="0.8" z="0.14" />
             </transformation>
             <materials>
@@ -809,8 +833,9 @@
         <component id="myTable">
 
             <transformation>
-                <translate x="-4" y="0" z="8" />
+                <translate x="2" y="0.2" z="10" />
                 <rotate axis="z" angle="0" />
+                <scale x="0.8" y="0.6" z="0.8" />
             </transformation>
 
             <materials>
