@@ -1288,10 +1288,10 @@ class MySceneGraph {
 
                                     else if(greatGrandChildren[k].nodeName == "componentref"){
                                         
-                                        if(!(this.checkIfReferenceExists(primOrCompRefId, this.components))){
+                                        /*if(!(this.checkIfReferenceExists(primOrCompRefId, this.components))){
                                             this.onXMLError("Invalid component reference " + primOrCompRefId);
                                             return null;
-                                        }
+                                        }*/
 
                                         componentChildren.push(primOrCompRefId) ;
                                     }
