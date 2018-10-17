@@ -24,6 +24,7 @@ serialInclude(['../lib/CGF.js',
     'primitives/MySphere.js',  
     'primitives/MyCylinder.js',
     'primitives/MyCircle.js',
+    'primitives/MyTorus.js',
 
 main=function()
 {

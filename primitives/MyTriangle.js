@@ -11,21 +11,10 @@ class MyTriangle extends CGFobject
 	constructor(scene, id, x1, y1, z1, x2, y2, z2, x3, y3, z3) 
 	{
 		super(scene);
-
 		this.id = id;
-		this.x1 = x1; 
-	    this.x2 = x2;
-	    this.y1 = y1; 
-        this.y2 = y2;
-        this.x3 = x3;
-		this.y3 = y3;
-		this.z3 = z3;
-		this.z1 = z1;
-		this.z2 = z2;
-		this.minS = 0.0;
-        this.minT = 0.0;
-        this.maxS = (x2-x1)//lenghtS;
-        this.maxT = (y2-y1)//lengthT;
+		this.p1 = [x1, y1, z1];
+		this.p2 = [x2, y2, z2];
+		this.p3 = [x3, y3, z3];
 
 		this.initBuffers();    
 	};
@@ -34,21 +23,41 @@ class MyTriangle extends CGFobject
 	{	
 		
 		this.vertices = [
-			this.x1, this.y1, this.z1,  // ( 0,0,0)
-			this.x2,this.y2, this.z2,   // (0,2,0)
-			this.x3,this.y3, this.z3  // (0,2,2)
+			this.p1[0], this.p1[1], this.p1[2],
+			this.p2[0], this.p2[1], this.p2[2],
+			this.p3[0], this.p3[1], this.p3[2]
 		];
 
-		this.indices = [
-		0,1,2
-		];
+		this.indices = [0, 1, 2];
 		
 		this.primitiveType = this.scene.gl.TRIANGLES;
+
+		var p21 = vec3.create();  //vetor de p2 a p1 (P2 - P1)
+
+		var p21 = [
+			this.p2[0]-this.p1[0],
+			this.p2[1]-this.p1[1],
+			this.p2[2]-this.p1[2]
+		];
+	
+		var p32 = vec3.create(); //vetor de p3 a p2 (P3-P2)
 		
-		this.normals = [ 
-		0, 0, 1,
-		0, 0, 1,
-		0, 0, 1
+		var p32 =[
+			this.p3[0]-this.p2[0],
+			this.p3[1]-this.p2[1],
+			this.p3[2]-this.p2[2]
+		];
+	
+		var N = vec3.create() //n - normal ao triangulo
+
+		vec3.cross(N, p21, p32);
+
+		vec3.normalize(N, N);
+		
+		this.normals = [
+			N[0], N[1], N[2],
+			N[0], N[1], N[2],
+			N[0], N[1], N[2]
 		];
 
 		this.texCoords = [

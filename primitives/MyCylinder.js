@@ -5,7 +5,7 @@
 
 class MyCylinder extends CGFobject
 {
-    constructor(scene, id, slices, stacks, base, top, height) 
+    constructor(scene, id, slices, stacks, top, base, height) 
     {
         super(scene);
         this.id = id;
@@ -46,15 +46,7 @@ class MyCylinder extends CGFobject
         if(this.base != 0){
             //Circle B
             this.scene.pushMatrix();
-
-            if(this.height != 1){
-                this.scene.translate(0, 0, this.height/2);
-            }
-
-            else{
-                this.scene.translate(0, 0, 0.5);
-            }
-            
+            this.scene.translate(0, 0, this.height);
             this.circleBack.display();
             this.scene.popMatrix();
         }

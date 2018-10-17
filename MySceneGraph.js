@@ -1017,6 +1017,21 @@ class MySceneGraph {
                             var cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, base, top, height);
                             this.primitives[primitiveId] = cylinder;
                         }
+
+                        if(grandChildren[0].nodeName == "torus"){
+
+                            /*<torus inner="ff" outer="ff" slices="ii" loops="ii" />*/
+
+                            var inner = this.parsePrimitiveCoords(grandChildren[0], 'inner', "torus");
+                            var outer = this.parsePrimitiveCoords(grandChildren[0], 'outer', "cylinder");
+                            var loops = this.parsePrimitiveCoordsInteger(grandChildren[0], 'loops', "cylinder");
+                            var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "cylinder");
+
+                            console.log("inner: " + inner + " outer: " + outer + " loop: " + loops + " slices: " + slices);
+
+                            var torus = new MyTorus(this.scene, inner, outer, loops, slices);
+                            this.primitives[primitiveId] = torus;
+                        }
                     }
                 }
             }
@@ -1272,6 +1287,12 @@ class MySceneGraph {
                                     }
 
                                     else if(greatGrandChildren[k].nodeName == "componentref"){
+                                        
+                                        if(!(this.checkIfReferenceExists(primOrCompRefId, this.components))){
+                                            this.onXMLError("Invalid component reference " + primOrCompRefId);
+                                            return null;
+                                        }
+
                                         componentChildren.push(primOrCompRefId) ;
                                     }
                                 }
