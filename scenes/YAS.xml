@@ -154,6 +154,8 @@
             <sphere radius="6" slices="20" stacks="20" />
         </primitive>
 
+        <primitive id="myTorus">
+
     </primitives >
 
     <components>
@@ -1371,7 +1373,6 @@
             <texture id="inherit" length_s="1" length_t="1" />
    
             <children>
-
                 <primitiveref id="myCylinder" />
             </children>
         </component>

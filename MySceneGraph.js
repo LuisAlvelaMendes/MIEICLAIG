@@ -580,7 +580,7 @@ class MySceneGraph {
                 // w
                 var w = this.reader.getFloat(grandChildren[positionIndex], 'w');
                 if (!(w != null && !isNaN(w) && w >= 0 && w <= 1)){
-                    this.onXMLError("unable to parse x-coordinate of the light position for ID = " + lightId);
+                    this.onXMLError("unable to parse w-coordinate of the light position for ID = " + lightId);
                     return null;
                 }
                 else
