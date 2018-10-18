@@ -34,46 +34,19 @@ class MySphere extends CGFobject
     
         for(var i = 0; i <= this.stacks; i++){
             for(var j= 0; j <= this.slices; j++){
-                
                 var teta = Math.PI-i*delta_lat;
-                
-                this.vertices.push(
-                    r * Math.sin(teta) * Math.cos(j*delta_long),
-                    r * Math.sin(teta) * Math.sin(j*delta_long),
-                    r * Math.cos(teta)
-                );
-                
-                this.normals.push(
-                    Math.sin(teta) * Math.cos(j*delta_long),
-                    Math.sin(teta) * Math.sin(j*delta_long),
-                    Math.cos(teta)
-                );
-                
-                this.texCoords.push(
-                    j/this.slices,
-                    1 - i/this.stacks
-                );
+                this.vertices.push(r * Math.sin(teta) * Math.cos(j*delta_long), r * Math.sin(teta) * Math.sin(j*delta_long), r * Math.cos(teta));
+                this.normals.push(Math.sin(teta) * Math.cos(j*delta_long), Math.sin(teta) * Math.sin(j*delta_long), Math.cos(teta));
+                this.texCoords.push(j/this.slices, 1 - i/this.stacks);
                 
                 index++;
             }
         }
 
         for(var i = 0; i < this.stacks; i++){
-
             for(var j = 0; j < this.slices; j++){
-    
-                this.indices.push(
-                    i*(this.slices + 1) +j,
-                    i*(this.slices + 1) +(j+1),
-                    (i+1)*(this.slices + 1) +(j+1)
-                );
-
-                this.indices.push(
-                    (i+1)*(this.slices + 1) +(j+1),
-                    (i+1)*(this.slices + 1) +j,
-                    i*(this.slices + 1) +j
-                );
-
+                this.indices.push(i*(this.slices + 1) +j, i*(this.slices + 1) +(j+1), (i+1)*(this.slices + 1) +(j+1));
+                this.indices.push((i+1)*(this.slices + 1) +(j+1), (i+1)*(this.slices + 1) +j, i*(this.slices + 1) +j);
             }
         }
     
@@ -86,18 +59,8 @@ class MySphere extends CGFobject
             //bottom
             for(var j= 0; j < this.slices-1; j++){
 
-                this.vertices.push(
-                    r * Math.cos((j)*delta_long),
-                    r * Math.sin((j)*delta_long),
-                    0
-                );
-                
-                this.vertices.push(
-                    r * Math.cos((j+1)*delta_long),
-                    r * Math.sin((j+1)*delta_long),
-                    0
-                );
-                
+                this.vertices.push(r * Math.cos((j)*delta_long), r * Math.sin((j)*delta_long),0)
+                this.vertices.push(r * Math.cos((j+1)*delta_long), r * Math.sin((j+1)*delta_long), 0);
                 this.indices.push(lowcenter, index+1, index);
 
                 for(var rep = 0; rep < 2 ; rep++){

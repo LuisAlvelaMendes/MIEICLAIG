@@ -5,12 +5,13 @@
  */
 class MyTorus extends CGFobject
 {
-	constructor(scene, inner, outer, loops, slices) 
+	constructor(scene, outer, inner, loops, slices) 
 	{
 		super(scene);
 		this.scene = scene;
 		this.inner = inner;
 		this.loops = loops;
+		this.outer = outer;
 		this.slices = slices;
 		this.initBuffers();    
 	};
@@ -21,9 +22,74 @@ class MyTorus extends CGFobject
 		this.indices = [];
 		this.normals = [];
 		this.texCoords = [];
+	
+		var j, i;
+
+		for (j = 0; j <= this.loops; j ++) {
+			for (i = 0; i <= this.slices; i ++) {
+				var u = i / this.slices * Math.PI * 2;
+				var v = j / this.loops * Math.PI * 2;
+
+				var vertexVector = vec3.create();
+
+				vertexVector = [
+					( this.inner + this.outer * Math.cos( v ) ) * Math.cos( u ), 
+					( this.inner + this.outer * Math.cos( v ) ) * Math.sin( u ), 
+					this.outer * Math.sin( v )
+				];
+	
+				this.vertices.push(vertexVector[0], vertexVector[1], vertexVector[2]);
+
+				var centerVector = vec3.create();
+
+				centerVector = [
+					this.inner * Math.cos( u ),
+					this.inner * Math.sin( u ),
+					0
+				];
+
+				var N = vec3.create() //n - normal ao torus
+
+				vec3.cross(N, vertexVector, centerVector);
+		
+				vec3.normalize(N, N);
+	
+				this.normals.push(N[0], N[1], N[2]);
+	
+				// textures
+	
+				this.texCoords.push( i / this.slices );
+				this.texCoords.push( j / this.loops );
+			}
+		}
+	
+		// generate indices
+	
+		for ( j = 1; j <= this.loops; j ++ ) {
+			for ( i = 1; i <= this.slices; i ++ ) {
+	
+				// indices
+	
+				var a = ( this.slices + 1 ) * j + i - 1;
+				var b = ( this.slices + 1 ) * ( j - 1 ) + i - 1;
+				var c = ( this.slices + 1 ) * ( j - 1 ) + i;
+				var d = ( this.slices + 1 ) * j + i;
+	
+				// faces
+	
+				this.indices.push( a, b, d );
+				this.indices.push( b, c, d );
+			}
+		}
+
 		this.originalCoords = this.texCoords.slice();
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
+
+		console.log("LOGS:")
+		console.log(this.vertices);
+		console.log(this.normals);
+		console.log(this.indices);
 	};
 
 	resetCoords(){

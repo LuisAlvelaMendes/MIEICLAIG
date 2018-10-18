@@ -53,7 +53,7 @@ class MyTriangle extends CGFobject
 		vec3.cross(N, p21, p32);
 
 		vec3.normalize(N, N);
-		
+
 		this.normals = [
 			N[0], N[1], N[2],
 			N[0], N[1], N[2],

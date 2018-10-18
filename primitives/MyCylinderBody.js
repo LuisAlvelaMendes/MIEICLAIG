@@ -47,8 +47,8 @@
 	var texIncS = 1/this.slices;
 	var texIncT = 1/this.stacks;
 
-	for (let i = 0; i <=this.stacks; i++){
-		for (let j = 0; j <= this.slices; j++){
+	for (var i = 0; i <=this.stacks; i++){
+		for (var j = 0; j <= this.slices; j++){
 			this.vertices.push(r * Math.cos(j*alpha), r * Math.sin(j*alpha), i*stackInc);
 			this.normals.push(r * Math.cos(j*alpha), r * Math.sin(j*alpha), 0);
 			this.texCoords.push(j*texIncS, i*texIncT);

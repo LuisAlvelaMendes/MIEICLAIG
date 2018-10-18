@@ -1020,12 +1020,10 @@ class MySceneGraph {
 
                         if(grandChildren[0].nodeName == "torus"){
 
-                            /*<torus inner="ff" outer="ff" slices="ii" loops="ii" />*/
-
                             var inner = this.parsePrimitiveCoords(grandChildren[0], 'inner', "torus");
-                            var outer = this.parsePrimitiveCoords(grandChildren[0], 'outer', "cylinder");
-                            var loops = this.parsePrimitiveCoordsInteger(grandChildren[0], 'loops', "cylinder");
-                            var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "cylinder");
+                            var outer = this.parsePrimitiveCoords(grandChildren[0], 'outer', "torus");
+                            var loops = this.parsePrimitiveCoordsInteger(grandChildren[0], 'loops', "torus");
+                            var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "torus");
 
                             console.log("inner: " + inner + " outer: " + outer + " loop: " + loops + " slices: " + slices);
 
@@ -1178,14 +1176,12 @@ class MySceneGraph {
 
         var length_s = this.reader.getFloat(subNodeTextures, "length_s");
         if(length_s == null || isNaN(length_s)){
-            this.onXMLError("Length_s invalid");
-            return null;
+            this.onXMLMinorError("Length_s invalid");
         }
 
         var length_t = this.reader.getFloat(subNodeTextures, "length_t");
         if(length_t == null || isNaN(length_t)){
-            this.onXMLError("Length_t invalid");
-            return null;
+            this.onXMLMinorError("Length_t invalid");
         }
 
         if(textureId != "inherit" && textureId != "none" && this.textures[textureId] == null){
