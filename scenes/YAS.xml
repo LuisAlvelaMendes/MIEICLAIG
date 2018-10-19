@@ -25,7 +25,7 @@
             <from x="40" y="20" z="30" />
             <to x="0" y="1" z="0" />
         </ortho>
-        
+
     </views>
 
     <ambient>
@@ -406,8 +406,7 @@
             </transformation>
 
             <materials>
-                <material id="somematerial" />
-                <material id="supermat" />
+                <material id="inherit" />
             </materials>
 
             <texture id="inherit" length_s="2" length_t="1" />
@@ -1368,8 +1367,7 @@
             </transformation>
      
             <materials>
-                <material id="othermat" />
-                <material id="supermat" />
+                <material id="inherit" />
             </materials>
 
             <texture id="inherit" length_s="1" length_t="1" />

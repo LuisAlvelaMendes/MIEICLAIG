@@ -1353,6 +1353,5 @@ class MySceneGraph {
         }
 
         this.components[this.idRoot].display();
-        //this.components["sphere1"].display();
     }
 }
