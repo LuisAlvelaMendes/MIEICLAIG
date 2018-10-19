@@ -153,6 +153,10 @@
             <cylinder base="1.5" top="1" height="1" slices="60" stacks="60" />
         </primitive>
 
+        <primitive id="myCylinderBottle">
+            <cylinder base="1.5" top="0.8" height="1" slices="60" stacks="60" />
+        </primitive>
+
         <primitive id="mySphere">
             <sphere radius="6" slices="20" stacks="20" />
         </primitive>
@@ -1438,6 +1442,103 @@
             </children>
         </component>
 
+        <component id="myBottle">
+            <transformation>
+                <translate x="6.2" y="1.4" z="13.2" />
+                <rotate axis="x" angle="90" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <componentref id="bottle_up" />
+                <componentref id="bottle_body" />
+                <componentref id="bottle_cone" />
+            </children>
+        </component>
+
+
+        <component id="bottle_body">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="4" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="glass" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="bottle_cone">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="-180" />
+                <scale x="0.7" y="0.65" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="glass" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinderBottle" />
+            </children>
+        </component>
+
+        <component id="bottle_up">
+            <transformation>
+                <translate x="0" y="0" z="-1.2" />
+                <rotate axis="x" angle="0" />
+                <scale x="0.55" y="0.55" z="0.55" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="black" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myBottleSecretaria">
+            <transformation>
+                <translate x="10.7" y="1.8" z="13.1" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <componentref id="bottle_up" />
+                <componentref id="bottle_body" />
+                <componentref id="bottle_cone" />
+            </children>
+        </component>
+
+        <component id="myBottleRight">
+            <transformation>
+                <translate x="10" y="1.22" z="1.1" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <componentref id="bottle_up" />
+                <componentref id="bottle_body" />
+                <componentref id="bottle_cone" />
+            </children>
+        </component>
+
         <!-- Table end -->
 
         <component id="root">
@@ -1479,7 +1580,8 @@
                 <componentref id="donut"/>
                 <componentref id="glass"/>
                 <componentref id="tapete"/>
-                <componentref id="myTriangle">
+                <componentref id="myBottleSecretaria"/>
+                <componentref id="myBottleRight"/>
 
             </children>
         </component>
