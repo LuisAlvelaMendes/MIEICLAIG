@@ -72,6 +72,9 @@
 
     <textures>
         <texture id="woodFloor" file="scenes/images/wood2.jpg"/>
+        <texture id="teclado" file="scenes/images/teclado.jpg"/>
+        <texture id="tapete" file="scenes/images/tapete.jpg"/>
+        <texture id="donut" file="scenes/images/donut.jpg"/>
         <texture id="straw" file="scenes/images/straw.jpg"/>
         <texture id="woodWall" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
@@ -155,6 +158,12 @@
         </primitive>
 
         <primitive id="myTorus">
+            <torus inner="0.6" outer="1" loops="30" slices="30"/>
+        </primitive>
+
+        <primitive id="glass">
+            <cylinder base="1" top="1.5" height="1" slices="60" stacks="60" />
+        </primitive>
 
     </primitives >
 
@@ -945,8 +954,8 @@
         <component id="pcBottom">
 
             <transformation>
-                <translate x="0" y="0" z="0" />
-                <rotate axis="x" angle="0" />
+                <translate x="0" y="0" z="1" />
+                <rotate axis="x" angle="-180" />
                 <scale x="0.4" y="0.015" z="0.5" />
             </transformation> 
 
@@ -954,7 +963,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="rocks" length_s="2" length_t="1" />
+            <texture id="teclado" length_s="0.1" length_t="0.1" />
 
             <children>
                 <componentref id="myCubeQuad" />
@@ -1270,6 +1279,27 @@
 
         <!-- end myChair -->
 
+        <!-- Tapete --> 
+
+        <!-- end tapete -->
+        <component id="tapete">
+
+            <transformation>
+                <translate x="9" y="0.2" z="7" />
+                <rotate axis="z" angle="0" />
+                <scale x="3.1" y="0.01" z="3.8" />
+            </transformation>
+
+            <materials>
+                <material id="supermat" />
+            </materials>
+
+            <texture id="tapete" length_s="1" length_t="1" />
+
+            <children>
+                <componentref id="myCubeQuad"/>
+            </children>
+        </component>
         <!-- Table -->
 
         <component id="myTable">
@@ -1392,6 +1422,21 @@
             </children>
         </component>
 
+        <component id="donut">
+            <transformation>
+                <translate x="11.2" y="1.4" z="13.2" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.1" y="0.1" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="donut" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myTorus" />
+            </children>
+        </component>
+
         <!-- Table end -->
 
         <component id="root">
@@ -1430,6 +1475,9 @@
                 <componentref id="myLamp_R"/>
                 <componentref id="myLampTable"/>
                 <componentref id="myPc"/>
+                <componentref id="donut"/>
+                <componentref id="glass"/>
+                <componentref id="tapete"/>
 
 
             </children>
