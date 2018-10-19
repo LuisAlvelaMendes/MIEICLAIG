@@ -25,7 +25,7 @@
             <from x="40" y="20" z="30" />
             <to x="0" y="1" z="0" />
         </ortho>
-
+        
     </views>
 
     <ambient>
@@ -86,6 +86,7 @@
         <texture id="black" file="scenes/images/black.jpg"/>
         <texture id="mac" file="scenes/images/mac.jpg"/>
         <texture id="anime" file="scenes/images/anime.png"/>
+        <texture id="iluminati" file="scenes/images/iluminati.png"/>
     </textures>
 
     <materials>
@@ -155,6 +156,8 @@
         </primitive>
 
         <primitive id="myTorus">
+            <torus inner="6" outer="1" loops="60" slices="60" />
+        </primitive>
 
     </primitives >
 
@@ -165,16 +168,15 @@
         <component id="myTriangle">
 
             <transformation>>
-                <translate x="2" y="0.5" z="2" />
-                <rotate axis="y" angle="-180" />
-                <scale x="0.1" y="1" z="2" />
+                <rotate axis="y" angle="-90" />
+                <translate x="0.5" y="3" z="-12" /> 
             </transformation>
 
             <materials>
                 <material id="othermat" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="iluminati" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="myTriangle" />
@@ -1430,8 +1432,7 @@
                 <componentref id="myLamp_R"/>
                 <componentref id="myLampTable"/>
                 <componentref id="myPc"/>
-
-
+                <componentref id="myTriangle">
             </children>
         </component>
 

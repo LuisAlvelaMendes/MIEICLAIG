@@ -58,7 +58,6 @@ class MySphere extends CGFobject
         
             //bottom
             for(var j= 0; j < this.slices-1; j++){
-
                 this.vertices.push(r * Math.cos((j)*delta_long), r * Math.sin((j)*delta_long),0)
                 this.vertices.push(r * Math.cos((j+1)*delta_long), r * Math.sin((j+1)*delta_long), 0);
                 this.indices.push(lowcenter, index+1, index);
