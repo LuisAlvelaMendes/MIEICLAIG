@@ -83,12 +83,12 @@
         <texture id="newt" file="scenes/images/wood1.jpg"/>
         <texture id="rocks" file="scenes/images/rocks.jpg"/>
         <texture id="p1" file="scenes/images/p1.jpg"/>
-        <texture id="p2" file="scenes/images/p2.png"/>
         <texture id="lamp" file="scenes/images/lamp.jpg"/>
         <texture id="run" file="scenes/images/run.jpg"/>
         <texture id="black" file="scenes/images/black.jpg"/>
         <texture id="mac" file="scenes/images/mac.jpg"/>
         <texture id="anime" file="scenes/images/anime.png"/>
+        <texture id="iluminati" file="scenes/images/iluminati.png"/>
     </textures>
 
     <materials>
@@ -158,11 +158,15 @@
         </primitive>
 
         <primitive id="myTorus">
+
             <torus inner="0.6" outer="1" loops="30" slices="30"/>
         </primitive>
 
         <primitive id="glass">
             <cylinder base="1" top="1.5" height="1" slices="60" stacks="60" />
+
+            <torus inner="6" outer="1" loops="60" slices="60" />
+
         </primitive>
 
     </primitives >
@@ -174,16 +178,15 @@
         <component id="myTriangle">
 
             <transformation>>
-                <translate x="2" y="0.5" z="2" />
-                <rotate axis="y" angle="-180" />
-                <scale x="0.1" y="1" z="2" />
+                <rotate axis="y" angle="-90" />
+                <translate x="0.5" y="3" z="-12" /> 
             </transformation>
 
             <materials>
                 <material id="othermat" />
             </materials>
 
-            <texture id="inherit" length_s="1" length_t="1" />
+            <texture id="iluminati" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="myTriangle" />
@@ -413,8 +416,7 @@
             </transformation>
 
             <materials>
-                <material id="somematerial" />
-                <material id="supermat" />
+                <material id="inherit" />
             </materials>
 
             <texture id="inherit" length_s="2" length_t="1" />
@@ -562,7 +564,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="p2" length_s="0.5" length_t="0.5" />
+            <texture id="p1" length_s="0.1" length_t="0.5" />
 
              <children>
                 <componentref id="myCubeQuad" />
@@ -1396,8 +1398,7 @@
             </transformation>
      
             <materials>
-                <material id="othermat" />
-                <material id="supermat" />
+                <material id="inherit" />
             </materials>
 
             <texture id="inherit" length_s="1" length_t="1" />
@@ -1478,7 +1479,7 @@
                 <componentref id="donut"/>
                 <componentref id="glass"/>
                 <componentref id="tapete"/>
-
+                <componentref id="myTriangle">
 
             </children>
         </component>

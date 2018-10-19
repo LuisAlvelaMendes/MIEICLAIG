@@ -16,6 +16,11 @@ class MyTriangle extends CGFobject
 		this.p2 = [x2, y2, z2];
 		this.p3 = [x3, y3, z3];
 
+		this.minS = 0;
+		this.maxT = 1;
+		this.maxS = 1;
+		this.minT = 0;
+
 		this.initBuffers();    
 	};
 
@@ -78,11 +83,26 @@ class MyTriangle extends CGFobject
 	}
 	
 	scaleTextureCoords(lengthS, lengthT){
-		
-		for (var i = 0; i < this.texCoords.length; i += 2) {
-			this.texCoords[i] = this.texCoords[i] / lengthS;
-			this.texCoords[i + 1] = this.texCoords[i+1] / lengthT;
-		}
+		//c é  a distância: P2-P3
+		//a é a distância: P3-P1
+		//b  é a distâcia: P1-P2
+
+    	var c = Math.sqrt(Math.pow(this.p2[0] - this.p3[0], 2) + Math.pow(this.p2[1] - this.p3[1], 2) + Math.pow(this.p2[2] - this.p3[2], 2));
+    	var a = Math.sqrt(Math.pow(this.p1[0] - this.p3[0], 2) + Math.pow(this.p1[1] - this.p3[1], 2) + Math.pow(this.p1[2] - this.p3[2], 2));
+		var b = Math.sqrt(Math.pow(this.p2[0] - this.p1[0], 2) + Math.pow(this.p2[1] - this.p1[1], 2) + Math.pow(this.p2[2] - this.p1[2], 2));
+
+		//considerar-se-á que v é a distância desde a base (c) até ao ponto mais alto do triângulo
+
+		//tirado do documento fornecido do moodle
+		var angBeta = Math.acos((Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) / (2 * a * c));
+
+		var v = a*Math.sin(angBeta);
+
+		this.texCoords = [
+		0, v/lengthT,
+		c/lengthS, v/lengthT,
+		(c-a*Math.cos(angBeta))/lengthS, (v-a*Math.sin(angBeta))/lengthT
+		];
 		
 		this.updateTexCoordsGLBuffers();
 	};

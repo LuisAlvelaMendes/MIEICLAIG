@@ -1057,10 +1057,6 @@ class MySceneGraph {
     parseComponentTransformation(subNodeTransformation){
         
         var children = subNodeTransformation.children;
-        var translation = [];
-        var rotation = [];
-        var scale = [];
-        var explicitTransformation = null;
         var transformationrefId = null;
 
         var mat = mat4.create();
@@ -1357,6 +1353,5 @@ class MySceneGraph {
         }
 
         this.components[this.idRoot].display();
-        //this.components["sphere1"].display();
     }
 }
