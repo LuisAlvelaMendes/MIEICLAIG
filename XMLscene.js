@@ -47,17 +47,7 @@ class XMLscene extends CGFscene {
         this.camera = new CGFcamera(0.6, 0.1, 550, vec3.fromValues(40, 20, 30), vec3.fromValues(0,1,0));      
     }
 
-
-    cross(out, a, b) {
-        let ax = a[0], ay = a[1], az = a[2];
-        let bx = b[0], by = b[1], bz = b[2];
-        out[0] = ay * bz - az * by;
-        out[1] = az * bx - ax * bz;
-        out[2] = ax * by - ay * bx;
-        return out;
-    }
-
-    // Take valeus from Parser to actually create CGF Cameras
+    // Take values from Parser to actually create CGF Cameras
     recoverParsedCameras(){
         for (var key in this.graph.views) {
             if (this.graph.views.hasOwnProperty(key)) {

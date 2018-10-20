@@ -851,7 +851,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="lamp2" length_s="2" length_t="1" />
+            <texture id="lamp" length_s="2" length_t="1" />
 
             <children>
                 <primitiveref id="myCylinderCan" />
@@ -870,7 +870,7 @@
                 <material id="othermat" />
             </materials>
 
-            <texture id="lamp2" length_s="2" length_t="1" />
+            <texture id="lamp" length_s="2" length_t="1" />
 
             <children>
                 <primitiveref id="myCylinderCan" />
@@ -1554,7 +1554,7 @@
                 <material id="supermat"/>
             </materials>
 
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="woodWall" length_s="1" length_t="1" />
 
             <children>
 
