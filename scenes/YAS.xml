@@ -142,7 +142,7 @@
 
         <primitive id="myTriangle">
             <triangle x1="0" y1="0" z1="0"
-                      x2="0" y2="2" z2="0"
+                      x2="0" y2="4" z2="0"
                       x3="0" y3="2" z3="2" />
         </primitive >
 
@@ -159,7 +159,7 @@
         </primitive>
 
         <primitive id="mySphere">
-            <sphere radius="0.8" slices="60" stacks="60" />
+            <sphere radius="0.4" slices="60" stacks="60" />
         </primitive>
 
         <primitive id="myTorus">
@@ -217,7 +217,7 @@
         <component id="mySphere">
 
             <transformation>
-                <translate x="5" y="1" z="10" />
+                <translate x="1" y="2.6" z="14" />
             </transformation>
 
             <materials>
@@ -1477,6 +1477,92 @@
             </children>
         </component>
 
+        <component id="myPiramide">
+            <transformation>
+                 <translate x="1.3" y="2.2" z="12.5" />
+                <rotate axis="x" angle="0" />
+                <scale x="0.4" y="0.6" z="0.2" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <componentref id="piramideA" />
+                <componentref id="piramideB" />
+                <componentref id="piramideC" />
+                <componentref id="piramideD" />
+                
+            </children>
+        </component>
+
+        <component id="piramideA">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="-90" />
+                <rotate axis="y" angle="-30" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myTriangle" />
+            </children>
+        </component>
+
+        <component id="piramideB">
+            <transformation>
+                <translate x="-2" y="0" z="-4" />
+                <rotate axis="x" angle="90" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="y" angle="-30" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myTriangle" />
+            </children>
+        </component>
+
+        <component id="piramideC">
+            <transformation>
+                <translate x="0" y="0" z="-4" />
+                <rotate axis="x" angle="-90" />
+                <rotate axis="z" angle="90" />
+                <rotate axis="y" angle="-50" />
+                <scale x="0.5" y="0.5" z="1.335" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myTriangle" />
+            </children>
+        </component>
+
+        <component id="piramideD">
+            <transformation>
+                <translate x="-2" y="0" z="0" />
+                <rotate axis="x" angle="-90" />
+                <rotate axis="z" angle="-90" />
+                <rotate axis="y" angle="-50" />
+                <scale x="0.5" y="0.5" z="1.335" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="inherit" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myTriangle" />
+            </children>
+        </component>
+
         <!-- Table end -->
 
         <component id="root">
@@ -1521,6 +1607,7 @@
                 <componentref id="myBottleSecretaria"/>
                 <componentref id="myBottleRight"/>
                 <componentref id="mySphere" />
+                <componentref id="myPiramide"/>
             </children>
         </component>
 
