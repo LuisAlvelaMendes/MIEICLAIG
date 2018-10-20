@@ -89,6 +89,7 @@
         <texture id="mac" file="scenes/images/mac.jpg"/>
         <texture id="anime" file="scenes/images/anime.png"/>
         <texture id="iluminati" file="scenes/images/iluminati.png"/>
+        <texture id="basketball" file="scenes/images/basketball.jpg"/>
     </textures>
 
     <materials>
@@ -158,19 +159,16 @@
         </primitive>
 
         <primitive id="mySphere">
-            <sphere radius="6" slices="20" stacks="20" />
+            <sphere radius="0.8" slices="60" stacks="60" />
         </primitive>
 
         <primitive id="myTorus">
-
             <torus inner="0.6" outer="1" loops="30" slices="30"/>
         </primitive>
 
         <primitive id="glass">
             <cylinder base="1" top="1.5" height="1" slices="60" stacks="60" />
-
             <torus inner="6" outer="1" loops="60" slices="60" />
-
         </primitive>
 
     </primitives >
@@ -216,42 +214,20 @@
             </children>
         </component>
 
-        <component id="mySemiSphere">
-
-            <transformation>
-                <translate x="11" y="4" z="2" />
-                <rotate axis="x" angle="-90" />
-                <scale x="1" y="1" z="1" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="newt" length_s="1" length_t="1" />
-
-            <children>
-                <primitiveref id="mySphere" />
-            </children>
-        </component>
-
         <component id="mySphere">
 
             <transformation>
-                <translate x="0" y="0" z="0" />
-                <rotate axis="x" angle="0" />
-                <scale x="1" y="1" z="1" />
+                <translate x="5" y="1" z="10" />
             </transformation>
 
             <materials>
                 <material id="othermat" />
             </materials>
 
-            <texture id="light" length_s="2" length_t="0.5" />
+            <texture id="basketball" length_s="2" length_t="1" />
 
             <children>
-                <componentref id="semi1" />
-                <componentref id="semi2" />
+               <primitiveref id="mySphere" />
             </children>
         </component>
 
@@ -278,44 +254,6 @@
         </component>
 
         <!-- Other COmponents not so relevant -->
-        
-        <component id="semi1">
-
-            <transformation>
-                <translate x="1" y="1" z="1" />
-                <rotate axis="x" angle="0" />
-                <scale x="1" y="1" z="1" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="inherit" length_s="2" length_t="0.5" />
-
-            <children>
-                <primitiveref id="mySphere" />
-            </children>
-        </component>
-
-        <component id="semi2">
-
-            <transformation>
-                <translate x="1" y="1" z="1" />
-                <rotate axis="x" angle="-180" />
-                <scale x="1" y="1" z="1" />
-            </transformation>
-
-            <materials>
-                <material id="othermat" />
-            </materials>
-
-            <texture id="inherit" length_s="2" length_t="0.5" />
-
-            <children>
-                <primitiveref id="mySphere" />
-            </children>
-        </component>
 
         <!-- Room Walls -->
 
@@ -1582,7 +1520,7 @@
                 <componentref id="tapete"/>
                 <componentref id="myBottleSecretaria"/>
                 <componentref id="myBottleRight"/>
-
+                <componentref id="mySphere" />
             </children>
         </component>
 

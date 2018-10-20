@@ -180,7 +180,7 @@ class MySceneGraph {
             if (index != TRANSFORMATIONS_INDEX)
                 this.onXMLMinorError("tag <transformations> out of order");
 
-            //Parse MATERIALS block
+            //Parse TRANSFORMATION block
             if ((error = this.parseTransformations(nodes[index])) != null)
                 return error;
         }
@@ -192,7 +192,7 @@ class MySceneGraph {
             if (index != PRIMITIVES_INDEX)
                 this.onXMLMinorError("tag <primitives> out of order");
 
-            //Parse MATERIALS block
+            //Parse PRIMITIVES block
             if ((error = this.parsePrimitives(nodes[index])) != null)
                 return error;
         }
@@ -204,7 +204,7 @@ class MySceneGraph {
             if (index != COMPONENTS_INDEX)
                 this.onXMLMinorError("tag <components> out of order");
 
-            //Parse NODES block
+            //Parse COMPONENTS block
             if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
@@ -1195,6 +1195,7 @@ class MySceneGraph {
 
         return textures;
     }
+    
     /**
      * Parses the <components> block.
      * @param {components block element} componentsNode
@@ -1341,8 +1342,6 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        // entry point for graph rendering
-        //TODO: Render loop starting at root of graph
 
         this.checkIfKeyMPressed();
 

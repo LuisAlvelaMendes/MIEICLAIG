@@ -7,7 +7,7 @@ var DEGREE_TO_RAD = (Math.PI / 180);
  */
 class Component
 {
-	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents, primitives, components, transformations, materials, textures) 
+	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents) 
 	{
 		this.id = id;
 		this.tranf = tranf; 
@@ -15,12 +15,7 @@ class Component
 	    this.tex = tex; 
 	    this.childrenPrimitives = childrenPrimitives;
 	    this.childrenComponents = childrenComponents;
-	    this.primitives = primitives;
-	    this.components = components;
-	    this.transformations = transformations;
 		this.scene = scene;
-		this.materials = materials;
-		this.textures = textures;
 		this.materialCurrentIndex = 0;
 	};
 
@@ -42,7 +37,7 @@ class Component
 	 * When the transformation parameter passed is a reference to an existing transformation.
 	 */
 	applyTransformationReference(){
-		var matrix = this.transformations[this.tranf];
+		var matrix = this.scene.graph.transformations[this.tranf];
 
 		this.scene.multMatrix(matrix);
 
@@ -61,11 +56,11 @@ class Component
 	applyMaterial(parentMaterialId){
 		
 		if(this.mat[0] == "inherit"){
-			var material = this.materials[parentMaterialId];
+			var material = this.scene.graph.materials[parentMaterialId];
 		}
 
 		else{
-			var material = this.materials[this.mat[this.materialCurrentIndex]];
+			var material = this.scene.graph.materials[this.mat[this.materialCurrentIndex]];
 		}
 
 		this.ComponentAppearance = new CGFappearance(this.scene);
@@ -83,11 +78,11 @@ class Component
 		}
 
 		if(this.tex[0] == "inherit"){
-			var texture = this.textures[parentTextureId];
+			var texture = this.scene.graph.textures[parentTextureId];
 		}
 
 		if(this.tex[0] != "inherit" && this.tex[0] != "none"){
-			var texture = this.textures[this.tex[0]];
+			var texture = this.scene.graph.textures[this.tex[0]];
 		}
 
 		this.ComponentAppearance.setTexture(texture);
@@ -103,7 +98,7 @@ class Component
 
 		// Component Children
 		for(var i = 0; i < this.childrenComponents.length; i++){
-			if(this.components[this.childrenComponents[i]] != null){
+			if(this.scene.graph.components[this.childrenComponents[i]] != null){
 
 				this.scene.pushMatrix();
 				
@@ -114,19 +109,19 @@ class Component
 				}
 
 				if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
-					this.components[this.childrenComponents[i]].display(parentMaterialId, this.tex[0]);
+					this.scene.graph.components[this.childrenComponents[i]].display(parentMaterialId, this.tex[0]);
 				}
 
 				if(this.mat[0] == "inherit" && this.tex[0] == "inherit"){
-					this.components[this.childrenComponents[i]].display(parentMaterialId, parentTextureId);
+					this.scene.graph.components[this.childrenComponents[i]].display(parentMaterialId, parentTextureId);
 				}
 
 				if(this.mat[0] != "inherit" && this.tex[0] == "inherit"){
-					this.components[this.childrenComponents[i]].display(this.mat[0], parentTextureId);
+					this.scene.graph.components[this.childrenComponents[i]].display(this.mat[0], parentTextureId);
 				}
 
 				if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
-					this.components[this.childrenComponents[i]].display(this.mat[0], this.tex[0]);
+					this.scene.graph.components[this.childrenComponents[i]].display(this.mat[0], this.tex[0]);
 				}
 
 				this.scene.popMatrix();
@@ -146,30 +141,30 @@ class Component
 				
 				// Scaling textures with lengthS and lengthT
 				if(this.tex[1] != null && this.tex[2] != null){
-					this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+					this.scene.graph.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 					texCoordsChanged = true;
 				}
 
 				// Applying transformations
 				this.applyTransformationNoReference();
-				this.primitives[this.childrenPrimitives[i]].display();
+				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
 
 				if(this.tex[1] != null && this.tex[2] != null){
-					this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
+					this.scene.graph.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 					texCoordsChanged = true;
 				}
 				
 				this.applyTransformationReference();
-				this.primitives[this.childrenPrimitives[i]].display();
+				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			}
 
 			if(texCoordsChanged){
-				this.primitives[this.childrenPrimitives[i]].resetCoords();
-				this.primitives[this.childrenPrimitives[i]].updateTexCoordsGLBuffers();
+				this.scene.graph.primitives[this.childrenPrimitives[i]].resetCoords();
+				this.scene.graph.primitives[this.childrenPrimitives[i]].updateTexCoordsGLBuffers();
 			}
 
 		}
