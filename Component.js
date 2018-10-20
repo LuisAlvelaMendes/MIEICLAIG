@@ -24,6 +24,9 @@ class Component
 		this.materialCurrentIndex = 0;
 	};
 
+	/**
+	 * Used to swap current material.
+	 */
 	incrementIndex(){
 		if(this.materialCurrentIndex < (this.mat.length)-1){
 			this.materialCurrentIndex++;
@@ -34,6 +37,10 @@ class Component
 		}
 	}
 
+
+	/**
+	 * When the transformation parameter passed is a reference to an existing transformation.
+	 */
 	applyTransformationReference(){
 		var matrix = this.transformations[this.tranf];
 
@@ -42,15 +49,16 @@ class Component
 		return null;
 	};
 
+	/**
+	 * When the transformation parameter passed is a matrix with the transformations ready to apply.
+	 */
 	applyTransformationNoReference(){
-
 		this.scene.multMatrix(this.tranf);
 		
 		return null;
 	};
 
 	applyMaterial(parentMaterialId){
-		//vai ter que se ler o ID, por causa de id="inherit" herdar do paí, mais aquele gimmick de trocar de material pressionando M.
 		
 		if(this.mat[0] == "inherit"){
 			var material = this.materials[parentMaterialId];
@@ -93,9 +101,9 @@ class Component
 
 	display(parentMaterialId, parentTextureId) {		
 
+		// Component Children
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.components[this.childrenComponents[i]] != null){
-				// TODO :: GENERICO - pareceido com as primitivas etc...
 
 				this.scene.pushMatrix();
 				
@@ -125,23 +133,24 @@ class Component
 			} 
 		}
 
+		// Primitive Children
 		for(var i = 0; i < this.childrenPrimitives.length; i++){
 			
-			// Apply Materials
+			// Apply Materials and textures
 			this.applyMaterial(parentMaterialId);
 			this.applyTexture(parentTextureId);
 			var texCoordsChanged = false;
 
-			//APPLY TRANSFORMATION MATRIX
-
 			if(!(this.isString(this.tranf))){
 				this.scene.pushMatrix();
 				
+				// Scaling textures with lengthS and lengthT
 				if(this.tex[1] != null && this.tex[2] != null){
 					this.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 					texCoordsChanged = true;
 				}
 
+				// Applying transformations
 				this.applyTransformationNoReference();
 				this.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();

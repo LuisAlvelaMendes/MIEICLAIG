@@ -22,20 +22,18 @@ class MyTorus extends CGFobject
 		this.indices = [];
 		this.normals = [];
 		this.texCoords = [];
-	
-		var j, i;
 
-		for (j = 0; j <= this.loops; j ++) {
-			for (i = 0; i <= this.slices; i ++) {
-				var u = i / this.slices * Math.PI * 2;
-				var v = j / this.loops * Math.PI * 2;
+		for (var j = 0; j <= this.loops; j ++) {
+			for (var i = 0; i <= this.slices; i ++) {
+				var delta_long = i / this.slices * Math.PI * 2;
+				var delta_lat = j / this.loops * Math.PI * 2;
 
 				var vertexVector = vec3.create();
 
 				vertexVector = [
-					( this.inner + this.outer * Math.cos( v ) ) * Math.cos( u ), 
-					( this.inner + this.outer * Math.cos( v ) ) * Math.sin( u ), 
-					this.outer * Math.sin( v )
+					( this.inner + this.outer * Math.cos( delta_lat ) ) * Math.cos( delta_long ), 
+					( this.inner + this.outer * Math.cos( delta_lat ) ) * Math.sin( delta_long ), 
+					this.outer * Math.sin( delta_lat )
 				];
 	
 				this.vertices.push(vertexVector[0], vertexVector[1], vertexVector[2]);
@@ -43,8 +41,8 @@ class MyTorus extends CGFobject
 				var centerVector = vec3.create();
 
 				centerVector = [
-					this.inner * Math.cos( u ),
-					this.inner * Math.sin( u ),
+					this.inner * Math.cos( delta_long ),
+					this.inner * Math.sin( delta_long ),
 					0
 				];
 

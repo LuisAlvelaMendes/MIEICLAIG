@@ -30,7 +30,7 @@ class MySceneGraph {
         this.idRoot = null;                    // The id of the root element.
         this.Axis_Length = 0;
 
-        // Default camera coordinates:
+        // Default camera coordinates before views are parsed:
         this.near = 0.1;
         this.far = 500;
 
@@ -284,6 +284,7 @@ class MySceneGraph {
         }
 
         else {
+            // This will be used later on to swap to this camera once the views have been parse and the scene is rendered.
             this.defaultCamera = this.reader.getString(viewNode, 'default');
         }
 
@@ -379,7 +380,7 @@ class MySceneGraph {
 
                 else this.log("Parsed ortho " + Id + " near = " + near + " far = " + far + " left = " + left + " right = " + right + " top " + top + " bottom " + bottom);
 
-                                grandChildren = children[i].children;
+                grandChildren = children[i].children;
 
                 // parsing from and to grandchildren ..
                 for (var j = 0; j < grandChildren.length; j++) {
@@ -573,8 +574,8 @@ class MySceneGraph {
 
             // Retrieves the light position.
             var positionLight = [];
+
             if (positionIndex != -1) {
-                
                 positionLight = this.parseCoordinates(grandChildren[positionIndex]);
 
                 // w
@@ -583,9 +584,9 @@ class MySceneGraph {
                     this.onXMLError("unable to parse w-coordinate of the light position for ID = " + lightId);
                     return null;
                 }
-                else
-                    positionLight.push(w);
+                else positionLight.push(w);
             }
+
             else{
                 this.onXMLError("light position undefined for ID = " + lightId);
                 return null;
@@ -593,6 +594,7 @@ class MySceneGraph {
 
             // Retrieves the ambient component.
             var ambientIllumination = [];
+
             if (ambientIndex != -1) {
                 ambientIllumination = this.rgbParser(grandChildren, ambientIndex);
             }
@@ -601,20 +603,21 @@ class MySceneGraph {
                 return null;
             }
 
-            // TODO: Retrieve the diffuse component
+            // Retrieve the diffuse component
             var diffuseIllumination = [];
+
             if (diffuseIndex != -1){
                 diffuseIllumination = this.rgbParser(grandChildren, diffuseIndex);
             }
 
-            // TODO: Retrieve the specular component
+            // Retrieve the specular component
             var specularIllumination = [];
+
             if (specularIndex != -1){
                 specularIllumination = this.rgbParser(grandChildren, specularIndex);
             }
 
-            if(children[i].nodeName == "spot"){
-                
+            if(children[i].nodeName == "spot"){ 
                 angle = this.reader.getFloat(children[i], 'angle');
                 if(angle == null || isNaN(angle)){
                     this.onXMLError("Angle is null for light of id " + lightId);
@@ -640,7 +643,7 @@ class MySceneGraph {
                 singleLight.push(enableLight, positionLight, ambientIllumination, diffuseIllumination, specularIllumination);
             }
 
-            // TODO: Store Light global information.
+            // Store Light global information.
             this.lights[lightId] = singleLight;
             numLights++;
         }
@@ -724,6 +727,7 @@ class MySceneGraph {
             // Check the tag name in materials
             if(children[i].nodeName != "material") 
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+
             else{
                 var materialId = this.reader.getString(children[i], 'id');
 
@@ -819,9 +823,6 @@ class MySceneGraph {
         var numTransformations = 0;
 
         for(var i = 0; i < children.length; i++){
-            var translation = [];
-            var rotation = [];
-            var scale = [];
 
             if(children[i].nodeName != "transformation"){
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
@@ -849,6 +850,7 @@ class MySceneGraph {
 
             numTransformations++;
 
+            // Creating matrix to apply transformations
             var mat = mat4.create();
 
             for(var j = 0; j < grandChildren.length; j++){
@@ -859,10 +861,12 @@ class MySceneGraph {
                 }
                 
                 if(grandChildren[j].nodeName == "translate"){
+                    // Applying translations
                     mat4.translate(mat, mat, this.parseCoordinates(grandChildren[j]));
                 }
 
                 if(grandChildren[j].nodeName == "rotate"){
+                    // Applying rotations
                     var axis = this.reader.getString(grandChildren[j], "axis");
     
                     if(axis == null || (axis != "x" && axis != "y" && axis != "z")){
@@ -890,11 +894,13 @@ class MySceneGraph {
                 }
 
                 if(grandChildren[j].nodeName == "scale"){
+                    // Applying scaling
                     mat4.scale(mat, mat, this.parseCoordinates(grandChildren[j]));
                 }
                 
             }
 
+            // Storing matrix in this array
             this.transformations[transformationId] = mat;
         }
 
@@ -940,7 +946,6 @@ class MySceneGraph {
 
         for (var i = 0; i < children.length; i++) {
 
-            // Check the tag name in materials
             if(children[i].nodeName != "primitive") 
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
 
@@ -1202,7 +1207,6 @@ class MySceneGraph {
 
         for (var i = 0; i < children.length; i++) {
 
-            // Check the tag name in materials
             if (children[i].nodeName != "component")
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
 
@@ -1231,7 +1235,6 @@ class MySceneGraph {
                         if(grandChildren[j].nodeName == "transformation"){
                             //get all  transformations & transf_REF in <Transformations> section
                             transformations = this.parseComponentTransformation(grandChildren[j]);
-                            console.log(transformations);
                         }
 
                         if(grandChildren[j].nodeName == "materials"){
