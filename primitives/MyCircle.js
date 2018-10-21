@@ -36,9 +36,7 @@ MyCircle.prototype.initBuffers = function () {
 	
 	var angle = 2*Math.PI/this.slices;
 	var r = this.radius;
-
-	console.log("RADIUS HERE: " + this.radius);
-
+	
 	var index = 1;
 	
 	this.vertices.push(

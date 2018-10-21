@@ -268,8 +268,6 @@ class MySceneGraph {
         else
         result.push(z);
 
-        this.log("x = " + x + " y = " + y + " z = " + z);
-
         return result;
     }
 
@@ -411,8 +409,6 @@ class MySceneGraph {
 
         if (numViews == 0) this.onXMLMinorError("at least one view must be defined");
 
-        console.log(this.views);
-
         this.log("Parsed views");
         return null;
     }
@@ -448,8 +444,6 @@ class MySceneGraph {
             this.onXMLError("unable to parse a component");
         else
             result["a"]=a;
-
-        this.log("r = " + r + " g = " + g + " b = " + b + " a = " + a);
 
         return result;
     }
@@ -653,8 +647,6 @@ class MySceneGraph {
         else if (numLights > 8)
             this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
         
-        console.log(this.lights);
-        
         this.log("Parsed lights");
         return null;
     }
@@ -706,7 +698,6 @@ class MySceneGraph {
 
         if(numTextures == 0) this.onXMLMinorError("at least one Texture must be defined");
 
-        console.log(this.textures);
         console.log("Parsed textures");
         return null;
     }
@@ -737,8 +728,6 @@ class MySceneGraph {
                 // Checks for repeated IDs.
                 if (this.materials[materialId] != null)
                     return "ID must be unique for each materials (conflict: ID = " + materialId + ")";
-                else
-                    console.log("Material ID is right.")
 
                 var materialShi = this.reader.getFloat(children[i], 'shininess');
                 if (materialShi == null || isNaN(materialShi)){
@@ -806,8 +795,8 @@ class MySceneGraph {
         else if (numMaterials > 8)
             this.onXMLMinorError("too many Materials defined; WebGL imposes a limit of 8 materials");
 
-        console.log(this.materials);
-        this.log("Parsed materials");
+
+        console.log("Parsed materials");
         return null;
     }
 
@@ -909,7 +898,7 @@ class MySceneGraph {
             return null;
         }
 
-        this.log("Parsed transformations");
+        console.log("Parsed transformations");
         return null;
     }
 
@@ -993,7 +982,6 @@ class MySceneGraph {
                             var z2 = this.parsePrimitiveCoords(grandChildren[0], 'z2', "triangle");
                             var z3 = this.parsePrimitiveCoords(grandChildren[0], 'z3', "triangle");
 
-                            console.log("VAL: " + x1 + " "  +  x2 + " "  +  x3 + " "  +y1 + y2 + y3 + z1 + z2 + z3)
 
                             var triangle = new MyTriangle(this.scene, primitiveId, x1, y1, z1, x2, y2, z2, x3, y3, z3);
                             this.primitives[primitiveId] = triangle;
@@ -1017,8 +1005,6 @@ class MySceneGraph {
                             var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "cylinder");
                             var stacks = this.parsePrimitiveCoordsInteger(grandChildren[0], "stacks", "cylinder");
 
-                            console.log("base: " + base + " top: " + top);
-
                             var cylinder = new MyCylinder(this.scene, primitiveId, slices, stacks, base, top, height);
                             this.primitives[primitiveId] = cylinder;
                         }
@@ -1029,8 +1015,6 @@ class MySceneGraph {
                             var outer = this.parsePrimitiveCoords(grandChildren[0], 'outer', "torus");
                             var loops = this.parsePrimitiveCoordsInteger(grandChildren[0], 'loops', "torus");
                             var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "torus");
-
-                            console.log("inner: " + inner + " outer: " + outer + " loop: " + loops + " slices: " + slices);
 
                             var torus = new MyTorus(this.scene, inner, outer, loops, slices);
                             this.primitives[primitiveId] = torus;
@@ -1045,7 +1029,7 @@ class MySceneGraph {
         if(numPrimitives == 0)
             this.onXMLMinorError("at least one Primitive must be defined");
 
-        this.log("Parsed primitives");
+        console.log("Parsed primitives");
         return null;
     }
 
@@ -1191,8 +1175,6 @@ class MySceneGraph {
 
         textures.push(textureId, length_s, length_t);
 
-        console.log(textures);
-
         return textures;
     }
     
@@ -1287,7 +1269,6 @@ class MySceneGraph {
                                     }
                                 }
 
-                                console.log(materials);
                                 var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations, this.materials, this.textures);
                                 this.components[componentId] = component;
                                 this.componentIds.push(componentId);
@@ -1300,7 +1281,7 @@ class MySceneGraph {
             }
         }
 
-        this.log("Parsed components");
+        console.log("Parsed components");
         return null;
     }
 

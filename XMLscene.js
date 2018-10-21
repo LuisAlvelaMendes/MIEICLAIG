@@ -64,8 +64,6 @@ class XMLscene extends CGFscene {
                 var right = 0;
                 var top = 0;
                 var bottom = 0;
-
-                console.log(this.graph.views);
                 
                 if(this.graph.views[key].length <= 5){
                     angle = this.graph.views[key][4];
@@ -98,8 +96,6 @@ class XMLscene extends CGFscene {
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
-
-                console.log(light);
 
                 //lights are predefined in cgfscene
                 if(light.length == 5){

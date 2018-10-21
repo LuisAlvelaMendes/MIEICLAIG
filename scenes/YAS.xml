@@ -19,7 +19,6 @@
             <to x="-10" y="1" z="5" />
         </perspective>
         
-
         <ortho id="ortho" near="0.1" far="500"
                left="-5" right="5" top="5" bottom="-5">
             <from x="40" y="20" z="30" />
@@ -164,11 +163,6 @@
 
         <primitive id="myTorus">
             <torus inner="0.6" outer="1" loops="30" slices="30"/>
-        </primitive>
-
-        <primitive id="glass">
-            <cylinder base="1" top="1.5" height="1" slices="60" stacks="60" />
-            <torus inner="6" outer="1" loops="60" slices="60" />
         </primitive>
 
     </primitives >

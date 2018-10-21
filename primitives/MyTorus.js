@@ -83,11 +83,6 @@ class MyTorus extends CGFobject
 		this.originalCoords = this.texCoords.slice();
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
-
-		console.log("LOGS:")
-		console.log(this.vertices);
-		console.log(this.normals);
-		console.log(this.indices);
 	};
 
 	resetCoords(){

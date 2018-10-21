@@ -15,7 +15,6 @@ class MyCarLight extends CGFobject
         this.tireAppearance = new CGFappearance(this.scene);
         this.tireAppearance.loadTexture("./resources/images/carlight.png");
         this.tireAppearance.setAmbient(0.9, 0.9, 0.9, 0.2);
-
     };
 
     display() 
@@ -36,8 +35,5 @@ class MyCarLight extends CGFobject
         this.tireAppearance .apply();
         this.circleFront.display();
         this.scene.popMatrix();
-
-
-
     };
 };
