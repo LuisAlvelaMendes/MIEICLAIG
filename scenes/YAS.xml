@@ -9,12 +9,12 @@
             <to x="0" y="0" z="0" />
         </perspective>
         
-        <perspective id="view1" near="0.1" far="550" angle="0.8">
+        <perspective id="view1" near="0.1" far="550" angle="20">
             <from x="40" y="20" z="30" />
             <to x="0" y="1" z="0" />
         </perspective>
 
-        <perspective id="view2" near="0.1" far="550" angle="0.6">
+        <perspective id="view2" near="0.1" far="550" angle="30">
             <from x="30" y="5" z="10" />
             <to x="-10" y="1" z="5" />
         </perspective>
@@ -1581,7 +1581,6 @@
             <texture id="woodWall" length_s="1" length_t="1" />
 
             <children>
-
                 <componentref id="myRoom"/>
                 <componentref id="myChair"/>
                 <componentref id="myTable"/>
