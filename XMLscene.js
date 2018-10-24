@@ -1,4 +1,5 @@
 var DEGREE_TO_RAD = Math.PI / 180;
+var FPS = 60;
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -38,6 +39,9 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.materialDefault = new CGFappearance(this);
+        this.lastTime = -1;
+        this.deltaTime = 0;
+        this.setUpdatePeriod(1000 * (1/FPS));
     }
 
     /**
@@ -45,6 +49,20 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera = new CGFcamera(0.6, 0.1, 550, vec3.fromValues(40, 20, 30), vec3.fromValues(0,1,0));      
+    }
+
+    update(currTime) {
+
+        if (this.lastTime === -1) {
+            this.lastTime = currTime;
+        } else {
+            this.deltaTime = currTime - this.lastTime;
+            this.lastTime = currTime;
+        }
+
+        this.updateProjectionMatrix();
+        
+        // depends on how the animations are stored updatePos(this.deltaTime/1000);
     }
 
     // Take values from Parser to actually create CGF Cameras

@@ -4,9 +4,11 @@
  */
 class Animation
 {
-	constructor(scene) 
+	constructor(scene, id, time) 
 	{
         this.scene = scene;
+        this.time = time;
+        this.id = id;
     };
     
     applyAnimation(){

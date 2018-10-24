@@ -49,7 +49,11 @@ main=function()
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
+    var myGraph = new MySceneGraph(filename, myScene);
+    
+    var n1 = new LinearAnimation(myScene, "random", 10, [0, 0, 1], [1, 0, 0], [0, 1, 0,]);
+
+    n1.calculateVelocity();
 	
 	// start
     app.run();

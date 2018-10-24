@@ -8,8 +8,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -182,6 +183,18 @@ class MySceneGraph {
 
             //Parse TRANSFORMATION block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+         // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+                
+            //Parse Animations block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -899,6 +912,71 @@ class MySceneGraph {
         }
 
         console.log("Parsed transformations");
+        return null;
+    }
+
+    /**
+     * Parses the <animations> node.
+     * @param {animations block element} animationsNode
+     */
+    parseAnimations(animationsNode){
+        var children = animationsNode.children;
+        this.animations = [];
+        var anim;
+
+        for(var i = 0; i < children.length; i++){
+
+            if(children[i].nodeName != "linearAnimation" && children[i].nodeName != "circularAnimation"){
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var animationsId = this.reader.getString(children[i], "id");
+
+            if(animationsId == null){
+                this.onXMLError("No ID for animation");
+                return null;
+            }
+
+            if(this.checkEqualId(children) == null){
+                this.onXMLError("Repeated ID animation" + animationsId);
+                return null;
+            }
+
+            if(children[i].nodeName == "linearAnimation"){
+                var id = this.reader.getString(children[i], 'id');
+                var time = this.reader.getFloat(children[i], 'time');
+                var p1 = this.reader.getFloat(children[i], 'p1');
+                var p2 = this.reader.getFloat(children[i], 'p2');
+                var p3 = this.reader.getFloat(children[i], 'p3');
+                var p4 = this.reader.getFloat(children[i], 'p4');
+                var p5 = this.reader.getFloat(children[i], 'p5');
+                var p6 = this.reader.getFloat(children[i], 'p6');
+                var p7 = this.reader.getFloat(children[i], 'p7');
+                var p8 = this.reader.getFloat(children[i], 'p8');
+                var p9 = this.reader.getFloat(children[i], 'p9');
+
+                anim = new LinearAnimation(this.scene, id, time, [p1, p2, p3], [p4, p5, p6], [p7, p8, p9]);
+            }
+
+            if(children[i].nodeName == "circularAnimation"){
+                var id = this.reader.getString(children[i], 'id');
+                var time = this.reader.getFloat(children[i], 'time');
+                var centerP1 = this.reader.getFloat(children[i], 'centerP1');
+                var centerP2 = this.reader.getFloat(children[i], 'centerP2');
+                var centerP3 = this.reader.getFloat(children[i], 'centerP3');
+                var radius = this.reader.getFloat(children[i], 'radius');
+                var initAngle = this.reader.getFloat(children[i], 'initAngle');
+                var rotAngle = this.reader.getFloat(children[i], 'rotAngle');
+
+                anim = new CircularAnimation(this.scene, id, time, [centerP1, centerP2, centerP3], radius, initAngle, rotAngle);
+            }
+
+            this.animations[animationsId] = anim;
+        }
+
+        console.log(this.animations);
+        console.log("Parsed animations");
         return null;
     }
 
