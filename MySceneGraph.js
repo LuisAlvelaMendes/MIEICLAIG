@@ -1255,6 +1255,35 @@ class MySceneGraph {
 
         return textures;
     }
+
+    parseComponentAnimation(subNodeAnimation){
+        var children = subNodeAnimation.children;
+        var animations = [];
+
+        for (var i = 0; i < children.length; i++) {
+        
+            if(children[i].nodeName != "animationref") 
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+
+            else{
+                var animID = this.reader.getString(children[i], 'id');
+
+                if (animID == null){
+                    this.onXMLError("no ID defined for animation");
+                    return null;
+                }
+
+                if(this.animations[animID] == null){
+                    this.onXMLError("No animation that is declared exists: " + animID);
+                    return null;
+                }
+
+                animations.push(animID);
+            }
+        }
+
+        return animations;
+    }
     
     /**
      * Parses the <components> block.
@@ -1289,6 +1318,7 @@ class MySceneGraph {
                     var transformations = null;
                     var textures = [];
                     var materials = [];
+                    var animations = [];
                     var primOrCompRefId = null;
 
                     for (var j = 0; j < grandChildren.length; j++) {
@@ -1304,6 +1334,14 @@ class MySceneGraph {
 
                         if(grandChildren[j].nodeName == "texture"){
                             textures = this.parseComponentTextures(grandChildren[j]);
+                        }
+
+                        if(grandChildren[j].nodeName == "texture"){
+                            textures = this.parseComponentTextures(grandChildren[j]);
+                        }
+
+                        if(grandChildren[j].nodeName == "animations"){
+                            animations = this.parseComponentAnimation(grandChildren[j]);
                         }
 
                         if (grandChildren[j].nodeName == "children"){
@@ -1347,7 +1385,7 @@ class MySceneGraph {
                                     }
                                 }
 
-                                var component = new Component(this.scene, componentId, transformations, materials, textures, primitiveChildren, componentChildren, this.primitives, this.components, this.transformations, this.materials, this.textures);
+                                var component = new Component(this.scene, componentId, transformations, materials, textures, animations, primitiveChildren, componentChildren);
                                 this.components[componentId] = component;
                                 this.componentIds.push(componentId);
                             }

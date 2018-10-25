@@ -91,17 +91,6 @@
         <texture id="basketball" file="scenes/images/basketball.jpg"/>
     </textures>
 
-    <animations>
-        <!-- podem existir zero ou mais nós "animation" -->
-        <!-- time é o tempo, em segundos, que a animação deve -->
-        <!-- demorar. Só podem haver children linearAnimation ou circularAnimation
-        na animacao circular os angulos sao expressos em graus -->
-        <linearAnimation id="thing" time="2" p1="1" p2="2" p3="3" p4="4" p5="12" p6="5"
-        p7="6" p8="7" p9="8"/>
-        <circularAnimation id="otherthing" time="2" centerP1="3" centerP2="4" centerP3="5.2"
-        radius="2" initAngle="3" rotAngle="60"/>
-    </animations>
-
     <materials>
   
         <material id="somematerial" shininess = "0.3" >
@@ -143,6 +132,17 @@
             <scale x="4" y="4" z="4" />
         </transformation>
     </transformations>
+
+    <animations>
+        <!-- podem existir zero ou mais nós "animation" -->
+        <!-- time é o tempo, em segundos, que a animação deve -->
+        <!-- demorar. Só podem haver children linearAnimation ou circularAnimation
+        na animacao circular os angulos sao expressos em graus -->
+        <linearAnimation id="thing" time="2" p1="1" p2="2" p3="3" p4="4" p5="12" p6="5"
+        p7="6" p8="7" p9="8"/>
+        <circularAnimation id="otherthing" time="2" centerP1="3" centerP2="4" centerP3="5.2"
+        radius="2" initAngle="3" rotAngle="60"/>
+    </animations>
 
     <primitives>
 
@@ -241,6 +241,11 @@
             <transformation>
                 <translate x="5" y="0.7" z="14" />
             </transformation>
+
+            <animations>
+                <animationref id="thing"/>
+                <animationref id="otherthing"/>
+            </animations>
 
             <materials>
                 <material id="othermat" />
@@ -1629,7 +1634,7 @@
                 <componentref id="myBottleRight"/>
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
-               <!-- <componentref id="myAnimationBall" /> -->
+                <componentref id="myAnimationBall" />
             </children>
         </component>
 

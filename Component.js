@@ -7,7 +7,7 @@ var DEGREE_TO_RAD = (Math.PI / 180);
  */
 class Component
 {
-	constructor(scene, id, tranf, mat, tex, childrenPrimitives, childrenComponents) 
+	constructor(scene, id, tranf, mat, tex, anim, childrenPrimitives, childrenComponents) 
 	{
 		this.id = id;
 		this.tranf = tranf; 
@@ -17,6 +17,7 @@ class Component
 	    this.childrenComponents = childrenComponents;
 		this.scene = scene;
 		this.materialCurrentIndex = 0;
+		this.animationsID = anim;
 	};
 
 	/**
@@ -90,6 +91,12 @@ class Component
 		this.ComponentAppearance.apply();
 	}
 
+	applyAnimation(){
+		for(var i = 0; i < this.animationsID.length; i++){
+			this.scene.graph.animations[this.animationsID[i]].applyAnimation();
+		}
+	}
+
 	isString(x) {
 		return Object.prototype.toString.call(x) === "[object String]"
 	};
@@ -134,6 +141,7 @@ class Component
 			// Apply Materials and textures
 			this.applyMaterial(parentMaterialId);
 			this.applyTexture(parentTextureId);
+			this.applyAnimation();
 			var texCoordsChanged = false;
 
 			if(!(this.isString(this.tranf))){

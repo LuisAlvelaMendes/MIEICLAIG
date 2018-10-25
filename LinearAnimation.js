@@ -13,7 +13,7 @@ class LinearAnimation extends Animation
     };
     
     applyAnimation(){
-
+        //console.log("Linear animation!");
     };
 
     calculateVelocity(){

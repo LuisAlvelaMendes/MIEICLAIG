@@ -16,7 +16,7 @@ class CircularAnimation extends Animation
     };
 
     applyAnimation(){
-        
+        //console.log("here as well but circular");
     };
 
 };
