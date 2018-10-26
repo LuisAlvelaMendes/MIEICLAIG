@@ -15,4 +15,8 @@ class Animation
 
     };
 
+    update(){
+
+    };
+
 };

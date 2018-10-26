@@ -13,7 +13,7 @@ class LinearAnimation extends Animation
     };
     
     applyAnimation(){
-        //console.log("Linear animation!");
+        // console.log("Linear animation!");
     };
 
     calculateVelocity(){
@@ -26,6 +26,10 @@ class LinearAnimation extends Animation
         }
         
         this.velocity = this.distance / this.time;
+    };
+    
+    update(){
+         // console.log("doing nothing linenar");
     };
 
 };

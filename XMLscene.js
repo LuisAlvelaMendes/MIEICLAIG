@@ -52,17 +52,16 @@ class XMLscene extends CGFscene {
     }
 
     update(currTime) {
+        var deltaTime = (currTime - this.lastUpdateTime) / 1000;
+        this.lastUpdateTime = currTime;
 
-        if (this.lastTime === -1) {
-            this.lastTime = currTime;
-        } else {
-            this.deltaTime = currTime - this.lastTime;
-            this.lastTime = currTime;
+        for (var animationId in this.graph.animations) {
+            this.graph.animations[animationId].update(deltaTime);
         }
 
-        this.updateProjectionMatrix();
-        
-        // depends on how the animations are stored updatePos(this.deltaTime/1000);
+        for (var componentsId in this.graph.components) {
+            //this.graph.components[componentsId].update(deltaTime);
+        }
     }
 
     // Take values from Parser to actually create CGF Cameras

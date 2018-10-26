@@ -19,4 +19,9 @@ class CircularAnimation extends Animation
         //console.log("here as well but circular");
     };
 
+    
+    update(){
+        //console.log("doing nothing circular");
+    };
+
 };
