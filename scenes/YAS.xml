@@ -134,14 +134,16 @@
     </transformations>
 
     <animations>
-        <!-- podem existir zero ou mais nós "animation" -->
-        <!-- time é o tempo, em segundos, que a animação deve -->
+        <!-- podem existir zero ou mais "animation" -->
+        <!-- span é o tempo, em segundos, que a animação deve -->
         <!-- demorar. Só podem haver children linearAnimation ou circularAnimation
         na animacao circular os angulos sao expressos em graus -->
-        <linearAnimation id="thing" time="2" p1="1" p2="2" p3="3" p4="4" p5="12" p6="5"
-        p7="6" p8="7" p9="8"/>
-        <circularAnimation id="otherthing" time="2" centerP1="3" centerP2="4" centerP3="5.2"
-        radius="2" initAngle="3" rotAngle="60"/>
+        <linear id="thing" span="2" >
+            <controlpoint xx="1" yy="2" zz="3" /> 
+            <controlpoint xx="4" yy="12" zz="5" />
+            <controlpoint xx="6" yy="7" zz="8"/>
+        </linear>
+        <circular id="otherthing" span="2" center="3 4 5.2" radius="2" startang="3" rotang="60"/>
     </animations>
 
     <primitives>
@@ -293,9 +295,8 @@
             </transformation> 
 
             <materials>
-                <material id="othermat" />
                 <material id="supermat" />
-                <material id="somematerial" />
+                <material id="inherit" />
             </materials>
 
             <texture id="woodWall" length_s="1" length_t="0.5" />

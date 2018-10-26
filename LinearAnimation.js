@@ -6,10 +6,10 @@ var DEGREE_TO_RAD = (Math.PI / 180);
  */
 class LinearAnimation extends Animation
 {
-	constructor(scene, id, totalTime, controlPoint1, controlPoint2, controlPoint3) 
+	constructor(scene, id, totalTime, controlPoints) 
 	{
         super(scene, id, totalTime)
-        this.linearVector = [controlPoint1, controlPoint2, controlPoint3];
+        this.linearVector = controlPoints;
     };
     
     applyAnimation(){

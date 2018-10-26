@@ -797,7 +797,14 @@ class MySceneGraph {
                     this.onXMLError("no specular component");
                 }
 
-                this.materials[materialId] = [materialShi, emission, ambient, diffuse, specular];
+                var ComponentAppearance = new CGFappearance(this.scene);
+		        ComponentAppearance.setShininess(materialShi);
+		        ComponentAppearance.setEmission(emission["r"], emission["g"], emission["b"], emission["a"]);
+                ComponentAppearance.setAmbient(ambient["r"], ambient["g"], ambient["b"], ambient["a"]);
+		        ComponentAppearance.setDiffuse(diffuse["r"], diffuse["g"], diffuse["b"], diffuse["a"]);
+		        ComponentAppearance.setSpecular(specular["r"], specular["g"], specular["b"], specular["a"]);
+
+                this.materials[materialId] = ComponentAppearance;
                 numMaterials++;
             }
         }
@@ -926,7 +933,7 @@ class MySceneGraph {
 
         for(var i = 0; i < children.length; i++){
 
-            if(children[i].nodeName != "linearAnimation" && children[i].nodeName != "circularAnimation"){
+            if(children[i].nodeName != "linear" && children[i].nodeName != "circular"){
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -943,33 +950,47 @@ class MySceneGraph {
                 return null;
             }
 
-            if(children[i].nodeName == "linearAnimation"){
+            if(children[i].nodeName == "linear"){
                 var id = this.reader.getString(children[i], 'id');
-                var time = this.reader.getFloat(children[i], 'time');
-                var p1 = this.reader.getFloat(children[i], 'p1');
-                var p2 = this.reader.getFloat(children[i], 'p2');
-                var p3 = this.reader.getFloat(children[i], 'p3');
-                var p4 = this.reader.getFloat(children[i], 'p4');
-                var p5 = this.reader.getFloat(children[i], 'p5');
-                var p6 = this.reader.getFloat(children[i], 'p6');
-                var p7 = this.reader.getFloat(children[i], 'p7');
-                var p8 = this.reader.getFloat(children[i], 'p8');
-                var p9 = this.reader.getFloat(children[i], 'p9');
+                var time = this.reader.getFloat(children[i], 'span');
 
-                anim = new LinearAnimation(this.scene, id, time, [p1, p2, p3], [p4, p5, p6], [p7, p8, p9]);
+                var grandChildren = children[i].children;
+                var numControlPoints = 0;
+                var points = [];
+
+                for(var j = 0; j < grandChildren.length; j++){
+                    if(grandChildren[j].nodeName != "controlpoint"){
+                        this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                        continue;
+                    }
+
+                    var p1X = this.reader.getFloat(grandChildren[j], 'xx');
+                    var p1Y = this.reader.getFloat(grandChildren[j], 'yy');
+                    var p1Z = this.reader.getFloat(grandChildren[j], 'zz');
+
+                    points.push([p1X, p1Y, p1Z]);
+                    numControlPoints++;
+                }
+
+                if(numControlPoints < 2){
+                    this.onXMLError("Cannot define linear animation of id " + animationsId + " with less than 2 control poins.");
+                }
+
+                anim = new LinearAnimation(this.scene, id, time, points);
             }
 
-            if(children[i].nodeName == "circularAnimation"){
+            if(children[i].nodeName == "circular"){
                 var id = this.reader.getString(children[i], 'id');
-                var time = this.reader.getFloat(children[i], 'time');
-                var centerP1 = this.reader.getFloat(children[i], 'centerP1');
-                var centerP2 = this.reader.getFloat(children[i], 'centerP2');
-                var centerP3 = this.reader.getFloat(children[i], 'centerP3');
+                var time = this.reader.getFloat(children[i], 'span');
+                var circleCoords = this.reader.getString(children[i], 'center').split(" ");
+                circleCoords[0] = parseFloat(circleCoords[0]);
+                circleCoords[1] = parseFloat(circleCoords[1]);
+                circleCoords[2] = parseFloat(circleCoords[2]);
                 var radius = this.reader.getFloat(children[i], 'radius');
-                var initAngle = this.reader.getFloat(children[i], 'initAngle');
-                var rotAngle = this.reader.getFloat(children[i], 'rotAngle');
+                var initAngle = this.reader.getFloat(children[i], 'startang');
+                var rotAngle = this.reader.getFloat(children[i], 'rotang');
 
-                anim = new CircularAnimation(this.scene, id, time, [centerP1, centerP2, centerP3], radius, initAngle, rotAngle);
+                anim = new CircularAnimation(this.scene, id, time, circleCoords, radius, initAngle, rotAngle);
             }
 
             this.animations[animationsId] = anim;

@@ -55,21 +55,23 @@ class Component
 	};
 
 	applyMaterial(parentMaterialId){
+
+		var foundInherit = false;
+
+		// If at any given point in the component's material declaration "inherit" is found, it will automatically overwrite all other materials and use the inherit.
 		
-		if(this.mat[0] == "inherit"){
-			var material = this.scene.graph.materials[parentMaterialId];
+		for(var i = 0; i < this.mat.length; i++){
+			if(this.mat[i] == "inherit"){
+				foundInherit = true;
+				var material = this.scene.graph.materials[parentMaterialId];
+			}
 		}
 
-		else{
+		if(foundInherit == false) {
 			var material = this.scene.graph.materials[this.mat[this.materialCurrentIndex]];
 		}
 
-		this.ComponentAppearance = new CGFappearance(this.scene);
-		this.ComponentAppearance.setShininess(material[0]);
-		this.ComponentAppearance.setEmission(material[1]["r"], material[1]["g"], material[1]["b"], material[1]["a"]);
-		this.ComponentAppearance.setAmbient(material[2]["r"], material[2]["g"], material[2]["b"], material[2]["a"]);
-		this.ComponentAppearance.setDiffuse(material[3]["r"], material[3]["g"], material[3]["b"], material[3]["a"]);
-		this.ComponentAppearance.setSpecular(material[4]["r"], material[4]["g"], material[4]["b"], material[4]["a"]);
+		this.ComponentAppearance = material;
 	}
 
 	applyTexture(parentTextureId){
@@ -93,7 +95,9 @@ class Component
 
 	applyAnimation(){
 		for(var i = 0; i < this.animationsID.length; i++){
+			this.scene.pushMatrix();
 			this.scene.graph.animations[this.animationsID[i]].applyAnimation();
+			this.scene.popMatrix();
 		}
 	}
 
@@ -141,7 +145,6 @@ class Component
 			// Apply Materials and textures
 			this.applyMaterial(parentMaterialId);
 			this.applyTexture(parentTextureId);
-			this.applyAnimation();
 			var texCoordsChanged = false;
 
 			if(!(this.isString(this.tranf))){
@@ -155,6 +158,7 @@ class Component
 
 				// Applying transformations
 				this.applyTransformationNoReference();
+				this.applyAnimation();
 				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
@@ -166,6 +170,7 @@ class Component
 				}
 				
 				this.applyTransformationReference();
+				this.applyAnimation();
 				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			}
