@@ -11,15 +11,17 @@ class LinearAnimation extends Animation
         super(scene, id, totalTime)
         this.controlPoints = controlPoints;
 
-        // current position of the object
-        this.currentPosition = vec3.create(); 
-
         // first piece of animation "path" that will have to be made, from control point [0] to c.p [1]
-
         this.pathBetweenControlPoints = vec3.create();
 
         vec3.sub(this.pathBetweenControlPoints, this.controlPoints[1], this.controlPoints[0]);
         this.pathLength = vec3.length(this.pathBetweenControlPoints);
+
+        // calculate horizontal angle with Z axis and vertical angle with Y axis
+        this.calculateAngles();
+ 
+        // current position of the object
+        this.currentPosition = vec3.create(); 
 
         // distance travelled so far 
         this.distanceTravelled = 0;
@@ -32,6 +34,37 @@ class LinearAnimation extends Animation
         // tell us if the animation has reached its end point, where it must loop back to the start.
         this.animationReachedLoop = false;
     };
+
+    /**
+     * Calculates vertical and horizontal angle.
+     */
+    calculateAngles(){
+        this.pathOrientationXZ = vec3.fromValues(this.pathBetweenControlPoints[0], 0, this.pathBetweenControlPoints[2]);
+        this.horizontalAngle = this.calcAux([0, 0, 1], this.pathOrientationXZ) * DEGREE_TO_RAD;
+
+        this.pathOrientationYZ = vec3.fromValues(0, this.pathBetweenControlPoints[1], this.pathBetweenControlPoints[2]);
+        this.verticalAngle = this.calcAux([0, 0, 1], this.pathOrientationYZ) * DEGREE_TO_RAD;
+    }
+
+    /**
+     * Auxiliary generic function for angle calculation using vec3
+     * @param {*} a 
+     * @param {*} b 
+     */
+    calcAux(a,b){
+        var tempA = vec3.fromValues(a[0], a[1], a[2]);
+        var tempB = vec3.fromValues(b[0], b[1], b[2]);
+  
+        vec3.normalize(tempA, tempA);
+        vec3.normalize(tempB, tempB);
+  
+        var checkCos = vec3.dot(tempA, tempB);
+        if (checkCos > 1.0) {
+            return 0;
+        } else {
+            return Math.acos(checkCos);
+        }
+      }
 
     /**
      * Calculates velocity based on a pair of vectors drawn from the received control points, adding their length and dividing by animation time.
@@ -94,6 +127,12 @@ class LinearAnimation extends Animation
 
         // translate accordingly to the path
         this.scene.translate(this.currentPosition[0],this.currentPosition[1],this.currentPosition[2]);
+
+        // rotate horizontally, along Y
+        this.scene.rotate(this.horizontalAngle, 0, 1, 0);
+
+        // rotate vertically, along x
+        this.scene.rotate(this.verticalAngle, 1, 0, 0);
     };
 
 };
