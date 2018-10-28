@@ -60,7 +60,7 @@ class XMLscene extends CGFscene {
         }
 
         for (var componentsId in this.graph.components) {
-            //this.graph.components[componentsId].update(deltaTime);
+            this.graph.components[componentsId].update(deltaTime);
         }
     }
 

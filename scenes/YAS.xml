@@ -138,12 +138,27 @@
         <!-- span é o tempo, em segundos, que a animação deve -->
         <!-- demorar. Só podem haver children linearAnimation ou circularAnimation
         na animacao circular os angulos sao expressos em graus -->
-        <linear id="thing" span="2" >
-            <controlpoint xx="1" yy="2" zz="3" /> 
-            <controlpoint xx="4" yy="12" zz="5" />
-            <controlpoint xx="6" yy="7" zz="8"/>
+        <linear id="linearTest" span="10" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="2" yy="0" zz="2" />
+            <controlpoint xx="3" yy="0" zz="3"/>
+            <controlpoint xx="4" yy="0" zz="4"/>
+            <controlpoint xx="5" yy="0" zz="5"/>
+            <controlpoint xx="6" yy="0" zz="6"/>
+            <controlpoint xx="7" yy="0" zz="7"/>
+            <controlpoint xx="7" yy="6" zz="7"/>
+            <controlpoint xx="7" yy="7" zz="7"/>
+            <controlpoint xx="7" yy="8" zz="7"/>
+            <controlpoint xx="7" yy="9" zz="7"/>
         </linear>
-        <circular id="otherthing" span="2" center="3 4 5.2" radius="2" startang="3" rotang="60"/>
+        
+        <linear id="notReferenced" span="3" >
+            <controlpoint xx="4" yy="5" zz="1" /> 
+            <controlpoint xx="3" yy="6" zz="1" />
+            <controlpoint xx="4" yy="20" zz="10"/>
+        </linear>
+
+        <circular id="circularTest" span="2" center="3 4 5.2" radius="2" startang="3" rotang="60"/>
     </animations>
 
     <primitives>
@@ -245,8 +260,7 @@
             </transformation>
 
             <animations>
-                <animationref id="thing"/>
-                <animationref id="otherthing"/>
+                <animationref id="linearTest"/>
             </animations>
 
             <materials>

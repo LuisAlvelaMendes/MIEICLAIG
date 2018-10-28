@@ -21,6 +21,19 @@ class Component
 	};
 
 	/**
+	 * Used to update component animations.
+	 */
+	update(deltaTime){
+		for(var i = 0; i < this.animationsID.length; i++){
+			this.scene.graph.animations[this.animationsID[i]].update(deltaTime);
+
+			if (this.scene.graph.animations[this.animationsID[i]].animationReachedLoop) {
+				this.scene.graph.animations[this.animationsID[i]].animationReachedLoop = false;
+			}
+		}
+	}
+	 
+	/**
 	 * Used to swap current material.
 	 */
 	incrementIndex(){
@@ -32,7 +45,6 @@ class Component
 			this.materialCurrentIndex = 0;
 		}
 	}
-
 
 	/**
 	 * When the transformation parameter passed is a reference to an existing transformation.
@@ -95,9 +107,7 @@ class Component
 
 	applyAnimation(){
 		for(var i = 0; i < this.animationsID.length; i++){
-			this.scene.pushMatrix();
-			this.scene.graph.animations[this.animationsID[i]].applyAnimation();
-			this.scene.popMatrix();
+			this.scene.graph.animations[this.animationsID[i]].apply();
 		}
 	}
 
@@ -158,7 +168,10 @@ class Component
 
 				// Applying transformations
 				this.applyTransformationNoReference();
+
+				// Applying animations
 				this.applyAnimation();
+
 				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			} else {
@@ -170,7 +183,9 @@ class Component
 				}
 				
 				this.applyTransformationReference();
+
 				this.applyAnimation();
+
 				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
 				this.scene.popMatrix();
 			}

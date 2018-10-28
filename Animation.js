@@ -11,11 +11,11 @@ class Animation
         this.id = id;
     };
     
-    applyAnimation(){
+    apply(){
 
     };
 
-    update(){
+    update(deltaTime){
 
     };
 

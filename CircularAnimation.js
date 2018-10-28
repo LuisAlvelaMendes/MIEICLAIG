@@ -15,12 +15,12 @@ class CircularAnimation extends Animation
         this.rotationAngle = rotationAngle;
     };
 
-    applyAnimation(){
+    apply(){
         //console.log("here as well but circular");
     };
 
     
-    update(){
+    update(deltaTime){
         //console.log("doing nothing circular");
     };
 
