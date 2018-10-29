@@ -138,37 +138,21 @@
         <!-- span é o tempo, em segundos, que a animação deve -->
         <!-- demorar. Só podem haver children linearAnimation ou circularAnimation
         na animacao circular os angulos sao expressos em graus -->
-        <linear id="linearTest" span="20" >
+        <linear id="linearTest" span="5" >
             <controlpoint xx="0" yy="0" zz="0" /> 
-            <controlpoint xx="2" yy="0" zz="2" />
-            <controlpoint xx="3" yy="0" zz="3"/>
-            <controlpoint xx="0" yy="0" zz="4"/>
-            <controlpoint xx="0" yy="0" zz="5"/>
-            <controlpoint xx="0" yy="0" zz="10"/>
-            <controlpoint xx="7" yy="0" zz="0"/>
-            <controlpoint xx="1" yy="2" zz="3"/>
-            <controlpoint xx="0" yy="7" zz="7"/>
-            <controlpoint xx="7" yy="8" zz="7"/>
-            <controlpoint xx="7" yy="9" zz="7"/>
-            <controlpoint xx="7" yy="8" zz="7"/>
-            <controlpoint xx="7" yy="7" zz="7"/>
-            <controlpoint xx="6" yy="6" zz="7"/>
-            <controlpoint xx="5" yy="6" zz="7"/>
-            <controlpoint xx="4" yy="6" zz="7"/>
-            <controlpoint xx="4" yy="6" zz="6"/>
-            <controlpoint xx="4" yy="6" zz="2"/>
-            <controlpoint xx="3" yy="5" zz="1"/>
-            <controlpoint xx="9" yy="10" zz="11"/>
-            <controlpoint xx="10" yy="11" zz="12"/>
+            <controlpoint xx="1" yy="0" zz="1" />
+            <controlpoint xx="-1" yy="0" zz="-1"/>
+
         </linear>
         
         <linear id="notReferenced" span="10" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="9" yy="10" zz="11" />
-            <controlpoint xx="8" yy="9" zz="10"/>
+            <controlpoint xx="8" yy="9" zz="1"/>
         </linear>
 
-        <circular id="circularTest" span="2" center="3 4 5.2" radius="2" startang="3" rotang="60"/>
+        <circular id="circularTest" span="4" center="0 0 0" radius="0.001" startang="3" rotang="360"/>
+
     </animations>
 
     <primitives>
@@ -251,6 +235,10 @@
             <transformation>
                 <translate x="1" y="2.6" z="14" />
             </transformation>
+
+            <animations>
+                <animationref id="circularTest"/>
+            </animations>
 
             <materials>
                 <material id="othermat" />
