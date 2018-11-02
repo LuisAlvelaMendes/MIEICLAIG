@@ -158,7 +158,16 @@
             <controlpoint xx="8" yy="9" zz="1"/>
         </linear>
 
+        <linear id="whellsRotation2" span="10" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="9" yy="10" zz="11" />
+            <controlpoint xx="8" yy="9" zz="1"/>
+        </linear>
+
         <circular id="circularTest" span="4" center="0 0 0" radius="0.001" startang="3" rotang="360"/>
+
+        <circular id="whellsRotation" span="20" center="0 0 0" radius="0.001" startang="3" rotang="360"/>
+
 
     </animations>
 
@@ -1572,11 +1581,14 @@
             <transformation>
                 <translate x="0" y="0" z="4" />
                 <rotate axis="x" angle="0" />
-                <scale x="1" y="1" z="0.8" />
+                <scale x="1" y="1" z="1" />
             </transformation>
             <materials>
                 <material id="othermat" />
             </materials>
+            <animations>
+                <animationref id="whellsRotation"/>
+            </animations>
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1592,6 +1604,9 @@
             <materials>
                 <material id="othermat" />
             </materials>
+            <animations>
+                <animationref id="whellsRotation"/>
+            </animations>
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1607,6 +1622,9 @@
             <materials>
                 <material id="othermat" />
             </materials>
+            <animations>
+                <animationref id="whellsRotation"/>
+            </animations>
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1622,6 +1640,9 @@
             <materials>
                 <material id="othermat" />
             </materials>
+            <animations>
+                <animationref id="whellsRotation"/>
+            </animations>
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
