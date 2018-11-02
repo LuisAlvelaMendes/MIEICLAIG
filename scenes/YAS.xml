@@ -89,6 +89,7 @@
         <texture id="anime" file="scenes/images/anime.png"/>
         <texture id="iluminati" file="scenes/images/iluminati.png"/>
         <texture id="basketball" file="scenes/images/basketball.jpg"/>
+        <texture id="pneu" file="scenes/images/pneu.png"/>
     </textures>
 
     <materials>
@@ -145,6 +146,12 @@
 
         </linear>
         
+        <linear id="carAnimation" span="5" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="1" yy="0" zz="1" />
+            <controlpoint xx="-1" yy="0" zz="-1"/>
+        </linear>
+
         <linear id="notReferenced" span="10" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="9" yy="10" zz="11" />
@@ -1536,6 +1543,123 @@
             </children>
         </component>
 
+        <component id="myCar">
+            <transformation>
+                 <translate x="4.3" y="1.2" z="17.5" />
+                <rotate axis="x" angle="0" />
+                <scale x="0.8" y="0.8" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <animations>
+                <animationref id="linearTest"/>
+            </animations>
+
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <componentref id="myWell1" />
+                <componentref id="myWell2" />
+                <componentref id="myWell3" />
+                <componentref id="myWell4" />
+                <componentref id="myBody1" />
+                <componentref id="myBody2" />
+            </children>
+        </component>
+
+        <component id="myWell1">
+            <transformation>
+                <translate x="0" y="0" z="4" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="pneu" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myWell2">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="pneu" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myWell3">
+            <transformation>
+                <translate x="5" y="0" z="4" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="pneu" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myWell4">
+            <transformation>
+                <translate x="5" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="pneu" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myBody1">
+            <transformation>
+                <translate x="7" y="0" z="0.5" />
+                <rotate axis="x" angle="0" />
+                <scale x="4.5" y="0.5" z="2" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="wood1" length_s="1" length_t="1" />
+            <children>
+                <componentref id="myCubeQuad"/>
+            </children>
+        </component>
+
+        <component id="myBody2">
+            <transformation>
+                <translate x="5" y="1" z="0.5" />
+                <rotate axis="x" angle="0" />
+                <scale x="2.3" y="0.8" z="2" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="wood1" length_s="1" length_t="1" />
+            <children>
+                <componentref id="myCubeQuad"/>
+            </children>
+        </component>
+
+
+
         <component id="piramideA">
             <transformation>
                 <translate x="0" y="0" z="0" />
@@ -1648,6 +1772,7 @@
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
                 <componentref id="myAnimationBall" />
+                <componentref id="myCar" />
             </children>
         </component>
 
