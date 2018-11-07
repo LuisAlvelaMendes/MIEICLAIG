@@ -144,13 +144,22 @@
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="1" yy="0" zz="1" />
             <controlpoint xx="-1" yy="0" zz="-1"/>
+        </linear>
 
+        <linear id="newTest" span="5" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="1" yy="0" zz="1" />
+            <controlpoint xx="-1" yy="0" zz="-1"/>
         </linear>
         
         <linear id="carAnimation" span="5" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="1" yy="0" zz="1" />
             <controlpoint xx="-1" yy="0" zz="-1"/>
+            <controlpoint xx="2" yy="0" zz="2"/>
+            <controlpoint xx="3" yy="5" zz="3"/>
+            <controlpoint xx="4" yy="6" zz="4"/>
+            <controlpoint xx="5" yy="10" zz="5"/>
         </linear>
 
         <linear id="notReferenced" span="10" >
@@ -298,7 +307,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-   
+
             <texture id="inherit" length_s="43" length_t="23" />
  
             <children>
@@ -417,6 +426,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
+            
 
             <texture id="inherit" length_s="2" length_t="1" />
    
@@ -1295,6 +1305,7 @@
                 <material id="supermat" />
             </materials>
 
+
             <texture id="tapete" length_s="1" length_t="1" />
 
             <children>
@@ -1431,6 +1442,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
+
             <texture id="donut" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myTorus" />
@@ -1543,6 +1555,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
+
             <texture id="rocks" length_s="1" length_t="1" />
             <children>
                 <componentref id="piramideA" />
@@ -1562,9 +1575,9 @@
             <materials>
                 <material id="othermat" />
             </materials>
-
+            
             <animations>
-                <animationref id="linearTest"/>
+                <animationref id="carAnimation"/>
             </animations>
 
             <texture id="rocks" length_s="1" length_t="1" />
@@ -1587,9 +1600,11 @@
             <materials>
                 <material id="othermat" />
             </materials>
+
             <animations>
                 <animationref id="whellsRotation"/>
             </animations>
+ 
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1605,9 +1620,11 @@
             <materials>
                 <material id="othermat" />
             </materials>
+
             <animations>
                 <animationref id="whellsRotation"/>
             </animations>
+
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1623,9 +1640,11 @@
             <materials>
                 <material id="othermat" />
             </materials>
+
             <animations>
                 <animationref id="whellsRotation"/>
             </animations>
+
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1641,9 +1660,11 @@
             <materials>
                 <material id="othermat" />
             </materials>
+
             <animations>
                 <animationref id="whellsRotation"/>
             </animations>
+
             <texture id="pneu" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myCylinder" />
@@ -1656,6 +1677,7 @@
                 <rotate axis="x" angle="0" />
                 <scale x="4.5" y="0.5" z="2" />
             </transformation>
+
             <materials>
                 <material id="othermat" />
             </materials>
@@ -1671,6 +1693,7 @@
                 <rotate axis="x" angle="0" />
                 <scale x="2.3" y="0.8" z="2" />
             </transformation>
+
             <materials>
                 <material id="othermat" />
             </materials>
@@ -1758,7 +1781,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="grass" length_s="1000" length_t="1000" />
+            <texture id="grass" length_s="20" length_t="20" />
             <children>
                 <componentref id="myCubeQuad" />
             </children>

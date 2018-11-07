@@ -129,10 +129,10 @@ class LinearAnimation extends Animation
         this.scene.translate(this.currentPosition[0],this.currentPosition[1],this.currentPosition[2]);
 
         // rotate horizontally, along Y
-        //this.scene.rotate(this.horizontalAngle, 0, 1, 0);
+        this.scene.rotate(this.horizontalAngle, 0, 1, 0);
 
         // rotate vertically, along x
-        //this.scene.rotate(this.verticalAngle, 1, 0, 0);
+        this.scene.rotate(this.verticalAngle, 1, 0, 0);
     };
 
 };

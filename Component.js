@@ -125,8 +125,10 @@ class Component
 				
 				if(!(this.isString(this.tranf))){
 					this.applyTransformationNoReference();
+					this.applyAnimation();
 				} else {
 					this.applyTransformationReference();
+					this.applyAnimation();
 				}
 
 				if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
