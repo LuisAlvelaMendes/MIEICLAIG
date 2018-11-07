@@ -27,6 +27,7 @@ serialInclude(['../lib/CGF.js',
     'Animation.js',
     'CircularAnimation.js',
     'LinearAnimation.js',
+    'primitives/MyPatch.js',
     'primitives/MyPlane.js',
 
 main=function()
