@@ -1132,6 +1132,48 @@ class MySceneGraph {
                             var plane = new MyPlane(this.scene, primitiveId, npartsU, npartsV);
                             this.primitives[primitiveId] = plane;
                         }
+
+                        if(grandChildren[0].nodeName == "patch"){
+
+                            var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
+
+                            if (!(npartsU != null && this.isInt(npartsU)))
+                                this.onXMLError("unable to parse npartsU of " + primitiveId);
+
+                            var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
+
+                            if (!(npartsV != null && this.isInt(npartsV)))
+                                this.onXMLError("unable to parse npartsU of " + primitiveId);
+
+                            var npointsU = this.reader.getFloat(grandChildren[0], 'npointsU');
+
+                            if (!(npointsU != null && this.isInt(npointsU)))
+                                this.onXMLError("unable to parse npartsU of " + primitiveId);
+
+                            var npointsV = this.reader.getFloat(grandChildren[0], 'npointsV');
+
+                            if (!(npointsV != null && this.isInt(npointsV)))
+                                this.onXMLError("unable to parse npartsU of " + primitiveId);
+
+                            console.log("AQUI: " + npointsU + " outra " + npointsV);
+
+                            var xx ;
+                            var yy;
+                            var zz ;
+
+                            if(grandChildren[0].children[0].nodeName == "controlpoint"){
+                                xx = this.reader.getFloat(grandChildren[0].children[0], 'xx');
+                                yy = this.reader.getFloat(grandChildren[0].children[0], 'yy');
+                                zz = this.reader.getFloat(grandChildren[0].children[0], 'zz');
+                                
+                            }
+
+
+                            var path = new MyPatch(this.scene, npointsU, npointsV,npartsU, npartsV, xx,yy,zz);
+                            this.primitives[primitiveId] = path;
+
+
+                        }
                     }
                 }
             }
