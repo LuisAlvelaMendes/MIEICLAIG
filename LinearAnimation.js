@@ -17,7 +17,7 @@ class LinearAnimation extends Animation
         vec3.sub(this.pathBetweenControlPoints, this.controlPoints[1], this.controlPoints[0]);
         this.pathLength = vec3.length(this.pathBetweenControlPoints);
 
-        // calculate horizontal angle with Z axis and vertical angle with Y axis
+        // calculate horizontal angle with Z 
         this.calculateAngles();
  
         // current position of the object
@@ -36,14 +36,11 @@ class LinearAnimation extends Animation
     };
 
     /**
-     * Calculates vertical and horizontal angle.
+     * Calculates horizontal angle.
      */
     calculateAngles(){
         this.pathOrientationXZ = vec3.fromValues(this.pathBetweenControlPoints[0], 0, this.pathBetweenControlPoints[2]);
         this.horizontalAngle = this.calcAux([0, 0, 1], this.pathOrientationXZ) * DEGREE_TO_RAD;
-
-        this.pathOrientationYZ = vec3.fromValues(0, this.pathBetweenControlPoints[1], this.pathBetweenControlPoints[2]);
-        this.verticalAngle = this.calcAux([0, 0, 1], this.pathOrientationYZ) * DEGREE_TO_RAD;
     }
 
     /**
@@ -92,6 +89,7 @@ class LinearAnimation extends Animation
             // when this happens, you have already gone beyond the path from control point a -> b and are now somewhere between b -x--> c (at x)
             this.distanceTravelled -= this.pathLength;
             this.goToNextPath();
+            this.calculateAngles();
         }
 
         // now that you have updated the path, time to update the position with a scalar value
@@ -130,9 +128,6 @@ class LinearAnimation extends Animation
 
         // rotate horizontally, along Y
         this.scene.rotate(this.horizontalAngle, 0, 1, 0);
-
-        // rotate vertically, along x
-        this.scene.rotate(this.verticalAngle, 1, 0, 0);
     };
 
 };

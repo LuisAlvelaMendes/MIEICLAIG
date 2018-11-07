@@ -51,7 +51,7 @@ class CircularAnimation extends Animation
         //Movimento de Translacao
         this.scene.translate(this.radius * Math.cos(this.initialAngle + this.atualAngle), 0, -this.radius  * Math.sin(this.initialAngle + this.atualAngle));
         //Movimento de rotacao
-        this.scene.rotate(Math.PI + this.initialAngle + this.atualAngle, 0, 0, 1);
+        //this.scene.rotate(Math.PI + this.initialAngle + this.atualAngle, 0, 1, 0);
     };
 
 };

@@ -174,7 +174,7 @@
             <controlpoint xx="8" yy="9" zz="1"/>
         </linear>
 
-        <circular id="circularTest" span="4" center="0 0 0" radius="0.001" startang="3" rotang="360"/>
+        <circular id="circularTest" span="4" center="0 0 0" radius="1.5" startang="3" rotang="360"/>
 
         <circular id="whellsRotation" span="20" center="0 0 0" radius="0.001" startang="3" rotang="360"/>
 
@@ -213,7 +213,7 @@
             <torus inner="0.6" outer="1" loops="30" slices="30"/>
         </primitive>
 
-        <primitive id="myPlane">
+        <primitive id="MyPlane">
             <plane npartsU="2" npartsV="2"/>
         </primitive>
 
@@ -266,10 +266,6 @@
                 <translate x="1" y="2.6" z="14" />
             </transformation>
 
-            <animations>
-                <animationref id="circularTest"/>
-            </animations>
-
             <materials>
                 <material id="othermat" />
             </materials>
@@ -288,7 +284,7 @@
             </transformation>
 
             <animations>
-                <animationref id="linearTest"/>
+                <animationref id="circularTest"/>
             </animations>
 
             <materials>
@@ -1685,7 +1681,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="wood1" length_s="1" length_t="1" />
+            <texture id="newt" length_s="1" length_t="1" />
             <children>
                 <componentref id="myCubeQuad"/>
             </children>
@@ -1701,7 +1697,7 @@
             <materials>
                 <material id="othermat" />
             </materials>
-            <texture id="wood1" length_s="1" length_t="1" />
+            <texture id="newt" length_s="1" length_t="1" />
             <children>
                 <componentref id="myCubeQuad"/>
             </children>
