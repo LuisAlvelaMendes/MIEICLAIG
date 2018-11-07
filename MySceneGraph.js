@@ -1115,8 +1115,22 @@ class MySceneGraph {
                             var loops = this.parsePrimitiveCoordsInteger(grandChildren[0], 'loops', "torus");
                             var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "torus");
 
-                            var torus = new MyTorus(this.scene, inner, outer, loops, slices);
+                            var torus = new MyTorus(this.scene, primitiveId, inner, outer, loops, slices);
                             this.primitives[primitiveId] = torus;
+                        }
+
+                        if(grandChildren[0].nodeName == "plane"){
+
+                            var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
+                            if (!(npartsU != null && this.isInt(npartsU)))
+                                this.onXMLError("unable to parse npartsU of " + primitiveId);
+
+                            var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
+                            if (!(npartsV != null && this.isInt(npartsV)))
+                                this.onXMLError("unable to parse npartsU of " + primitiveId);
+
+                            var plane = new MyPlane(this.scene, primitiveId, npartsU, npartsV);
+                            this.primitives[primitiveId] = plane;
                         }
                     }
                 }
