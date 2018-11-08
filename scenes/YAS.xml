@@ -5,7 +5,7 @@
     <views default="default" >
 
         <perspective id="default" near="0.1" far="550" angle="62">
-            <from x="16" y="6" z="18" />
+            <from x="28" y="8" z="30" />
             <to x="0" y="0" z="0" />
         </perspective>
         
@@ -133,6 +133,8 @@
             <rotate axis="y" angle="20" />
             <scale x="4" y="4" z="4" />
         </transformation>
+
+
     </transformations>
 
     <animations>
@@ -152,14 +154,29 @@
             <controlpoint xx="-1" yy="0" zz="-1"/>
         </linear>
         
-        <linear id="carAnimation" span="5" >
+        <linear id="carAnimation_F" span="77" >
             <controlpoint xx="0" yy="0" zz="0" /> 
-            <controlpoint xx="1" yy="0" zz="1" />
-            <controlpoint xx="-1" yy="0" zz="-1"/>
-            <controlpoint xx="2" yy="0" zz="2"/>
-            <controlpoint xx="3" yy="5" zz="3"/>
-            <controlpoint xx="4" yy="6" zz="4"/>
-            <controlpoint xx="5" yy="10" zz="5"/>
+            <controlpoint xx="-250" yy="0" zz="0" />
+        </linear>
+
+        <linear id="carAnimation_F2" span="77" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="-250" yy="0" zz="0" />
+        </linear>
+
+        <linear id="carAnimation_F3" span="77" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="-120" yy="0" zz="0" />
+        </linear>
+
+        <linear id="carAnimation_R" span="8" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="" yy="0" zz="-20" />
+        </linear>
+
+        <linear id="carAnimation_R2" span="8" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="-20" yy="0" zz="0" />
         </linear>
 
         <linear id="notReferenced" span="10" >
@@ -1583,8 +1600,92 @@
             </materials>
             
             <animations>
-                <animationref id="carAnimation"/>
+                <animationref id="carAnimation_F"/>
             </animations>
+
+       
+
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <componentref id="myWell1" />
+                <componentref id="myWell2" />
+                <componentref id="myWell3" />
+                <componentref id="myWell4" />
+                <componentref id="myBody1" />
+                <componentref id="myBody2" />
+            </children>
+        </component>
+
+        <component id="myCar2">
+            <transformation>
+                <translate x="-108.3" y="1.2" z="-26" />
+                <rotate axis="x" angle="0" />
+                <scale x="0.8" y="0.8" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            
+            <animations>
+                <animationref id="carAnimation_F2"/>
+            </animations>
+
+       
+
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <componentref id="myWell1" />
+                <componentref id="myWell2" />
+                <componentref id="myWell3" />
+                <componentref id="myWell4" />
+                <componentref id="myBody1" />
+                <componentref id="myBody2" />
+            </children>
+        </component>
+
+        <component id="myCar3">
+            <transformation>
+                <translate x="-33.3" y="1.2" z="-26" />
+                <rotate axis="x" angle="0" />
+                <scale x="0.8" y="0.8" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            
+            <animations>
+                <animationref id="carAnimation_F2"/>
+            </animations>
+
+       
+
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <componentref id="myWell1" />
+                <componentref id="myWell2" />
+                <componentref id="myWell3" />
+                <componentref id="myWell4" />
+                <componentref id="myBody1" />
+                <componentref id="myBody2" />
+            </children>
+        </component>
+
+        <component id="myCar4">
+            <transformation>
+                <translate x="-1" y="1.2" z="22" />
+                <rotate axis="x" angle="0" />
+                <rotate axis="y" angle="-90" />
+                <scale x="0.8" y="0.8" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            
+            <animations>
+                <animationref id="carAnimation_F3"/>
+            </animations>
+
+       
 
             <texture id="rocks" length_s="1" length_t="1" />
             <children>
@@ -1827,7 +1928,7 @@
             <transformation>
                 <translate x="100" y="-2" z="24" />
                 <rotate axis="x" angle="0" />
-                <scale x="280" y="1" z="6" />
+                <scale x="220" y="1" z="6" />
             </transformation>
             <materials>
                 <material id="othermat" />
@@ -1842,7 +1943,7 @@
             <transformation>
                 <translate x="100" y="-2" z="-30" />
                 <rotate axis="x" angle="0" />
-                <scale x="280" y="1" z="6" />
+                <scale x="220" y="1" z="6" />
             </transformation>
             <materials>
                 <material id="othermat" />
@@ -1899,6 +2000,9 @@
                 <componentref id="myPiramide"/>
                 <componentref id="myAnimationBall" />
                 <componentref id="myCar" />
+                <componentref id="myCar2" />
+                <componentref id="myCar3" />
+                <componentref id="myCar4" />
                 <componentref id="greenGround" />
                 <componentref id="round1" />
                 <componentref id="round2" />
