@@ -40,7 +40,7 @@ class LinearAnimation extends Animation
      */
     calculateAngles(){
         this.pathOrientationXZ = vec3.fromValues(this.pathBetweenControlPoints[0], 0, this.pathBetweenControlPoints[2]);
-        this.horizontalAngle = this.calcAux([0, 0, 1], this.pathOrientationXZ) * DEGREE_TO_RAD;
+        this.horizontalAngle = this.calcAux([0, 0, 1], this.pathOrientationXZ);
     }
 
     /**
@@ -105,9 +105,9 @@ class LinearAnimation extends Animation
         this.destinationPoint++;
 
         if(this.destinationPoint >= this.controlPoints.length){
-            // means you have reached the end of the animation, time to loop back to the beginning
-            this.destinationPoint = 1;
+            // means you have reached the end of the animation
             this.animationReachedLoop = true;
+            return;
         }
 
         // If it hasn't ended, you must calculate the next path

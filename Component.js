@@ -25,11 +25,11 @@ class Component
 	 */
 	update(deltaTime){
 		for(var i = 0; i < this.animationsID.length; i++){
-			this.scene.graph.animations[this.animationsID[i]].update(deltaTime);
 
-			if (this.scene.graph.animations[this.animationsID[i]].animationReachedLoop) {
-				this.scene.graph.animations[this.animationsID[i]].animationReachedLoop = false;
+			if (this.scene.graph.animations[this.animationsID[i]].animationReachedLoop == false) {
+				this.scene.graph.animations[this.animationsID[i]].update(deltaTime);
 			}
+			
 		}
 	}
 	 

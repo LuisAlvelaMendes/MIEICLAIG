@@ -56,11 +56,15 @@ class XMLscene extends CGFscene {
         this.lastUpdateTime = currTime;
 
         for (var animationId in this.graph.animations) {
-            this.graph.animations[animationId].update(deltaTime);
+            if(this.graph.animations[animationId].animationReachedLoop == false){
+                this.graph.animations[animationId].update(deltaTime);
+            }
         }
 
         for (var componentsId in this.graph.components) {
-            this.graph.components[componentsId].update(deltaTime);
+            if(this.graph.animations[animationId].animationReachedLoop == false){
+                this.graph.components[componentsId].update(deltaTime);
+            }
         }
     }
 

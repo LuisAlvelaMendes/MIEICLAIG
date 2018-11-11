@@ -1,7 +1,4 @@
 var DEGREE_TO_RAD = (Math.PI / 180);
-
-
-
 /**
  * CircularAnimation
  * @constructor
@@ -22,7 +19,6 @@ class CircularAnimation extends Animation
         this.initialAngle = initialAngle * DEGREE_TO_RAD;
         this.rotationAngle = rotationAngle * DEGREE_TO_RAD;
 
-        //rotAnd = rotacao = 20º   and Radius = raio = 5
         this.totalDistance = this.rotationAngle * this.radius;
 
         this.angularVelocity = (this.totalDistance/this.time);
@@ -38,8 +34,6 @@ class CircularAnimation extends Animation
             this.atualdist += this.angularVelocity*deltaTime;
             this.atualAngle = this.atualdist/this.radius;
         } else{
-            this.atualdist = 0;
-            this.atualAngle = 0;
             this.animationReachedLoop = true;
         }
 
@@ -50,8 +44,6 @@ class CircularAnimation extends Animation
         this.scene.translate(this.centerX, this.centerY, this.centerZ);
         //Movimento de Translacao
         this.scene.translate(this.radius * Math.cos(this.initialAngle + this.atualAngle), 0, -this.radius  * Math.sin(this.initialAngle + this.atualAngle));
-        //Movimento de rotacao
-        //this.scene.rotate(Math.PI + this.initialAngle + this.atualAngle, 0, 1, 0);
     };
 
 };

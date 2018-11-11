@@ -154,18 +154,21 @@
             <controlpoint xx="-1" yy="0" zz="-1"/>
         </linear>
         
-        <linear id="carAnimation_F" span="77" >
+        <linear id="carAnimation_F" span="47" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="-250" yy="0" zz="0" />
         </linear>
 
-        <linear id="carAnimation_F2" span="77" >
+        <linear id="carAnimation_F2" span="47" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="-250" yy="0" zz="0" />
         </linear>
 
-        <linear id="carAnimation_F3" span="77" >
+        <linear id="carAnimation_F3" span="47" >
             <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="-10" yy="0" zz="10" /> 
+            <controlpoint xx="20" yy="0" zz="-20" /> 
+            <controlpoint xx="-50" yy="0" zz="50" /> 
             <controlpoint xx="-120" yy="0" zz="0" />
         </linear>
 
@@ -191,7 +194,7 @@
             <controlpoint xx="8" yy="9" zz="1"/>
         </linear>
 
-        <circular id="circularTest" span="4" center="0 0 0" radius="1.5" startang="3" rotang="360"/>
+        <circular id="circularTest" span="20" center="0 0 0" radius="1.5" startang="3" rotang="360"/>
 
         <circular id="whellsRotation" span="20" center="0 0 0" radius="0.001" startang="3" rotang="360"/>
 
@@ -1672,8 +1675,7 @@
 
         <component id="myCar4">
             <transformation>
-                <translate x="-1" y="1.2" z="22" />
-                <rotate axis="x" angle="0" />
+                <translate x="-1" y="1.2" z="22" /> 
                 <rotate axis="y" angle="-90" />
                 <scale x="0.8" y="0.8" z="0.8" />
             </transformation>
