@@ -1155,29 +1155,38 @@ class MySceneGraph {
                             if (!(npointsV != null && this.isInt(npointsV)))
                                 this.onXMLError("unable to parse npartsU of " + primitiveId);
 
-                            console.log("AQUI: " + npointsU + " outra " + npointsV);
+                            var xx = 0;
+                            var yy = 0;
+                            var zz = 0;
+                            var controlPoints = [];
+                            var numControlPoints = 0;
 
-                            var xx ;
-                            var yy;
-                            var zz ;
+                            var greatGrandChildren = grandChildren[0].children;
+                            
+                            for(var z = 0; z < greatGrandChildren.length; z++){
+                                xx = this.reader.getFloat(greatGrandChildren[z], 'xx');
+                                yy = this.reader.getFloat(greatGrandChildren[z], 'yy');
+                                zz = this.reader.getFloat(greatGrandChildren[z], 'zz');
 
-                            if(grandChildren[0].children[0].nodeName == "controlpoint"){
-                                xx = this.reader.getFloat(grandChildren[0].children[0], 'xx');
-                                yy = this.reader.getFloat(grandChildren[0].children[0], 'yy');
-                                zz = this.reader.getFloat(grandChildren[0].children[0], 'zz');
-                                
+                                controlPoints.push([xx, yy, zz]);
+                                numControlPoints++;
                             }
 
+                            if(numControlPoints < npointsU * npointsV || numControlPoints < 2){
+                                this.onXMLError("Not enough control points declared, expected " + (npointsU*npointsV) + " but was " + numControlPoints + " for patch named " + primitiveId);
+                                return;
+                            } 
 
-                            var path = new MyPatch(this.scene, npointsU, npointsV,npartsU, npartsV, xx,yy,zz);
-                            this.primitives[primitiveId] = path;
-
-
+                            var patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+                            this.primitives[primitiveId] = patch;
                         }
+                        
                     }
-                }
-            }
 
+                }
+
+            }
+            
             numPrimitives++;
         }
 

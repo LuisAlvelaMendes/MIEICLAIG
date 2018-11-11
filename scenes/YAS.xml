@@ -238,8 +238,13 @@
         </primitive>
 
         <primitive id="myPatch">
-            <patch npointsU="2" npointsV="2" npartsU="2" npartsV="2">
-                <controlpoint xx="2" yy="2" zz="2"/>
+            <patch npointsU="2" npointsV="3" npartsU="2" npartsV="2">
+                <controlpoint xx="-2" yy="0" zz="2"/>
+                <controlpoint xx="-2" yy="0" zz="-2"/>
+                <controlpoint xx="2" yy="0" zz="2"/>
+                <controlpoint xx="2" yy="0" zz="-2"/>
+                <controlpoint xx="1" yy="2" zz="3"/>
+                <controlpoint xx="4" yy="5" zz="6"/>
             </patch>
         </primitive>
 
@@ -2010,7 +2015,6 @@
                 <componentref id="round2" />
                 <componentref id="round3" />
                 <componentref id="round4" />
-                <primitiveref id="MyPlane" />
             </children>
         </component>
 
