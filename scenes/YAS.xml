@@ -247,6 +247,10 @@
                 <controlpoint xx="4" yy="5" zz="6"/>
             </patch>
         </primitive>
+        
+        <primitive id="myNurbsCylinder">
+            <cylinder2 base="1" top="1" height="1" slices="60" stacks="60" />
+        </primitive>
 
     </primitives >
 
@@ -2015,6 +2019,7 @@
                 <componentref id="round2" />
                 <componentref id="round3" />
                 <componentref id="round4" />
+                <primitiveref id="myNurbsCylinder" />
             </children>
         </component>
 

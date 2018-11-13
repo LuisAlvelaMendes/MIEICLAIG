@@ -1108,6 +1108,18 @@ class MySceneGraph {
                             this.primitives[primitiveId] = cylinder;
                         }
 
+                        if(grandChildren[0].nodeName == "cylinder2"){
+
+                            var base = this.parsePrimitiveCoords(grandChildren[0], 'base', "cylinder2");
+                            var top = this.parsePrimitiveCoords(grandChildren[0], 'top', "cylinder2");
+                            var height = this.parsePrimitiveCoords(grandChildren[0], 'height', "cylinder2");
+                            var slices = this.parsePrimitiveCoordsInteger(grandChildren[0], "slices", "cylinder2");
+                            var stacks = this.parsePrimitiveCoordsInteger(grandChildren[0], "stacks", "cylinder2");
+
+                            var cylinder2 = new MyNurbsCylinder(this.scene, primitiveId, slices, stacks, base, top, height);
+                            this.primitives[primitiveId] = cylinder2;
+                        }
+
                         if(grandChildren[0].nodeName == "torus"){
 
                             var inner = this.parsePrimitiveCoords(grandChildren[0], 'inner', "torus");
