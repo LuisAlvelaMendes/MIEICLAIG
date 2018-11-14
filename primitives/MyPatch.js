@@ -46,6 +46,7 @@ class MyPatch extends CGFobject{
 
 	display()
 	{
+		console.log("TEST patch")
 		this.nurbs.display();
 	};
 

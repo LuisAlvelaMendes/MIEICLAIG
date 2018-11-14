@@ -161,7 +161,7 @@
 
         <linear id="carAnimation_F2" span="47" >
             <controlpoint xx="0" yy="0" zz="0" /> 
-            <controlpoint xx="-250" yy="0" zz="0" />
+            <controlpoint xx="0" yy="0" zz="0" />
         </linear>
 
         <linear id="carAnimation_F3" span="47" >
@@ -238,13 +238,19 @@
         </primitive>
 
         <primitive id="myPatch">
-            <patch npointsU="2" npointsV="3" npartsU="2" npartsV="2">
-                <controlpoint xx="-2" yy="0" zz="2"/>
-                <controlpoint xx="-2" yy="0" zz="-2"/>
-                <controlpoint xx="2" yy="0" zz="2"/>
-                <controlpoint xx="2" yy="0" zz="-2"/>
-                <controlpoint xx="1" yy="2" zz="3"/>
-                <controlpoint xx="4" yy="5" zz="6"/>
+            <patch npointsU="2" npointsV="3" npartsU="20" npartsV="20">
+                <controlpoint xx="-1.5" yy="-1.5" zz="0"/>
+                <controlpoint xx="-2.0" yy="-2.0" zz="2"/>
+                <controlpoint xx="-2.0" yy="2.0" zz="2"/>
+                <controlpoint xx="-1.5" yy="1.5" zz="0"/>
+                <controlpoint xx="0" yy="0" zz="3"/>
+                <controlpoint xx="0" yy="-2.0" zz="3"/>
+                <controlpoint xx="0" yy="2.0" zz="3"/>
+                <controlpoint xx="0" yy="0" zz="3"/>
+                <controlpoint xx="1.5" yy="-1.5" zz="0"/>
+                <controlpoint xx="2" yy="-2.0" zz="2"/>
+                <controlpoint xx="2" yy="2.0" zz="2"/>
+                <controlpoint xx="1.5" yy="1.5" zz="0"/>
             </patch>
         </primitive>
         
@@ -1631,7 +1637,7 @@
         <component id="myCar2">
             <transformation>
                 <translate x="-108.3" y="1.2" z="-26" />
-                <rotate axis="x" angle="0" />
+                <rotate axis="y" angle="90" />
                 <scale x="0.8" y="0.8" z="0.8" />
             </transformation>
             <materials>
@@ -1658,7 +1664,7 @@
         <component id="myCar3">
             <transformation>
                 <translate x="-33.3" y="1.2" z="-26" />
-                <rotate axis="x" angle="0" />
+                <rotate axis="y" angle="90" />
                 <scale x="0.8" y="0.8" z="0.8" />
             </transformation>
             <materials>
@@ -2019,7 +2025,7 @@
                 <componentref id="round2" />
                 <componentref id="round3" />
                 <componentref id="round4" />
-                <primitiveref id="myNurbsCylinder" />
+                <primitiveref id="myPatch" />
             </children>
         </component>
 
