@@ -1549,6 +1549,13 @@ class MySceneGraph {
             this.swapMaterial = false;
         }
 
+       /* this.scene.setActiveShader(this.scene.shaders[0]);
+        this.scene.pushMatrix();
+        this.scene.terrain.bind(1);
+        this.primitives["MyPlane"].display();
+        this.scene.popMatrix();
+        this.scene.setActiveShader(this.defaultShader); */
+
         this.components[this.idRoot].display();
     }
 }

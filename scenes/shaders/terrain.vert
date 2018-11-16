@@ -21,6 +21,8 @@ varying vec4 normal;
 //offset = vec3(0.0, greyscale*Heightscale, 0.0)
 
 void main() {
+	vec3 offset = vec3(0.0, 0.0, 0.0);
+	
 	vec4 vertex=vec4(aVertexPosition+aVertexNormal*offset*0.1, 1.0);
 
 	gl_Position = uPMatrix * uMVMatrix * vertex;

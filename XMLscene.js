@@ -20,7 +20,7 @@ class XMLscene extends CGFscene {
     }
 
     updateScaleFactor(){
-        this.shaders[0].setUniformsValues({normScale: this.scaleFactor});
+        this.shaders[0].setUniformsValues({heightScale: this.scaleFactor});
     }
 
     initShaders(){
@@ -88,8 +88,8 @@ class XMLscene extends CGFscene {
         }
 
         // update shaders
-        var factor = (Math.sin((currTime * 3.0) % 3141 * 0.002)+1.0)*.5;
-        this.testShaders[0].setUniformsValues({timeFactor: factor});
+        // var factor = (Math.sin((currTime * 3.0) % 3141 * 0.002)+1.0)*.5;
+        // this.testShaders[0].setUniformsValues({timeFactor: factor});
     }
 
     // Take values from Parser to actually create CGF Cameras
