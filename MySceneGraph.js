@@ -1213,7 +1213,7 @@ class MySceneGraph {
                             var texscale = this.reader.getFloat(grandChildren[0], 'texscale');
 
                             var water = new Water(this.scene, idtexture, idwavemap, parts, heightscale, texscale);
-                            this.primitives[primitiveId] = terrain;
+                            this.primitives[primitiveId] = water;
                         }
                         
                     }

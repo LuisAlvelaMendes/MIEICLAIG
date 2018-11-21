@@ -16,25 +16,8 @@ class XMLscene extends CGFscene {
         this.lightValues = {};
         this.cameraParser = [];
         this.selectedCamera = "";
-        this.scaleFactor = 0.01;
     }
 
-    updateScaleFactor(){
-        this.shaders[0].setUniformsValues({heightScale: this.scaleFactor});
-    }
-
-    /*initShaders(){
-        
-        this.shaders=[
-            new CGFshader(this.gl, "scenes/shaders/terrain.vert", "scenes/shaders/terrain.frag"),
-        ];
-
-        this.shaders[0].setUniformsValues({uSampler2: 1});
-
-        this.terrain = new CGFtexture(this, "scenes/images/terrain.jpg");
-
-        this.updateScaleFactor();
-    }*/
 
     /**
      * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
@@ -46,7 +29,6 @@ class XMLscene extends CGFscene {
         this.sceneInited = false;
 
         this.initCameras();
-        //this.initShaders();
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -87,9 +69,9 @@ class XMLscene extends CGFscene {
             }
         }
 
-        // update shaders
-        // var factor = (Math.sin((currTime * 3.0) % 3141 * 0.002)+1.0)*.5;
-        // this.testShaders[0].setUniformsValues({timeFactor: factor});
+        if(this.graph.primitives != undefined){
+            this.graph.primitives["myWater"].update(currTime);
+        }
     }
 
     // Take values from Parser to actually create CGF Cameras

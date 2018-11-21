@@ -263,7 +263,7 @@
         </primitive>
 
         <primitive id="myWater">
-            <water idtexture="ss" idwavemap="ss" parts="ii" heightscale="ff" texscale="ff" />
+            <water idtexture="scenes/images/water.png" idwavemap="ss" parts="ii" heightscale="ff" texscale="ff" />
         </primitive>
 
     </primitives >
