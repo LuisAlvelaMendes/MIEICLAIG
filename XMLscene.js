@@ -23,7 +23,7 @@ class XMLscene extends CGFscene {
         this.shaders[0].setUniformsValues({heightScale: this.scaleFactor});
     }
 
-    initShaders(){
+    /*initShaders(){
         
         this.shaders=[
             new CGFshader(this.gl, "scenes/shaders/terrain.vert", "scenes/shaders/terrain.frag"),
@@ -34,7 +34,7 @@ class XMLscene extends CGFscene {
         this.terrain = new CGFtexture(this, "scenes/images/terrain.jpg");
 
         this.updateScaleFactor();
-    }
+    }*/
 
     /**
      * Initializes the scene, setting some WebGL defaults, initializing the camera and the axis.
@@ -46,7 +46,7 @@ class XMLscene extends CGFscene {
         this.sceneInited = false;
 
         this.initCameras();
-        this.initShaders();
+        //this.initShaders();
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);

@@ -10,24 +10,24 @@ uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
-uniform float heightScale;
-uniform sampler2D heightMap;
-varying vec4 coords;
-varying vec4 normal;
+varying vec2 vTextureCoord;
 
-//rgb to greyscale internet.
-//texture2D(uSampler, vTextureCoord);
-// guardar variavel o texture2D, converter rgb a greyscale,
-//offset = vec3(0.0, greyscale*Heightscale, 0.0)
+// New var
+uniform float heightScale;
+uniform sampler2D uSampler2;
 
 void main() {
-	vec3 offset = vec3(0.0, 0.0, 0.0);
-	
-	vec4 vertex=vec4(aVertexPosition+aVertexNormal*offset*0.1, 1.0);
+
+	// getting original rgb color from heightMap
+	vec4 color = texture2D(uSampler2, aTextureCoord);
+
+	// converting the rgb to grayscale
+	float grayScale = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+
+	vec3 offset = vec3(0.0, grayScale * heightScale, 0.0);
+	vec4 vertex = vec4(aVertexPosition + aVertexNormal * offset * 0.1, 1.0);
+
+	vTextureCoord = aTextureCoord;
 
 	gl_Position = uPMatrix * uMVMatrix * vertex;
-
-	normal = vec4(aVertexNormal, 1.0);
-
-	coords=vertex/10.0;
 }

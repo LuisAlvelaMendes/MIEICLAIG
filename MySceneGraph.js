@@ -1192,6 +1192,29 @@ class MySceneGraph {
                             var patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
                             this.primitives[primitiveId] = patch;
                         }
+
+                        if(grandChildren[0].nodeName == "terrain"){
+
+                            var idtexture = this.reader.getString(grandChildren[0], 'idtexture');
+                            var idheightmap = this.reader.getString(grandChildren[0], 'idheightmap');
+                            var parts = this.reader.getFloat(grandChildren[0], 'parts');
+                            var heightscale = this.reader.getFloat(grandChildren[0], 'heightscale');
+
+                            var terrain = new Terrain(this.scene, idtexture, idheightmap, parts, heightscale);
+                            this.primitives[primitiveId] = terrain;
+                        }
+
+                        if(grandChildren[0].nodeName == "water"){
+
+                            var idtexture = this.reader.getString(grandChildren[0], 'idtexture');
+                            var idwavemap = this.reader.getString(grandChildren[0], 'idwavemap');
+                            var parts = this.reader.getFloat(grandChildren[0], 'parts');
+                            var heightscale = this.reader.getFloat(grandChildren[0], 'heightscale');
+                            var texscale = this.reader.getFloat(grandChildren[0], 'texscale');
+
+                            var water = new Water(this.scene, idtexture, idwavemap, parts, heightscale, texscale);
+                            this.primitives[primitiveId] = terrain;
+                        }
                         
                     }
 
@@ -1548,13 +1571,6 @@ class MySceneGraph {
 
             this.swapMaterial = false;
         }
-
-       /* this.scene.setActiveShader(this.scene.shaders[0]);
-        this.scene.pushMatrix();
-        this.scene.terrain.bind(1);
-        this.primitives["MyPlane"].display();
-        this.scene.popMatrix();
-        this.scene.setActiveShader(this.defaultShader); */
 
         this.components[this.idRoot].display();
     }

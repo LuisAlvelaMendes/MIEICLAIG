@@ -258,6 +258,14 @@
             <cylinder2 base="1" top="1" height="6" slices="60" stacks="60" />
         </primitive>
 
+        <primitive id="myTerrain">
+            <terrain idtexture="scenes/images/terrain.jpg" idheightmap="scenes/images/heightMap.jpg" parts="40" heightscale="2" />
+        </primitive>
+
+        <primitive id="myWater">
+            <water idtexture="ss" idwavemap="ss" parts="ii" heightscale="ff" texscale="ff" />
+        </primitive>
+
     </primitives >
 
     <components>
@@ -2025,7 +2033,7 @@
                 <componentref id="round2" />
                 <componentref id="round3" />
                 <componentref id="round4" />
-                <primitiveref id="myNurbsCylinder" />
+                <primitiveref id="myTerrain" />
             </children>
         </component>
 

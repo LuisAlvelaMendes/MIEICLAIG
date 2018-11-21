@@ -31,6 +31,8 @@ serialInclude(['../lib/CGF.js',
     'primitives/MyPlane.js',
     'primitives/MyNurbsCylinder.js',
     'primitives/MyNurbsCylinderHalf.js',
+    'primitives/Terrain.js',
+    'primitives/Water.js',
 
 main=function()
 {
