@@ -1628,9 +1628,7 @@
             <animations>
                 <animationref id="carAnimation_F"/>
             </animations>
-
-       
-
+            
             <texture id="rocks" length_s="1" length_t="1" />
             <children>
                 <componentref id="myWell1" />
