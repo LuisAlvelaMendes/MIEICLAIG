@@ -25,6 +25,7 @@ void main() {
 	float grayScale = dot(color.rgb, vec3(0.299, 0.587, 0.114));
 
 	vec3 offset = vec3(0.0, grayScale * heightScale, 0.0);
+	
 	vec4 vertex = vec4(aVertexPosition + aVertexNormal * offset * 0.1, 1.0);
 
 	vTextureCoord = aTextureCoord;

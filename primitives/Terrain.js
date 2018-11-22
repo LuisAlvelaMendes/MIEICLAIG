@@ -39,7 +39,7 @@ class Terrain extends CGFobject
         this.terrainTexture.bind(0);
         // the heightmap is bound to unit 1
         this.terrainHeightMap.bind(1);
-        //this.scene.scale(500, 500, 500);
+        this.scene.scale(100, 100, 100);
         this.planeToApply.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);

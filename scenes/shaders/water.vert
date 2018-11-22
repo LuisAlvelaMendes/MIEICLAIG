@@ -22,6 +22,7 @@ void main() {
 
     vec2 TextureCoords = aTextureCoord+timeOffset;
 
+    //sampler2 esta ligado a unidade(1) que da o relevo à agua (iamgem preto e branco)
     vec4 color = texture2D(uSampler2, TextureCoords);
     
     // converting the rgb to grayscale
@@ -32,6 +33,8 @@ void main() {
     // vertex pushed outwards according to the normal and scale
     vec4 vertex = vec4(aVertexPosition+aVertexNormal*offset*0.1, 1.0);
 
+    //vertex shared controla a geometria - frag controla a cor 
+    //passa vertex shader para fragment shader
 	vTextureCoord = TextureCoords;
 
     gl_Position = uPMatrix * uMVMatrix * vertex;

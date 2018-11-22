@@ -25,8 +25,14 @@ class Water extends CGFobject
 	};
 
 	setUniformValues()
-    {
+    {	
+
+    	//todos os objetos(primitivas) tem um array de texturas q podem ser aplicados
+    	// EX: armario (6 paredes) cada parece tem um array (0)(1) de texturas q podem ser aplicadas
         // uSampler2 is set to 1, it will look for the texture bound to unit 1
+        //sample 2 esta associado a unicada (1) 
+        // sample 1 esta associado  (0)
+        //sampler variavel associada à unidade que eu quero buscar
         this.shaderObject.setUniformsValues({uSampler2: 1});
         this.shaderObject.setUniformsValues({heightScale: this.heightscale});
 	};
@@ -42,8 +48,12 @@ class Water extends CGFobject
 		this.setUniformValues();
         this.scene.setActiveShader(this.shaderObject);
         this.scene.pushMatrix();
+
+        //water texture´tem a cor mesmo da agua - coocar na unidade (0) é a cor da agua 
         this.waterTexture.bind(0);
         // the heightmap is bound to unit 1
+
+        //water relevo da agua - coocar na unidade (1) é a cor da agua 
         this.waterHeightMap.bind(1);
         this.scene.scale(100, 100, 100);
         this.planeToApply.display();
