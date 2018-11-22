@@ -4,18 +4,18 @@
 
     <views default="default" >
 
-        <perspective id="default" near="0.1" far="550" angle="62">
-            <from x="28" y="8" z="30" />
-            <to x="0" y="0" z="0" />
+        <perspective id="default" near="0.5" far="500" angle="60">
+            <from x="88" y="77" z="70" />
+            <to x="0" y="10" z="0" />
         </perspective>
         
-        <perspective id="view1" near="0.1" far="550" angle="20">
-            <from x="40" y="20" z="30" />
-            <to x="0" y="1" z="0" />
+        <perspective id="Home" near="0.1" far="550" angle="96">
+            <from x="52" y="20" z="-15" />
+            <to x="-50" y="1" z="-15" />
         </perspective>
 
         <perspective id="view2" near="0.1" far="550" angle="30">
-            <from x="30" y="5" z="10" />
+            <from x="90" y="5" z="10" />
             <to x="-10" y="1" z="5" />
         </perspective>
         
@@ -1977,23 +1977,16 @@
             </children>
         </component>
 
-        <!-- Table end -->
-
-        <component id="root">
-
+        <component id="myHome">
             <transformation>
-
-                <translate x="0" y="0" z="0" />
+                <translate x="42" y="17" z="-20" />
                 <rotate axis="x" angle="0" />
-                <scale x="1" y="1" z="1" />
+                <scale x="0.7" y="0.7" z="0.7" />
             </transformation>
-
             <materials>
-                <material id="supermat"/>
+               
             </materials>
-
-            <texture id="woodWall" length_s="1" length_t="1" />
-
+            <texture id="black" length_s="1000" length_t="1000" />
             <children>
                 <componentref id="myRoom"/>
                 <componentref id="myChair"/>
@@ -2022,15 +2015,31 @@
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
                 <componentref id="myAnimationBall" />
+            </children>
+        </component>
+
+        <!-- Table end -->
+
+        <component id="root">
+
+            <transformation>
+
+                <translate x="0" y="0" z="0" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="supermat"/>
+            </materials>
+
+            <texture id="woodWall" length_s="1" length_t="1" />
+
+            <children>
+                
+                <componentref id="myHome"/>
                 <componentref id="myCar" />
                 <componentref id="myCar2" />
-                <componentref id="myCar3" />
-                <componentref id="myCar4" />
-                <componentref id="greenGround" />
-                <componentref id="round1" />
-                <componentref id="round2" />
-                <componentref id="round3" />
-                <componentref id="round4" />
                 <primitiveref id="myWater" />
                 <primitiveref id="myTerrain" />
             </children>

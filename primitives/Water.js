@@ -55,7 +55,7 @@ class Water extends CGFobject
 
         //water relevo da agua - coocar na unidade (1) é a cor da agua 
         this.waterHeightMap.bind(1);
-        this.scene.scale(100, 100, 100);
+        this.scene.scale(180, 180, 180);
         this.planeToApply.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
