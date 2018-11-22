@@ -21,7 +21,7 @@ class Water extends CGFobject
 	{	
 		this.shaderObject = new CGFshader(this.scene.gl, "scenes/shaders/water.vert", "scenes/shaders/water.frag"),
         this.waterTexture = new CGFtexture(this.scene, this.idtexture);
-        this.waterHeightMap = new CGFtexture(this.scene, this.idheightmap);
+        this.waterHeightMap = new CGFtexture(this.scene, this.idwavemap);
 	};
 
 	setUniformValues()
@@ -45,15 +45,11 @@ class Water extends CGFobject
         this.waterTexture.bind(0);
         // the heightmap is bound to unit 1
         this.waterHeightMap.bind(1);
-        this.waterHeightMap.bind(1);
-        //this.scene.scale(500, 500, 500);
+        this.scene.scale(100, 100, 100);
         this.planeToApply.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
 	};
-
-
-	// Don't know if we will need to apply textures to NURBS / if it is applied in the same way.
 
 	scaleTextureCoords(tex1, tex2)
 	{

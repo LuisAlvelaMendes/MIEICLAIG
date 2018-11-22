@@ -45,9 +45,6 @@ class Terrain extends CGFobject
         this.scene.setActiveShader(this.scene.defaultShader);
 	};
 
-
-	// Don't know if we will need to apply textures to NURBS / if it is applied in the same way.
-
 	scaleTextureCoords(tex1, tex2)
 	{
 	

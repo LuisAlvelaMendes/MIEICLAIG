@@ -263,7 +263,7 @@
         </primitive>
 
         <primitive id="myWater">
-            <water idtexture="scenes/images/water.png" idwavemap="ss" parts="ii" heightscale="ff" texscale="ff" />
+            <water idtexture="scenes/images/water.png" idwavemap="scenes/images/wavemap.jpg" parts="60" heightscale="2" texscale="2" />
         </primitive>
 
     </primitives >
@@ -2031,7 +2031,7 @@
                 <componentref id="round2" />
                 <componentref id="round3" />
                 <componentref id="round4" />
-                <primitiveref id="myTerrain" />
+                <primitiveref id="myWater" />
             </children>
         </component>
 

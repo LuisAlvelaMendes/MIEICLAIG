@@ -31,7 +31,6 @@ void main() {
 
     // vertex pushed outwards according to the normal and scale
     vec4 vertex = vec4(aVertexPosition+aVertexNormal*offset*0.1, 1.0);
-    // projected vertex
 
 	vTextureCoord = TextureCoords;
 
