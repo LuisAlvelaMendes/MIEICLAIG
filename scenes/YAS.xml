@@ -2,24 +2,24 @@
 
     <scene root="root" axis_length="5.0" />
 
-    <views default="default" >
+    <views default="home" >
 
-        <perspective id="default" near="0.5" far="500" angle="60">
+        <perspective id="wideView" near="0.5" far="500" angle="60">
             <from x="88" y="77" z="70" />
             <to x="0" y="10" z="0" />
         </perspective>
         
-        <perspective id="Home" near="0.1" far="550" angle="96">
+        <perspective id="home" near="0.1" far="550" angle="96">
             <from x="52" y="20" z="-15" />
             <to x="-50" y="1" z="-15" />
         </perspective>
 
-        <perspective id="view2" near="0.1" far="550" angle="30">
+        <perspective id="underTheFloor" near="0.1" far="550" angle="30">
             <from x="90" y="5" z="10" />
             <to x="-10" y="1" z="5" />
         </perspective>
         
-        <ortho id="ortho" near="0.1" far="500"
+        <ortho id="closeToGround" near="0.1" far="500"
                left="-5" right="5" top="5" bottom="-5">
             <from x="40" y="20" z="30" />
             <to x="0" y="1" z="0" />
@@ -265,7 +265,7 @@
         </primitive>
 
         <primitive id="myWater">
-            <water idtexture="scenes/images/water.png" idwavemap="scenes/images/wavemap.jpg" parts="60" heightscale="0.8" texscale="2" />
+            <water idtexture="scenes/images/water.png" idwavemap="scenes/images/wavemap.jpg" parts="60" heightscale="0.8" texscale="1.2" />
         </primitive>
 
     </primitives >

@@ -33,7 +33,8 @@ class Water extends CGFobject
         //sample 2 esta associado a unicada (1) 
         // sample 1 esta associado  (0)
         //sampler variavel associada à unidade que eu quero buscar
-        this.shaderObject.setUniformsValues({uSampler2: 1});
+		this.shaderObject.setUniformsValues({uSampler2: 1});
+		this.shaderObject.setUniformsValues({texscale: this.texscale});
         this.shaderObject.setUniformsValues({heightScale: this.heightscale});
 	};
 	

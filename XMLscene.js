@@ -70,7 +70,7 @@ class XMLscene extends CGFscene {
         }
 
         if(this.graph.primitives != undefined){
-            this.graph.primitives["myWater"].update(currTime/120);
+            this.graph.primitives["myWater"].update(currTime/90);
         }
     }
 
