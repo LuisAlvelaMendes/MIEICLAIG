@@ -154,10 +154,12 @@
             <controlpoint xx="-1" yy="0" zz="-1"/>
         </linear>
         
-        <linear id="carAnimation_F" span="47" >
+        <linear id="carAnimation_F" span="50" >
             <controlpoint xx="0" yy="0" zz="0" /> 
-            <controlpoint xx="-250" yy="0" zz="0" />
+            <controlpoint xx="-20" yy="0" zz="-20" />
+
         </linear>
+
 
         <linear id="carAnimation_F2" span="47" >
             <controlpoint xx="0" yy="0" zz="0" /> 
@@ -1617,7 +1619,7 @@
 
         <component id="myCar">
             <transformation>
-                <translate x="4.3" y="1.2" z="28" />
+                <translate x="55.3" y="17.2" z="33" />
                 <rotate axis="x" angle="0" />
                 <scale x="0.8" y="0.8" z="0.8" />
             </transformation>
@@ -2039,7 +2041,6 @@
                 
                 <componentref id="myHome"/>
                 <componentref id="myCar" />
-                <componentref id="myCar2" />
                 <primitiveref id="myWater" />
                 <primitiveref id="myTerrain" />
             </children>
