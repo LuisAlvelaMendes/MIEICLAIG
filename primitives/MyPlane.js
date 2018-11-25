@@ -19,7 +19,6 @@ class MyPlane extends CGFobject
 		var degree1 = 1;
 		var degree2 = 1;
 		var controlvertexes = [	[ [-0.5, 0.0, 0.5, 1], [-0.5,  0.0, -0.5, 1] ], [ [0.5, 0.0, 0.5, 1], [0.5,  0.0, -0.5, 1] ] ];
-		console.log(controlvertexes);
 		var nurbsSurface = new CGFnurbsSurface(degree1, degree2, controlvertexes);
 		this.nurbs = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
 	};

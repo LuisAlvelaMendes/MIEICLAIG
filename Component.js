@@ -18,19 +18,14 @@ class Component
 		this.scene = scene;
 		this.materialCurrentIndex = 0;
 		this.animationsID = anim;
+		this.currentAnimationIndex = 0;
 	};
 
 	/**
 	 * Used to update component animations.
 	 */
 	update(deltaTime){
-		for(var i = 0; i < this.animationsID.length; i++){
-
-			if (this.scene.graph.animations[this.animationsID[i]].animationReachedLoop == false) {
-				this.scene.graph.animations[this.animationsID[i]].update(deltaTime);
-			}
-			
-		}
+		this.scene.graph.animations[this.animationsID[this.currentAnimationIndex]].update(deltaTime);
 	}
 	 
 	/**
@@ -44,6 +39,14 @@ class Component
 		else {
 			this.materialCurrentIndex = 0;
 		}
+	}
+
+	incrementAnimation(){
+		this.currentAnimationIndex++;
+	}
+
+	decrementAnimation(){
+		this.currentAnimationIndex--;
 	}
 
 	/**
@@ -106,8 +109,8 @@ class Component
 	}
 
 	applyAnimation(){
-		for(var i = 0; i < this.animationsID.length; i++){
-			this.scene.graph.animations[this.animationsID[i]].apply();
+		if(this.animationsID[this.currentAnimationIndex] != undefined){
+			this.scene.graph.animations[this.animationsID[this.currentAnimationIndex]].apply();
 		}
 	}
 
@@ -163,10 +166,10 @@ class Component
 				this.scene.pushMatrix();
 				
 				// Scaling textures with lengthS and lengthT
-				/*if(this.tex[1] != null && this.tex[2] != null){
+				if(this.tex[1] != null && this.tex[2] != null){
 					this.scene.graph.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 					texCoordsChanged = true;
-				}*/
+				}
 
 				// Applying transformations
 				this.applyTransformationNoReference();

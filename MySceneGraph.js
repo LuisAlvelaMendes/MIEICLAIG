@@ -996,7 +996,6 @@ class MySceneGraph {
             this.animations[animationsId] = anim;
         }
 
-        console.log(this.animations);
         console.log("Parsed animations");
         return null;
     }
@@ -1121,14 +1120,8 @@ class MySceneGraph {
                         }
 
                         if(grandChildren[0].nodeName == "vehicle"){
-                            
-                           
                             var myVehicle = new MyVehicle(this.scene);
                             this.primitives[primitiveId] = myVehicle;
-
-                            console.log("done");
-
-                            
                         }
 
                         if(grandChildren[0].nodeName == "torus"){

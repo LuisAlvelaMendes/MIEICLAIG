@@ -66,10 +66,6 @@ class MyNurbsCylinderHalf extends CGFobject{
 		 */
 		 
 		this.reorganizeControlPoints();
-
-		console.log(this.controlPoints);
-		console.log(this.formattedControlPoints);
-
 		var nurbsSurface = new CGFnurbsSurface(3, 1, this.formattedControlPoints);
         this.nurbs = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 	};

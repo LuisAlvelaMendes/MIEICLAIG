@@ -77,6 +77,7 @@
         <texture id="straw" file="scenes/images/straw.jpg"/>
         <texture id="woodWall" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
+        <texture id="black" file="scenes/images/black.jpg"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
         <texture id="newt" file="scenes/images/wood1.jpg"/>
@@ -84,7 +85,6 @@
         <texture id="p1" file="scenes/images/p1.jpg"/>
         <texture id="lamp" file="scenes/images/lamp.jpg"/>
         <texture id="run" file="scenes/images/run.jpg"/>
-        <texture id="black" file="scenes/images/black.jpg"/>
         <texture id="mac" file="scenes/images/mac.jpg"/>
         <texture id="anime" file="scenes/images/anime.png"/>
         <texture id="iluminati" file="scenes/images/iluminati.png"/>
@@ -157,18 +157,18 @@
         <linear id="carAnimation_F" span="50" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="-20" yy="0" zz="-20" />
-            
-
         </linear>
 
-        <linear id="plane_fly" span="50" >
+        <linear id="plane_fly" span="5" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="-20" yy="20" zz="-20" />
             <controlpoint xx="0" yy="25" zz="10" />
             <controlpoint xx="-20" yy="33" zz="-20" />
-
         </linear>
 
+        <circular id="plane_spin" span="10" center="-20 33 -20" radius="5" startang="3" rotang="360"/>
+
+        <circular id="plane_spin2" span="10" center="-20 33 -20" radius="7" startang="5" rotang="180"/>
 
         <linear id="carAnimation_F2" span="47" >
             <controlpoint xx="0" yy="0" zz="0" /> 
@@ -2003,8 +2003,10 @@
             </materials>
             <animations>
                 <animationref id="plane_fly"/>
+                <animationref id="plane_spin"/>
+                <animationref id="plane_spin2"/>
             </animations>
-            <texture id="black" length_s="1000" length_t="1000" />
+            <texture id="iluminati" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="myVehicle" />
             </children>
@@ -2019,7 +2021,7 @@
             <materials>
                
             </materials>
-            <texture id="black" length_s="1000" length_t="1000" />
+
             <children>
                 <componentref id="myRoom"/>
                 <componentref id="myChair"/>

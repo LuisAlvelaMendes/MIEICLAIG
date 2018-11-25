@@ -17,6 +17,7 @@ class MyVehicle extends CGFobject
         this.bodyUpB = new MyUnitCubeQuad(this.scene);
         this.wheel1 = new MyUnitCubeQuad(this.scene);
         this.wheel2 = new MyUnitCubeQuad(this.scene);
+        this.nurbsSurface = new MyNurbsCylinderHalf(this.scene, "half", 20, 20, 2, 2, 2);
         this.back = new MyTriangle(this.scene,"t1",0,0,0,0,4,0,0,2,2);
         
     };
@@ -33,13 +34,18 @@ class MyVehicle extends CGFobject
 
     display() 
     {
-
-
          // body
         this.scene.pushMatrix();
         this.scene.translate(0, 2.2, 0);
         this.scene.scale(7, 1, 2.5);
         this.bodyUpA.display();
+        this.scene.popMatrix();
+
+        // nurbs
+        this.scene.pushMatrix();
+        this.scene.translate(0, 2.6, 0);
+        this.scene.scale(1, 1, 1);
+        this.nurbsSurface.display();
         this.scene.popMatrix();
 
         // wings
@@ -62,18 +68,16 @@ class MyVehicle extends CGFobject
         this.scene.scale(0.6, 1, 0.2);
         this.wheel2.display();
         this.scene.popMatrix();
-
-       
-
-        
-
-      
-
-
-      
     };
 
-    
+    scaleTextureCoords(tex1, tex2)
+	{
+	
+	};
 
+	resetCoords()
+	{
+
+	};
 
 };
