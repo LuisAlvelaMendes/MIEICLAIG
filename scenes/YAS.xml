@@ -157,6 +157,15 @@
         <linear id="carAnimation_F" span="50" >
             <controlpoint xx="0" yy="0" zz="0" /> 
             <controlpoint xx="-20" yy="0" zz="-20" />
+            
+
+        </linear>
+
+        <linear id="plane_fly" span="50" >
+            <controlpoint xx="0" yy="0" zz="0" /> 
+            <controlpoint xx="-20" yy="20" zz="-20" />
+            <controlpoint xx="0" yy="25" zz="10" />
+            <controlpoint xx="-20" yy="33" zz="-20" />
 
         </linear>
 
@@ -259,6 +268,10 @@
         <primitive id="myNurbsCylinder">
             <cylinder2 base="1" top="1" height="6" slices="60" stacks="60" />
         </primitive>
+
+        <primitive id="myVehicle">
+            <vehicle/>
+        </primitive>        
 
         <primitive id="myTerrain">
             <terrain idtexture="scenes/images/terrain.jpg" idheightmap="scenes/images/heightMap.jpg" parts="40" heightscale="2" />
@@ -1979,6 +1992,24 @@
             </children>
         </component>
 
+        <component id="myPlane">
+            <transformation>
+                <translate x="10" y="30" z="-3" />
+                <rotate axis="x" angle="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <animations>
+                <animationref id="plane_fly"/>
+            </animations>
+            <texture id="black" length_s="1000" length_t="1000" />
+            <children>
+                <primitiveref id="myVehicle" />
+            </children>
+        </component>
+
         <component id="myHome">
             <transformation>
                 <translate x="42" y="17" z="-20" />
@@ -2043,6 +2074,8 @@
                 <componentref id="myCar" />
                 <primitiveref id="myWater" />
                 <primitiveref id="myTerrain" />
+                <componentref id="myPlane" />
+                
             </children>
         </component>
 

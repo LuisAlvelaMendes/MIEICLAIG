@@ -163,10 +163,10 @@ class Component
 				this.scene.pushMatrix();
 				
 				// Scaling textures with lengthS and lengthT
-				if(this.tex[1] != null && this.tex[2] != null){
+				/*if(this.tex[1] != null && this.tex[2] != null){
 					this.scene.graph.primitives[this.childrenPrimitives[i]].scaleTextureCoords(this.tex[1], this.tex[2]);
 					texCoordsChanged = true;
-				}
+				}*/
 
 				// Applying transformations
 				this.applyTransformationNoReference();

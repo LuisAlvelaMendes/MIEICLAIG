@@ -1120,6 +1120,17 @@ class MySceneGraph {
                             this.primitives[primitiveId] = cylinder2;
                         }
 
+                        if(grandChildren[0].nodeName == "vehicle"){
+                            
+                           
+                            var myVehicle = new MyVehicle(this.scene);
+                            this.primitives[primitiveId] = myVehicle;
+
+                            console.log("done");
+
+                            
+                        }
+
                         if(grandChildren[0].nodeName == "torus"){
 
                             var inner = this.parsePrimitiveCoords(grandChildren[0], 'inner', "torus");
