@@ -9,9 +9,9 @@
             <to x="0" y="10" z="0" />
         </perspective>
         
-        <perspective id="home" near="0.1" far="550" angle="96">
-            <from x="52" y="20" z="-15" />
-            <to x="-50" y="1" z="-15" />
+        <perspective id="home" near="0.1" far="500" angle="60">
+            <from x="52" y="19" z="-12.5" />
+            <to x="-50" y="1" z="15" />
         </perspective>
 
         <perspective id="underTheFloor" near="0.1" far="550" angle="30">
@@ -78,7 +78,9 @@
         <texture id="woodWall" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="black" file="scenes/images/black.jpg"/>
+        <texture id="board" file="scenes/images/board.jpg"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
+        <texture id="piece" file="scenes/images/pieceTexture.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
         <texture id="newt" file="scenes/images/wood1.jpg"/>
         <texture id="rocks" file="scenes/images/rocks.jpg"/>
@@ -231,7 +233,7 @@
             <torus inner="0.6" outer="1" loops="30" slices="30"/>
         </primitive>
 
-        <primitive id="MyPlane">
+        <primitive id="myPlane">
             <plane npartsU="2" npartsV="2"/>
         </primitive>
 
@@ -305,6 +307,64 @@
             </materials>
 
             <texture id="newt" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+
+        </component>
+        
+        <component id="myPiece1">
+
+            <transformation>
+                <translate x="11.65" y="1.46" z="12.75" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece2">
+
+            <transformation>
+                <translate x="11.55" y="1.46" z="12.75" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece3">
+
+            <transformation>
+                <translate x="11.45" y="1.46" z="12.75" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
 
             <children>
                 <primitiveref id="myCylinder" />
@@ -1898,6 +1958,21 @@
             </children>
         </component>
 
+        <component id="board">
+            <transformation>
+                <translate x="11.2" y="1.4" z="12" />
+                <scale x="1.2" y="2" z="2" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="board" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
         <component id="myPlane">
             <transformation>
                 <translate x="10" y="30" z="-3" />
@@ -1932,6 +2007,7 @@
                 <componentref id="myRoom"/>
                 <componentref id="myChair"/>
                 <componentref id="myTable"/>
+                <componentref id="board" />
                 <componentref id="myBed"/>
                 <componentref id="myLamp"/>
                 <componentref id="myArmarioL"/>
@@ -1942,16 +2018,15 @@
                 <componentref id="myArmarioLong_B"/>
                 <componentref id="myArmarioLong_B_UP"/>
                 <componentref id="parteleira"/>
+                <componentref id="myPiece1" />
+                <componentref id="myPiece2" />
+                <componentref id="myPiece3" />
                 <componentref id="tv"/>
                 <componentref id="tvBack"/>
                 <componentref id="myLamp_L"/>
                 <componentref id="myLamp_R"/>
-                <componentref id="myLampTable"/>
-                <componentref id="myPc"/>
-                <componentref id="donut"/>
                 <componentref id="glass"/>
                 <componentref id="tapete"/>
-                <componentref id="myBottleSecretaria"/>
                 <componentref id="myBottleRight"/>
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
@@ -1979,10 +2054,6 @@
             <children>
                 
                 <componentref id="myHome"/>
-                <componentref id="myCar" />
-                <primitiveref id="myWater" />
-                <primitiveref id="myTerrain" />
-                <componentref id="myPlane" />
                 
             </children>
         </component>
