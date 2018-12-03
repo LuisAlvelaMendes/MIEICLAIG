@@ -83,7 +83,7 @@
         <texture id="woodWall" file="scenes/images/wood3.jpg"/>
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="black" file="scenes/images/black.jpg"/>
-        <texture id="board" file="scenes/images/board.jpg"/>
+        <texture id="board" file="scenes/images/tab.png"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
         <texture id="piece" file="scenes/images/pieceTexture.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
@@ -319,10 +319,10 @@
 
         </component>
         
-        <component id="myPiece1">
+        <component id="myPiece_p1_1">
 
             <transformation>
-                <translate x="11.65" y="1.46" z="12.75" />
+                <translate x="6.04" y="1.46" z="12.73" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -338,10 +338,10 @@
             </children>
         </component>
 
-        <component id="myPiece2">
+        <component id="myPiece_p1_2">
 
             <transformation>
-                <translate x="11.55" y="1.46" z="12.75" />
+                <translate x="6.18" y="1.46" z="12.73" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -357,10 +357,238 @@
             </children>
         </component>
 
-        <component id="myPiece3">
+        <component id="myPiece_p1_3">
 
             <transformation>
-                <translate x="11.45" y="1.46" z="12.75" />
+                <translate x="6.33" y="1.46" z="12.73" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_4">
+
+            <transformation>
+                <translate x="6.04" y="1.46" z="12.43" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_5">
+
+            <transformation>
+                <translate x="6.18" y="1.46" z="12.43" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_6">
+
+            <transformation>
+                <translate x="6.33" y="1.46" z="12.43" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_7">
+
+            <transformation>
+                <translate x="6.04" y="1.46" z="12.11" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_8">
+
+            <transformation>
+                <translate x="6.18" y="1.46" z="12.11" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_9">
+
+            <transformation>
+                <translate x="6.33" y="1.46" z="12.11" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_10">
+
+            <transformation>
+                <translate x="6.04" y="1.46" z="11.8" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_11">
+
+            <transformation>
+                <translate x="6.18" y="1.46" z="11.8" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_12">
+
+            <transformation>
+                <translate x="6.33" y="1.46" z="11.8" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_13">
+
+            <transformation>
+                <translate x="6.04" y="1.46" z="11.48" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_14">
+
+            <transformation>
+                <translate x="6.18" y="1.46" z="11.48" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <component id="myPiece_p1_15">
+
+            <transformation>
+                <translate x="6.33" y="1.46" z="11.48" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -1966,7 +2194,7 @@
         <component id="board">
             <transformation>
                 <translate x="5.8" y="1.4" z="12" />
-                <scale x="1.7" y="2" z="1.8" />
+                <scale x="2.2" y="2" z="2.3" />
                 <rotate axis="y" angle="90" />
             </transformation>
             <materials>
@@ -2023,9 +2251,6 @@
                 <componentref id="myArmarioLong_B"/>
                 <componentref id="myArmarioLong_B_UP"/>
                 <componentref id="parteleira"/>
-                <componentref id="myPiece1" />
-                <componentref id="myPiece2" />
-                <componentref id="myPiece3" />
                 <componentref id="tv"/>
                 <componentref id="tvBack"/>
                 <componentref id="myLamp_L"/>
@@ -2035,6 +2260,24 @@
                 <componentref id="myBottleRight"/>
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
+
+                <componentref id="myPiece_p1_1" />
+                <componentref id="myPiece_p1_2" />
+                <componentref id="myPiece_p1_3" />
+                <componentref id="myPiece_p1_4" />
+                <componentref id="myPiece_p1_5" />
+                <componentref id="myPiece_p1_6" />
+                <componentref id="myPiece_p1_7" />
+                <componentref id="myPiece_p1_8" />
+                <componentref id="myPiece_p1_9" />
+                <componentref id="myPiece_p1_10" />
+                <componentref id="myPiece_p1_11" />
+                <componentref id="myPiece_p1_12" />
+                <componentref id="myPiece_p1_13" />
+                <componentref id="myPiece_p1_14" />
+                <componentref id="myPiece_p1_15" />
+
+
             </children>
         </component>
 
