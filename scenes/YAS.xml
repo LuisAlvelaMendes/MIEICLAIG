@@ -86,6 +86,7 @@
         <texture id="board" file="scenes/images/tab.png"/>
         <texture id="grey" file="scenes/images/grey.jpg"/>
         <texture id="piece" file="scenes/images/pieceTexture.jpg"/>
+        <texture id="piece2" file="scenes/images/pieceTexture2.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
         <texture id="newt" file="scenes/images/wood1.jpg"/>
         <texture id="rocks" file="scenes/images/rocks.jpg"/>
@@ -319,6 +320,7 @@
 
         </component>
         
+        <!-- PLAYER 1 --> 
         <component id="myPiece_p1_1">
 
             <transformation>
@@ -603,6 +605,68 @@
                 <primitiveref id="myCylinder" />
             </children>
         </component>
+
+
+        <!-- PLAYER 1 --> 
+        <component id="myPiece_p2_1">
+
+            <transformation>
+                <translate x="5.56" y="1.46" z="12.6" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece2" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <!-- PLAYER 1 --> 
+        <component id="myPiece_p2_2">
+
+            <transformation>
+                <translate x="5.42" y="1.46" z="12.6" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece2" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
+        <!-- PLAYER 1 --> 
+        <component id="myPiece_p2_3">
+
+            <transformation>
+                <translate x="5.27" y="1.46" z="12.6" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+ 
+            <materials>
+                <material id="othermat" />
+            </materials>
+
+            <texture id="piece2" length_s="1" length_t="1" />
+
+            <children>
+                <primitiveref id="myCylinder" />
+            </children>
+        </component>
+
 
         <component id="mySphere">
 
@@ -2276,6 +2340,10 @@
                 <componentref id="myPiece_p1_13" />
                 <componentref id="myPiece_p1_14" />
                 <componentref id="myPiece_p1_15" />
+
+                <componentref id="myPiece_p2_1" />
+                <componentref id="myPiece_p2_2" />
+                <componentref id="myPiece_p2_3" />
 
 
             </children>
