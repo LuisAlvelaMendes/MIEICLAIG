@@ -42,6 +42,26 @@ class XMLscene extends CGFscene {
         this.lastTime = -1;
         this.deltaTime = 0;
         this.setUpdatePeriod(1000 * (1/FPS));
+
+        this.setPickEnabled(true);
+    }
+
+    logPicking()
+    {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i=0; i< this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj)
+                    {
+                        var customId = this.pickResults[i][1];				
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+
+                this.pickResults.splice(0,this.pickResults.length);
+            }		
+        }
     }
 
     /**

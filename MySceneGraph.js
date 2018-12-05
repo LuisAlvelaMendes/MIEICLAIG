@@ -1219,6 +1219,11 @@ class MySceneGraph {
                             var water = new Water(this.scene, idtexture, idwavemap, parts, heightscale, texscale);
                             this.primitives[primitiveId] = water;
                         }
+
+                        if(grandChildren[0].nodeName == "cells"){
+                            var cells = new TransparentCells(this.scene);
+                            this.primitives[primitiveId] = cells;
+                        }
                         
                     }
 

@@ -35,6 +35,7 @@ serialInclude(['../lib/CGF.js',
     'primitives/Water.js',
     'primitives/MyVehicle.js',
     'primitives/MyQuad.js',
+    'primitives/TransparentCells.js',
 
 main=function()
 {
