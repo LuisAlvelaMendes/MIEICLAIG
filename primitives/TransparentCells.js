@@ -118,6 +118,24 @@ class TransparentCells extends CGFobject
         ];
     
     };
+
+    logPicking()
+    {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i=0; i< this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj)
+                    {
+                        var customId = this.pickResults[i][1];				
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+
+                this.pickResults.splice(0,this.pickResults.length);
+            }		
+        }
+    };
     
     display()
     {
@@ -129,19 +147,19 @@ class TransparentCells extends CGFobject
 
             for(var j = 0; j < 10; j++){
                 this.scene.pushMatrix();
-    
-                console.log("translate " + xCoord + " translate " + zCoord);
 
                 this.scene.translate(xCoord, 1.46 , zCoord);
-                this.scene.registerForPick(objectIndex+1, this.objects[objectIndex]);
+                this.scene.registerForPick(objectIndex, this.objects[objectIndex]);
                 
                 this.objects[i].display();
                 this.scene.popMatrix();
-                zCoord -= 0.16;
+                zCoord -= 1.45;
+
                 objectIndex++;
             }
 
-            xCoord -= 0.14;
+            xCoord += 1.36;
+            zCoord = 12.75;
         }
     };
 
