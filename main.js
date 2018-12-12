@@ -36,6 +36,8 @@ serialInclude(['../lib/CGF.js',
     'primitives/MyVehicle.js',
     'primitives/MyQuad.js',
     'primitives/TransparentCells.js',
+    'game/Client.js',
+    'game/Cannon.js',
 
 main=function()
 {
