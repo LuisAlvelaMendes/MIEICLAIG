@@ -139,8 +139,8 @@ class TransparentCells extends CGFobject
     
     display()
     {
-        var xCoord = 5.12;
-        var zCoord = 12.75;
+        var xCoord = 3.44;
+        var zCoord = 13.75;
         var objectIndex = 0;
 
         for(var i = 0; i < 10; i++){
@@ -148,18 +148,18 @@ class TransparentCells extends CGFobject
             for(var j = 0; j < 10; j++){
                 this.scene.pushMatrix();
 
-                this.scene.translate(xCoord, 1.46 , zCoord);
+                this.scene.translate(xCoord, -0.56 , zCoord);
                 this.scene.registerForPick(objectIndex, this.objects[objectIndex]);
                 
                 this.objects[i].display();
                 this.scene.popMatrix();
-                zCoord -= 1.45;
+                zCoord -= 1.56;
 
                 objectIndex++;
             }
 
-            xCoord += 1.36;
-            zCoord = 12.75;
+            xCoord += 1.5;
+            zCoord = 13.75;
         }
     };
 

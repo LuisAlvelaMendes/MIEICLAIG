@@ -14,9 +14,9 @@
             <to x="0" y="-19" z="-66" />
         </perspective>
         
-        <perspective id="home" near="0.5" far="500" angle="40">
-            <from x="47.4" y="21" z="-12" />
-            <to x="-50" y="-190" z="15" />
+        <perspective id="home" near="0.45" far="500" angle="40">
+            <from x="315.4" y="110" z="390" />
+            <to x="-10" y="-100" z="390"  />
         </perspective>
 
         <perspective id="underTheFloor" near="0.1" far="550" angle="30">
@@ -328,7 +328,7 @@
         <component id="myPiece_p1_1">
 
             <transformation>
-                <translate x="6.04" y="1.46" z="12.73" />
+                <translate x="6.04" y="-0.065" z="13.50" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -347,7 +347,7 @@
         <component id="myPiece_p1_2">
 
             <transformation>
-                <translate x="6.18" y="1.46" z="12.73" />
+                <translate x="6.33" y="-0.065" z="13.50" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -366,7 +366,7 @@
         <component id="myPiece_p1_3">
 
             <transformation>
-                <translate x="6.33" y="1.46" z="12.73" />
+                <translate x="6.63" y="-0.065" z="13.50" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -385,7 +385,7 @@
         <component id="myPiece_p1_4">
 
             <transformation>
-                <translate x="6.04" y="1.46" z="12.43" />
+                <translate x="6.04" y="-0.065" z="12.43" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -404,7 +404,7 @@
         <component id="myPiece_p1_5">
 
             <transformation>
-                <translate x="6.18" y="1.46" z="12.43" />
+                <translate x="6.18" y="-0.065" z="12.43" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -423,7 +423,7 @@
         <component id="myPiece_p1_6">
 
             <transformation>
-                <translate x="6.33" y="1.46" z="12.43" />
+                <translate x="6.33" y="-0.065" z="12.43" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -442,7 +442,7 @@
         <component id="myPiece_p1_7">
 
             <transformation>
-                <translate x="6.04" y="1.46" z="12.11" />
+                <translate x="6.04" y="-0.065" z="12.11" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -461,7 +461,7 @@
         <component id="myPiece_p1_8">
 
             <transformation>
-                <translate x="6.18" y="1.46" z="12.11" />
+                <translate x="6.18" y="-0.065" z="12.11" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -480,7 +480,7 @@
         <component id="myPiece_p1_9">
 
             <transformation>
-                <translate x="6.33" y="1.46" z="12.11" />
+                <translate x="6.33" y="-0.065" z="12.11" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -499,7 +499,7 @@
         <component id="myPiece_p1_10">
 
             <transformation>
-                <translate x="6.04" y="1.46" z="11.8" />
+                <translate x="6.04" y="-0.065" z="11.8" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -518,7 +518,7 @@
         <component id="myPiece_p1_11">
 
             <transformation>
-                <translate x="6.18" y="1.46" z="11.8" />
+                <translate x="6.18" y="-0.065" z="11.8" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -537,7 +537,7 @@
         <component id="myPiece_p1_12">
 
             <transformation>
-                <translate x="6.33" y="1.46" z="11.8" />
+                <translate x="6.33" y="-0.065" z="11.8" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -556,7 +556,7 @@
         <component id="myPiece_p1_13">
 
             <transformation>
-                <translate x="6.04" y="1.46" z="11.48" />
+                <translate x="6.04" y="-0.065" z="11.48" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -575,7 +575,7 @@
         <component id="myPiece_p1_14">
 
             <transformation>
-                <translate x="6.18" y="1.46" z="11.48" />
+                <translate x="6.18" y="-0.065" z="11.48" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -594,7 +594,7 @@
         <component id="myPiece_p1_15">
 
             <transformation>
-                <translate x="6.33" y="1.46" z="11.48" />
+                <translate x="6.33" y="-0.065" z="11.48" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -615,7 +615,7 @@
         <component id="myPiece_p2_1">
 
             <transformation>
-                <translate x="5.56" y="1.46" z="12.6" />
+                <translate x="5.56" y="-0.065" z="12.6" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -634,7 +634,7 @@
         <component id="myPiece_p2_2">
 
             <transformation>
-                <translate x="5.42" y="1.46" z="12.6" />
+                <translate x="5.42" y="-0.065" z="12.6" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -653,7 +653,7 @@
         <component id="myPiece_p2_3">
 
             <transformation>
-                <translate x="5.27" y="1.46" z="12.6" />
+                <translate x="5.27" y="-0.065" z="12.6" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -672,7 +672,7 @@
         <component id="myPiece_p2_4">
 
             <transformation>
-                <translate x="5.56" y="1.46" z="12.28" />
+                <translate x="5.56" y="-0.065" z="12.28" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -691,7 +691,7 @@
         <component id="myPiece_p2_5">
 
             <transformation>
-                <translate x="5.42" y="1.46" z="12.28" />
+                <translate x="5.42" y="-0.065" z="12.28" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -710,7 +710,7 @@
         <component id="myPiece_p2_6">
 
             <transformation>
-                <translate x="5.27" y="1.46" z="12.28" />
+                <translate x="5.27" y="-0.065" z="12.28" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -729,7 +729,7 @@
         <component id="myPiece_p2_7">
 
             <transformation>
-                <translate x="5.56" y="1.46" z="11.97" />
+                <translate x="5.56" y="-0.065" z="11.97" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -748,7 +748,7 @@
         <component id="myPiece_p2_8">
 
             <transformation>
-                <translate x="5.42" y="1.46" z="11.97" />
+                <translate x="5.42" y="-0.065" z="11.97" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -767,7 +767,7 @@
         <component id="myPiece_p2_9">
 
             <transformation>
-                <translate x="5.27" y="1.46" z="11.97" />
+                <translate x="5.27" y="-0.065" z="11.97" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -786,7 +786,7 @@
         <component id="myPiece_p2_10">
 
             <transformation>
-                <translate x="5.56" y="1.46" z="11.65" />
+                <translate x="5.56" y="-0.065" z="11.65" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -805,7 +805,7 @@
         <component id="myPiece_p2_11">
 
             <transformation>
-                <translate x="5.42" y="1.46" z="11.65" />
+                <translate x="5.42" y="-0.065" z="11.65" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -824,7 +824,7 @@
         <component id="myPiece_p2_12">
 
             <transformation>
-                <translate x="5.27" y="1.46" z="11.65" />
+                <translate x="5.27" y="-0.065" z="11.65" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -843,7 +843,7 @@
         <component id="myPiece_p2_13">
 
             <transformation>
-                <translate x="5.56" y="1.46" z="11.33" />
+                <translate x="5.56" y="-0.065" z="11.33" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -862,7 +862,7 @@
         <component id="myPiece_p2_14">
 
             <transformation>
-                <translate x="5.42" y="1.46" z="11.33" />
+                <translate x="5.42" y="-0.065" z="11.33" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -881,7 +881,7 @@
         <component id="myPiece_p2_15">
 
             <transformation>
-                <translate x="5.27" y="1.46" z="11.33" />
+                <translate x="5.27" y="-0.065" z="11.33" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -2593,7 +2593,7 @@
             <transformation>
                 <translate x="42" y="17" z="-20" />
                 <rotate axis="x" angle="0" />
-                <scale x="0.7" y="0.7" z="0.7" />
+                <scale x="34" y="34" z="34" />
             </transformation>
             <materials>
                
