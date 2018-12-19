@@ -2553,39 +2553,7 @@
             <texture id="none" length_s="1" length_t="1" />
 
             <children>
-                <componentref id="myPiece_p1_1" />
-                <componentref id="myPiece_p1_2" />
-                <componentref id="myPiece_p1_3" />
-                <componentref id="myPiece_p1_4" />
-                <componentref id="myPiece_p1_5" />
-                <componentref id="myPiece_p1_6" />
-                <componentref id="myPiece_p1_7" />
-                <componentref id="myPiece_p1_8" />
-                <componentref id="myPiece_p1_9" />
-                <componentref id="myPiece_p1_10" />
-                <componentref id="myPiece_p1_11" />
-                <componentref id="myPiece_p1_12" />
-                <componentref id="myPiece_p1_13" />
-                <componentref id="myPiece_p1_14" />
-                <componentref id="myPiece_p1_15" />
-
-                <componentref id="myPiece_p2_1" />
-                <componentref id="myPiece_p2_2" />
-                <componentref id="myPiece_p2_3" />
-                <componentref id="myPiece_p2_4" />
-                <componentref id="myPiece_p2_5" />
-                <componentref id="myPiece_p2_6" />
-                <componentref id="myPiece_p2_7" />
-                <componentref id="myPiece_p2_8" />
-                <componentref id="myPiece_p2_9" />
-                <componentref id="myPiece_p2_10" />
-                <componentref id="myPiece_p2_11" />
-                <componentref id="myPiece_p2_12" />
-                <componentref id="myPiece_p2_13" />
-                <componentref id="myPiece_p2_14" />
-                <componentref id="myPiece_p2_15" />
                 <componentref id="myCells" />
-                
             </children>
         </component>
 

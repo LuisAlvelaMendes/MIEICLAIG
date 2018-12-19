@@ -4,15 +4,15 @@
  */
 class Cannon
 {
-    Cannon(scene) {
+    constructor(scene) {
         console.log(" > Cannon: NEW GAME");
         
         this.scene = scene;
 
-        this.client = new Client();
+        this.client = new Client(scene);
 
-        this.defaultCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-        this.rotationCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 0, 0), vec3.fromValues(3, 0, 3));
+        //this.defaultCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        //this.rotationCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 0, 0), vec3.fromValues(3, 0, 3));
 
         //this.playerRed = new Player
         //this.playerWhite = new Player
@@ -37,13 +37,13 @@ class Cannon
         this.citySavedRow;
         this.citySavedColumn;
         
-        this.scene.camera = this.defaultCamera;
+        //this.scene.camera = this.defaultCamera;
 
-        this.scene.information = "Choose a Game Mode and press Start Game to play Cannon.";
+        //this.scene.information = "Choose a Game Mode and press Start Game to play Cannon.";
     };
 
     start(gameMode, gameLevel) {
-        if(this.currentState == this.state.WAITING_FOR_START){
+       /* if(this.currentState == this.state.WAITING_FOR_START){
 
             switch (gameMode) {
                 case "Human vs Human":
@@ -66,13 +66,16 @@ class Cannon
                 case "Agressive":
                     this.gameLevel = 1;
                     break;
-                default:
+                default: // human vs human has no dificulty 
+                    this.gameLevel = -1;
                     break;
             }
 
             this.setVariables();
             this.getInitialBoard();
-        }
+        } */
+
+        this.getInitialBoard();
     };
 
     setVariables() {
@@ -85,14 +88,22 @@ class Cannon
 
         var self = this;
 
+        console.log(this.client);
+
         this.client.getPrologRequest(
 
             "initialBoard",
 
             function(data) {
                 //onSuccess
-                console.log(data.response);
-                console.log(JSON.parse(data.response));
+
+                var responseReplaceString = data.target.response.replace(/emptyCell/g, '"emptyCell"');
+                var responseReplaceString2 = responseReplaceString.replace(/redSoldier/g, '"redSoldier"');
+                var responseReplaceString3 = responseReplaceString2.replace(/blackSoldier/g, '"blackSoldier"');
+                var responseReplaceString4 = responseReplaceString3.replace(/redCityPiece/g, '"redCityPiece"');
+                var responseReplaceString5 = responseReplaceString4.replace(/blackCityPiece/g, '"blackCityPiece"');
+                
+                self.board = JSON.parse(responseReplaceString5);
             },
 
             function(data) {
@@ -102,4 +113,8 @@ class Cannon
 
         );
     };
+
+    getBoard(){
+        return this.board;
+    }
 };

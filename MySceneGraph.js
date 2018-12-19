@@ -1568,7 +1568,7 @@ class MySceneGraph {
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
-    displayScene() {
+    displayScene(board) {
 
         this.checkIfKeyMPressed();
 
@@ -1581,6 +1581,6 @@ class MySceneGraph {
             this.swapMaterial = false;
         }
 
-        this.components[this.idRoot].display();
+        this.components[this.idRoot].display(board);
     }
 }

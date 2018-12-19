@@ -7,7 +7,6 @@
 :-include('display_game.pl').
 :-include('move.pl').
 :-include('utilities.pl').
-:-include('server.pl').
 
 :- use_module(library(random)).
 :- use_module(library(system)).

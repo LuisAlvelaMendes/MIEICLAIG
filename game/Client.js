@@ -4,7 +4,9 @@
  */
 class Client
 {
-    constructor() {};
+    constructor(scene) {
+        this.scene = scene;
+    };
     
     getPrologRequest(requestString, onSuccess, onError, port)
     {

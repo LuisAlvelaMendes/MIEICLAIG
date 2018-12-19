@@ -118,7 +118,7 @@ class Component
 		return Object.prototype.toString.call(x) === "[object String]"
 	};
 
-	display(parentMaterialId, parentTextureId) {		
+	display(board, parentMaterialId, parentTextureId) {		
 
 		// Component Children
 		for(var i = 0; i < this.childrenComponents.length; i++){
@@ -135,19 +135,19 @@ class Component
 				}
 
 				if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(parentMaterialId, this.tex[0]);
+					this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, this.tex[0]);
 				}
 
 				if(this.mat[0] == "inherit" && this.tex[0] == "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(parentMaterialId, parentTextureId);
+					this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, parentTextureId);
 				}
 
 				if(this.mat[0] != "inherit" && this.tex[0] == "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(this.mat[0], parentTextureId);
+					this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], parentTextureId);
 				}
 
 				if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(this.mat[0], this.tex[0]);
+					this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], this.tex[0]);
 				}
 
 				this.scene.popMatrix();
@@ -177,7 +177,13 @@ class Component
 				// Applying animations
 				this.applyAnimation();
 
-				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
+				if(this.childrenPrimitives[i] == "myCells"){
+					this.scene.graph.primitives[this.childrenPrimitives[i]].updatePieces(board);
+					this.scene.graph.primitives[this.childrenPrimitives[i]].display();
+				} else {
+					this.scene.graph.primitives[this.childrenPrimitives[i]].display();
+				}
+
 				this.scene.popMatrix();
 			} else {
 				this.scene.pushMatrix();
@@ -191,7 +197,13 @@ class Component
 
 				this.applyAnimation();
 
-				this.scene.graph.primitives[this.childrenPrimitives[i]].display();
+				if(this.childrenPrimitives[i] == "myCells"){
+					this.scene.graph.primitives[this.childrenPrimitives[i]].updatePieces(board);
+					this.scene.graph.primitives[this.childrenPrimitives[i]].display();
+				} else {
+					this.scene.graph.primitives[this.childrenPrimitives[i]].display();
+				}
+
 				this.scene.popMatrix();
 			}
 

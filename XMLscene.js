@@ -30,6 +30,9 @@ class XMLscene extends CGFscene {
 
         this.initCameras();
 
+        this.game = new Cannon(this);
+        this.game.start("Human vs Human", -1);
+
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
         this.gl.clearDepth(100.0);
@@ -265,7 +268,8 @@ class XMLscene extends CGFscene {
             }
 
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+
+            this.graph.displayScene(this.game.getBoard());
         }
 
         else {
