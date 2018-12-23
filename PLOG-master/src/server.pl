@@ -103,12 +103,30 @@ print_header_line(_).
 
 :- consult('main.pl').
 
+newPlaceCityRed(Board, RedCityColumn, NewBoard):-
+	RedCityColumn \= 0,
+	RedCityColumn \= 9,
+	replaceInMatrix(Board, 0, RedCityColumn, redCityPiece, NewBoard).
+
+newPlaceCityBlack(Board, BlackCityColumn, NewBoard):-
+	BlackCityColumn \= 0,
+	BlackCityColumn \= 9,
+	replaceInMatrix(Board, 9, BlackCityColumn, blackCityPiece, NewBoard).
+
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
 parse_input(initialBoard, Board):-
 	initialBoard(Board).
+
+parse_input(placeCityRed(Board,RedCityColumn, Row), Response):-
+	Row == 0,
+	newPlaceCityRed(Board, RedCityColumn, Response).
+
+parse_input(placeCityBlack(Board,BlackCityColumn, Row), Response):-
+	Row == 9,
+	newPlaceCityBlack(Board, BlackCityColumn, Response). 
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

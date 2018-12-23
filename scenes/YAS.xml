@@ -54,7 +54,7 @@
             <specular r="0.9" g="0.9" b="0.9" a="1"/>  
         </spot>
 
-        <spot id="lampLef" enabled="0" angle="2" exponent="0.1">
+        <spot id="lampLef" enabled="1" angle="2" exponent="0.1">
 
             <target x="6.2" y="0" z="8" />
             <location  x="6.2" y="5.9" z="8" w="1.0" />             

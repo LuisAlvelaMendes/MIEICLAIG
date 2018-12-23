@@ -51,14 +51,20 @@ class XMLscene extends CGFscene {
 
     logPicking()
     {
+        let column = Math.ceil((i + 1) / 11);
+        let row = i + 1 - 10 * (column - 1);
+
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
                 for (var i=0; i< this.pickResults.length; i++) {
                     var obj = this.pickResults[i][0];
                     if (obj)
                     {
-                        var customId = this.pickResults[i][1];				
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        var customId = this.pickResults[i][1];
+                        let row = Math.ceil(customId / 10);
+                        let column = customId - 10 * (row - 1);
+                        console.log("Picked with pick id " + customId + " it is in row " + row + " and column " + column);
+                        this.game.selectedCell(row-1, column-1);
                     }
                 }
 
@@ -269,7 +275,7 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
 
-            this.graph.displayScene(this.game.getBoard());
+            this.graph.displayScene(this.game);
         }
 
         else {

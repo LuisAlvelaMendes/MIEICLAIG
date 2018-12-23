@@ -9,6 +9,7 @@ class TransparentCells extends CGFobject
 	{
         super(scene);
         this.scene = scene;
+        this.pieces = [];
 		this.initBuffers();    
 	};
 
@@ -129,13 +130,16 @@ class TransparentCells extends CGFobject
 
         this.piecesReserve = [
             new Piece(this.scene, 1, "redSoldier", this.redAppearance),
-            new Piece(this.scene, 2, "blackSoldier", this.blackAppearance)
+            new Piece(this.scene, 2, "blackSoldier", this.blackAppearance),
+            new City(this.scene, 3, "redCityPiece", this.redAppearance),
+            new City(this.scene, 4, "blackCityPiece", this.blackAppearance)
         ]
 
-        this.pieces = [];
     };
 
     updatePieces(board){
+
+        var tempPieces = [];
 
         if(board.length != 0){
             for(var i = 0; i < 10; i++){
@@ -156,13 +160,23 @@ class TransparentCells extends CGFobject
                         if(board[i][j] == "blackSoldier"){
                             row.push(this.piecesReserve[1]);
                         }
+
+                        if(board[i][j] == "redCityPiece"){
+                            row.push(this.piecesReserve[2]);
+                        }
+
+                        if(board[i][j] == "blackCityPiece"){
+                            row.push(this.piecesReserve[3]);
+                        }
                     }
 
                 }
 
-                this.pieces.push(row);
+                tempPieces.push(row);
             }
         }
+
+        this.pieces = tempPieces;
     }
 
     display()
@@ -199,8 +213,6 @@ class TransparentCells extends CGFobject
             xCoord += 1.5;
             zCoord = 13.75;
         }
-
-        //console.log(board);
 
     };
 

@@ -39,6 +39,7 @@ serialInclude(['../lib/CGF.js',
     'game/Client.js',
     'game/Cannon.js',
     'game/Piece.js',
+    'game/City.js',
 
 main=function()
 {
