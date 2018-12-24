@@ -11,12 +11,6 @@ class Cannon
 
         this.client = new Client(scene);
 
-        //this.defaultCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-        //this.rotationCamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 0, 0), vec3.fromValues(3, 0, 3));
-
-        //this.playerRed = new Player
-        //this.playerWhite = new Player
-
         this.state = {
             WAITING_FOR_START:0,
             RED_PLAYER_PICK_CITY:1,
@@ -35,10 +29,8 @@ class Cannon
 
         this.board = [];
         this.moves = [];
-        this.player = 0;
 
         this.currentState = this.state.WAITING_FOR_START;
-        this.previousState = this.state.WAITING_FOR_START;
 
         this.citySavedRow;
         this.citySavedColumn;
@@ -47,16 +39,16 @@ class Cannon
         this.currentlySelectedColumn;
 
         this.validMoveCells;
+        this.validCaptureCells = [];
 
         this.oldRow;
         this.oldColumn;
 
-        this.newRow;
-        this.newColumn;
-        
-        //this.scene.camera = this.defaultCamera;
+        this.newMoveRow;
+        this.newMoveColumn;
 
-        //this.scene.information = "Choose a Game Mode and press Start Game to play Cannon.";
+        this.newCaptureRow;
+        this.newCaputureColumn;
     };
 
     start(gameMode, gameLevel) {
@@ -69,34 +61,8 @@ class Cannon
                     this.currentState = this.state.RED_PLAYER_PICK_CITY;
                     break;
             }
-                
-                /*    case "Human vs Computer":
-                    this.gameMode = this.mode.HUMAN_VS_COMPUTER;
-                    break;
-                case "Computer vs Computer":
-                    this.gameMode = this.mode.COMPUTER_VS_COMPUTER;
-                    break;
-                default:
-                    break;
-                    */
+    
         }
-
-            /*
-            switch (gameLevel) {
-                case "Easy":
-                    this.gameLevel = 0;
-                    break;
-                case "Agressive":
-                    this.gameLevel = 1;
-                    break;
-                default: // human vs human has no dificulty 
-                    this.gameLevel = -1;
-                    break;
-            }
-
-            this.setVariables();
-            this.getInitialBoard();
-        } */
 
         this.getInitialBoard();
     };
@@ -168,20 +134,33 @@ class Cannon
 
     checkIfValidMoveCell(row, column){
 
-        var foundMatch = false;
+        var foundMatch = 0;
 
         for(var i = 0; i < this.validMoveCells.length; i++){
             
             var cellCoord = this.validMoveCells[i];
 
             if(row == cellCoord[0] && column == cellCoord[1]){
-                foundMatch = true;
-                this.newRow = row;
-                this.newColumn = column;
+                foundMatch = 1;
+                this.newMoveRow = row;
+                this.newMoveColumn = column;
+                return foundMatch;
             }
         }
 
-        return foundMatch;
+        for(var i = 0; i < this.validCaptureCells.length; i++){
+            
+            var captureCoord = this.validCaptureCells[i];
+
+            if(row == captureCoord[0] && column == captureCoord[1]){
+                foundMatch = 2;
+                this.newCaptureRow = row;
+                this.newCaptureColumn = column;
+                return foundMatch;
+            }
+        }
+
+        return 0;
     }
 
     selectedCell(row, column){
@@ -195,13 +174,16 @@ class Cannon
         if(this.currentState == this.state.RED_PLAYER_TURN || this.currentState == this.state.BLACK_PLAYER_TURN){
             this.oldRow = row;
             this.oldColumn = column;
-            this.selectPiece();
+            this.selectPieceToMove();
         }
 
         if(this.currentState == this.state.RED_PLAYER_MOVE || this.currentState == this.state.BLACK_PLAYER_MOVE){
-            console.log("check");
-            if(this.checkIfValidMoveCell(row, column)){
-                this.movePiece();
+            if(this.checkIfValidMoveCell(row, column) == 1){
+                this.movePiece(this.newMoveRow, this.newMoveColumn);
+            }
+
+            if(this.checkIfValidMoveCell(row, column) == 2){
+                this.movePiece(this.newCaptureRow, this.newCaptureColumn);
             }
         }
     };
@@ -255,8 +237,38 @@ class Cannon
             );
         }
     };
+    
+    selectPieceToCapture(){
+        var self = this;
 
-    selectPiece(){
+        var boardString = this.parseBoardToPLOG();
+        var command = "validatePieceCapture(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                var placesToCapture = JSON.parse(data.target.response);
+
+                if(placesToCapture.length != 0){
+                    self.validCaptureCells = placesToCapture;
+                    self.scene.highLightCells(placesToCapture, "capture");
+                }
+                
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT RED PLAYER");
+            }
+
+        );
+        
+    }
+
+    selectPieceToMove(){
         var self = this;
 
         if(this.currentState == this.state.RED_PLAYER_TURN){
@@ -271,9 +283,12 @@ class Cannon
                 function(data) {
                     //onSuccess
                     var placesToMove = JSON.parse(data.target.response);
-                    console.log(placesToMove);
-                    self.scene.highLightCells(placesToMove, "paint");
+
                     self.validMoveCells = placesToMove;
+                    self.scene.highLightCells(placesToMove, "move");
+
+                    self.selectPieceToCapture();
+
                     self.currentState = self.state.RED_PLAYER_MOVE;
                 },
     
@@ -297,9 +312,11 @@ class Cannon
                 function(data) {
                     //onSuccess
                     var placesToMove = JSON.parse(data.target.response);
-                    console.log(placesToMove);
-                    self.scene.highLightCells(placesToMove, "paint");
                     self.validMoveCells = placesToMove;
+                    self.scene.highLightCells(placesToMove, "move");
+
+                    self.selectPieceToCapture();
+
                     self.currentState = self.state.BLACK_PLAYER_MOVE;
                 },
     
@@ -312,13 +329,13 @@ class Cannon
         }
     }
 
-    movePiece(){
+    movePiece(newRow, newColumn){
         var self = this;
 
         if(this.currentState == this.state.RED_PLAYER_MOVE){
 
             var boardString = this.parseBoardToPLOG();
-            var command = "moveRedPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + this.newRow + "," + this.newColumn + ")";
+            var command = "moveRedPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + newRow + "," + newColumn + ")";
 
             this.client.getPrologRequest(
 
@@ -327,9 +344,9 @@ class Cannon
                 function(data) {
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
-                    self.scene.highLightCells(self.validMoveCells, "unpaint");
+                    self.scene.highLightCells(self.validMoveCells, "default");
+                    self.scene.highLightCells(self.validCaptureCells, "default");
                     self.currentState = self.state.BLACK_PLAYER_TURN;
-                    console.log(self.currentState);
                 },
     
                 function() {
@@ -343,7 +360,7 @@ class Cannon
         if(this.currentState == this.state.BLACK_PLAYER_MOVE){
 
             var boardString = this.parseBoardToPLOG();
-            var command = "moveBlackPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + this.newRow + "," + this.newColumn + ")";
+            var command = "moveBlackPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + newRow + "," + newColumn + ")";
 
             this.client.getPrologRequest(
 
@@ -352,7 +369,8 @@ class Cannon
                 function(data) {
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
-                    self.scene.highLightCells(self.validMoveCells, "unpaint");
+                    self.scene.highLightCells(self.validMoveCells, "default");
+                    self.scene.highLightCells(self.validCaptureCells, "default");
                     self.currentState = self.state.RED_PLAYER_TURN;
                 },
     

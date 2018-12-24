@@ -135,6 +135,9 @@ parse_input(validatePiece(Board, Column, Row, Player), Response):-
 	findall([Row2,Column2], validateComputerRetreat(Row, Column, Row2, Column2, Board, Move), MovesR),
     append(MovesN,MovesR, Response).
 
+parse_input(validatePieceCapture(Board, Column, Row), Response):-
+	findall([Row2,Column2], validateComputerCapture(Row, Column, Row2, Column2, Board, _), Response).
+
 parse_input(moveRedPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Response):-
 	replaceInMatrix(Board, OldRow, OldColumn, emptyCell, TempBoard),
     replaceInMatrix(TempBoard, NewRow, NewColumn, redSoldier, Response).

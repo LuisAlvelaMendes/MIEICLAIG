@@ -25,10 +25,15 @@ class TransparentCells extends CGFobject
         this.blackAppearance.setAmbient(1, 1, 1, 1);
         this.blackAppearance.setDiffuse(1, 1, 1, 1);
 
-        this.highlightAppearance = new CGFappearance(this.scene);
-        this.highlightAppearance.setAmbient(0.3, 1, 1, 1);
-        this.highlightAppearance.setDiffuse(1, 0.2, 1, 1);
-        this.highlightAppearance.setSpecular(1, 0.1, 0.1, 1);
+        this.highlightAppearanceMove = new CGFappearance(this.scene);
+        this.highlightAppearanceMove.setAmbient(0.3, 1, 1, 1);
+        this.highlightAppearanceMove.setDiffuse(1, 0.2, 1, 1);
+        this.highlightAppearanceMove.setSpecular(1, 0.1, 0.1, 1);
+
+        this.highlightAppearanceCapture = new CGFappearance(this.scene);
+        this.highlightAppearanceCapture.setAmbient(1, 0.3, 1, 1);
+        this.highlightAppearanceCapture.setDiffuse(1, 1, 0.2, 1);
+        this.highlightAppearanceCapture.setSpecular(0.1, 1, 0.1, 1);
 
         this.objects= [
             new MyPlane(this.scene, 'plane', 2, 2),
@@ -193,11 +198,15 @@ class TransparentCells extends CGFobject
 
             var index = (row*10) + column;
 
-            if(action == "paint"){
-                this.objects[index].setMaterial(this.highlightAppearance);
+            if(action == "move"){
+                this.objects[index].setMaterial(this.highlightAppearanceMove);
             }
 
-            else {
+            if(action == "capture"){
+                this.objects[index].setMaterial(this.highlightAppearanceCapture);
+            } 
+
+            if(action == "default"){
                 this.objects[index].setMaterial(this.scene.materialDefault);
             }
 
