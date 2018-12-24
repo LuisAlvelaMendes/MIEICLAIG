@@ -21,7 +21,10 @@ class Cannon
             WAITING_FOR_START:0,
             RED_PLAYER_PICK_CITY:1,
             BLACK_PLAYER_PICK_CITY:2,
-            RED_PLAYER_TURN:3
+            RED_PLAYER_TURN:3,
+            RED_PLAYER_MOVE:4,
+            BLACK_PLAYER_TURN:5,
+            BLACK_PLAYER_MOVE:6
         };
 
         this.mode = {
@@ -42,6 +45,14 @@ class Cannon
 
         this.currentlySelectedRow;
         this.currentlySelectedColumn;
+
+        this.validMoveCells;
+
+        this.oldRow;
+        this.oldColumn;
+
+        this.newRow;
+        this.newColumn;
         
         //this.scene.camera = this.defaultCamera;
 
@@ -105,7 +116,7 @@ class Cannon
         var responseReplaceString5 = responseReplaceString4.replace(/blackCityPiece/g, '"blackCityPiece"');
         
         this.board = JSON.parse(responseReplaceString5);
-    }
+    };
 
     getInitialBoard() {
 
@@ -130,7 +141,7 @@ class Cannon
 
     getBoard(){
         return this.board;
-    }
+    };
 
     parseBoardToPLOG(){
         var boardString = "";
@@ -153,6 +164,24 @@ class Cannon
         boardString = boardString + "]";
 
         return boardString;
+    };
+
+    checkIfValidMoveCell(row, column){
+
+        var foundMatch = false;
+
+        for(var i = 0; i < this.validMoveCells.length; i++){
+            
+            var cellCoord = this.validMoveCells[i];
+
+            if(row == cellCoord[0] && column == cellCoord[1]){
+                foundMatch = true;
+                this.newRow = row;
+                this.newColumn = column;
+            }
+        }
+
+        return foundMatch;
     }
 
     selectedCell(row, column){
@@ -162,7 +191,20 @@ class Cannon
         if(this.currentState == this.state.RED_PLAYER_PICK_CITY || this.currentState == this.state.BLACK_PLAYER_PICK_CITY){
             this.citySelect();
         }
-    }
+
+        if(this.currentState == this.state.RED_PLAYER_TURN || this.currentState == this.state.BLACK_PLAYER_TURN){
+            this.oldRow = row;
+            this.oldColumn = column;
+            this.selectPiece();
+        }
+
+        if(this.currentState == this.state.RED_PLAYER_MOVE || this.currentState == this.state.BLACK_PLAYER_MOVE){
+            console.log("check");
+            if(this.checkIfValidMoveCell(row, column)){
+                this.movePiece();
+            }
+        }
+    };
 
     citySelect() {
         var self = this;
@@ -189,7 +231,6 @@ class Cannon
     
             );
         }
-
         
         if(this.currentState ==  this.state.BLACK_PLAYER_PICK_CITY){
 
@@ -209,6 +250,115 @@ class Cannon
                 function() {
                     //onError
                     console.log(" > Cannon: ERROR! COULDN'T SELECT CITY BLACK PLAYER");
+                }
+    
+            );
+        }
+    };
+
+    selectPiece(){
+        var self = this;
+
+        if(this.currentState == this.state.RED_PLAYER_TURN){
+
+            var boardString = this.parseBoardToPLOG();
+            var command = "validatePiece(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + "," + "red" + ")";
+
+            this.client.getPrologRequest(
+
+                command,
+    
+                function(data) {
+                    //onSuccess
+                    var placesToMove = JSON.parse(data.target.response);
+                    console.log(placesToMove);
+                    self.scene.highLightCells(placesToMove, "paint");
+                    self.validMoveCells = placesToMove;
+                    self.currentState = self.state.RED_PLAYER_MOVE;
+                },
+    
+                function() {
+                    //onError
+                    console.log(" > Cannon: ERROR! COULDN'T SELECT RED PLAYER");
+                }
+    
+            );
+        }
+
+        if(this.currentState == this.state.BLACK_PLAYER_TURN){
+
+            var boardString = this.parseBoardToPLOG();
+            var command = "validatePiece(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + "," + "black" +  ")";
+
+            this.client.getPrologRequest(
+
+                command,
+    
+                function(data) {
+                    //onSuccess
+                    var placesToMove = JSON.parse(data.target.response);
+                    console.log(placesToMove);
+                    self.scene.highLightCells(placesToMove, "paint");
+                    self.validMoveCells = placesToMove;
+                    self.currentState = self.state.BLACK_PLAYER_MOVE;
+                },
+    
+                function() {
+                    //onError
+                    console.log(" > Cannon: ERROR! COULDN'T SELECT BLACK PLAYER");
+                }
+    
+            );
+        }
+    }
+
+    movePiece(){
+        var self = this;
+
+        if(this.currentState == this.state.RED_PLAYER_MOVE){
+
+            var boardString = this.parseBoardToPLOG();
+            var command = "moveRedPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + this.newRow + "," + this.newColumn + ")";
+
+            this.client.getPrologRequest(
+
+                command,
+    
+                function(data) {
+                    //onSuccess
+                    self.parseResponseBoard(data.target.response);
+                    self.scene.highLightCells(self.validMoveCells, "unpaint");
+                    self.currentState = self.state.BLACK_PLAYER_TURN;
+                    console.log(self.currentState);
+                },
+    
+                function() {
+                    //onError
+                    console.log(" > Cannon: ERROR! COULDN'T SELECT RED PLAYER");
+                }
+    
+            );
+        }
+
+        if(this.currentState == this.state.BLACK_PLAYER_MOVE){
+
+            var boardString = this.parseBoardToPLOG();
+            var command = "moveBlackPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + this.newRow + "," + this.newColumn + ")";
+
+            this.client.getPrologRequest(
+
+                command,
+    
+                function(data) {
+                    //onSuccess
+                    self.parseResponseBoard(data.target.response);
+                    self.scene.highLightCells(self.validMoveCells, "unpaint");
+                    self.currentState = self.state.RED_PLAYER_TURN;
+                },
+    
+                function() {
+                    //onError
+                    console.log(" > Cannon: ERROR! COULDN'T SELECT BLACK PLAYER");
                 }
     
             );

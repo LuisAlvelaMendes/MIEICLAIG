@@ -1565,6 +1565,11 @@ class MySceneGraph {
 
     }
 
+    highLightCells(cellCoords, action){
+        this.primitives["myCells"].highLight(cellCoords, action);
+    }
+
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */

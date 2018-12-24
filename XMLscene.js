@@ -51,7 +51,7 @@ class XMLscene extends CGFscene {
 
     logPicking()
     {
-        let column = Math.ceil((i + 1) / 11);
+        let column = Math.ceil((i + 1) / 10);
         let row = i + 1 - 10 * (column - 1);
 
         if (this.pickMode == false) {
@@ -287,5 +287,9 @@ class XMLscene extends CGFscene {
         this.popMatrix();
        
         // ---- END Background, camera and axis setup
+    }
+
+    highLightCells(cellCoords, action){
+        this.graph.highLightCells(cellCoords, action);
     }
 }

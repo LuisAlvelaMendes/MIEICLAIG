@@ -11,6 +11,7 @@ class MyPlane extends CGFobject
 		this.npartsU = npartsU;
 		this.npartsV = npartsV;
 		this.id = id;
+		this.material = this.scene.materialDefault;
 		this.initBuffers();    
 	};
 	
@@ -22,6 +23,11 @@ class MyPlane extends CGFobject
 		var nurbsSurface = new CGFnurbsSurface(degree1, degree2, controlvertexes);
 		this.nurbs = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
 	};
+
+	setMaterial(mat)
+	{
+		this.material = mat;
+	}
 
 	display()
 	{

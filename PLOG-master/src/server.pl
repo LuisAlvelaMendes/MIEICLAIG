@@ -128,6 +128,21 @@ parse_input(placeCityBlack(Board,BlackCityColumn, Row), Response):-
 	Row == 9,
 	newPlaceCityBlack(Board, BlackCityColumn, Response). 
 
+/* will respond with all possible places to move to [Row, Column], then, deconvert to find the clicable and move to it! */
+parse_input(validatePiece(Board, Column, Row, Player), Response):-
+	check_if_invalid_piece(Row, Column, Board, Player),
+	findall([Row2,Column2], validateComputerMove(Row, Column, Row2, Column2, Board, Move), MovesN),
+	findall([Row2,Column2], validateComputerRetreat(Row, Column, Row2, Column2, Board, Move), MovesR),
+    append(MovesN,MovesR, Response).
+
+parse_input(moveRedPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Response):-
+	replaceInMatrix(Board, OldRow, OldColumn, emptyCell, TempBoard),
+    replaceInMatrix(TempBoard, NewRow, NewColumn, redSoldier, Response).
+
+parse_input(moveBlackPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Response):-
+	replaceInMatrix(Board, OldRow, OldColumn, emptyCell, TempBoard),
+    replaceInMatrix(TempBoard, NewRow, NewColumn, blackSoldier, Response).
+
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 	

@@ -68,6 +68,7 @@ placeCityComputer(Board, NewBoard, Player, BlackCityColumn):-
 /* checks if a selected piece is valid or not */
 check_if_invalid_piece(Row, Column, Board, _):-
         getPiece(Row, Column, Board, Piece),
+        write(Piece), nl,
         (Piece == emptyCell ; Piece == redCityPiece ; Piece == blackCityPiece),
         write('This piece cannot be moved.'), nl,
         !, fail.

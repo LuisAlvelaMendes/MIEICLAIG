@@ -25,6 +25,11 @@ class TransparentCells extends CGFobject
         this.blackAppearance.setAmbient(1, 1, 1, 1);
         this.blackAppearance.setDiffuse(1, 1, 1, 1);
 
+        this.highlightAppearance = new CGFappearance(this.scene);
+        this.highlightAppearance.setAmbient(0.3, 1, 1, 1);
+        this.highlightAppearance.setDiffuse(1, 0.2, 1, 1);
+        this.highlightAppearance.setSpecular(1, 0.1, 0.1, 1);
+
         this.objects= [
             new MyPlane(this.scene, 'plane', 2, 2),
             new MyPlane(this.scene, 'plane', 2, 2),
@@ -179,6 +184,26 @@ class TransparentCells extends CGFobject
         this.pieces = tempPieces;
     }
 
+    highLight(cellCoords, action){
+
+        for(var i=0; i < cellCoords.length; i++){
+            
+            var row = cellCoords[i][0];
+            var column = cellCoords[i][1];
+
+            var index = (row*10) + column;
+
+            if(action == "paint"){
+                this.objects[index].setMaterial(this.highlightAppearance);
+            }
+
+            else {
+                this.objects[index].setMaterial(this.scene.materialDefault);
+            }
+
+        }
+    }
+
     display()
     {
         var xCoord = 3.44;
@@ -201,7 +226,7 @@ class TransparentCells extends CGFobject
                     }
                 }
 
-                this.scene.materialDefault.apply();
+                this.objects[objectIndex].material.apply();
                 this.objects[objectIndex].display();
 
                 this.scene.popMatrix();
