@@ -57,6 +57,7 @@ class Cannon
         this.pieceNumber;
         this.cannonMovements;
         this.selectedCannonMove;
+        this.playerUsingCannon;
     };
 
     start(gameMode, gameLevel) {
@@ -196,23 +197,19 @@ class Cannon
 
         var foundMatch = 0;
 
-        console.log("w3242342342342432423423wg");
 
         for(var i = 0; i < this.cannonMovements.length; i++){
             
             var cellCoord = [this.cannonMovements[i][1], this.cannonMovements[i][2]];
 
-            console.log("wuigwuiogwg");
-
             if(row == cellCoord[0] && column == cellCoord[1]){
                 foundMatch = 1;
                 this.selectedCannonMove = this.cannonMovements[i][0];
-                console.log("wuigwuio342342343242gwg");;
                 return foundMatch;
             }
         }
 
-        /*for(var i = 0; i < this.validCaptureCells.length; i++){
+       /* for(var i = 0; i < this.validCaptureCells.length; i++){
             
             var captureCoord = this.validCaptureCells[i];
 
@@ -220,7 +217,7 @@ class Cannon
                 foundMatch = 2;
                 return foundMatch;
             }
-        }*/
+        } */
 
         return 0;
     }
@@ -258,9 +255,9 @@ class Cannon
                 this.moveCannonDirection(this.newMoveRow, this.newMoveColumn);
             }
 
-            /*if(this.checkIfValidMoveCell(row, column) == 2){
-                this.movePiece(this.newCaptureRow, this.newCaptureColumn);
-            } */
+            /*if(this.checkIfValidMoveCannon(row, column) == 2){
+                this.captureCannonDirection(this.newCaptureRow, this.newCaptureColumn);
+            }*/
         }
     };
 
@@ -327,6 +324,14 @@ class Cannon
     selectPieceToUseCannon(player){
         var self = this;
 
+        if(player == "redSoldier"){
+            self.playerUsingCannon = "red";
+        }
+
+        else {
+            self.playerUsingCannon = "black";
+        }
+
         var boardString = this.parseBoardToPLOG();
         var command = "validatePieceCannon(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + "," + player + ")";
 
@@ -344,8 +349,6 @@ class Cannon
                     self.validCannons = possibleCannons;
                     var temp = [[self.currentlySelectedRow, self.currentlySelectedColumn]];
                     self.validCannonCells = self.formatCannonCells(possibleCannons, temp);
-
-
                     self.scene.highLightCells(self.validCannonCells, "cannon");
                 }
                 
@@ -475,6 +478,7 @@ class Cannon
                     self.scene.highLightCells(self.validCaptureCells, "default");
                     console.log(self.validCannonCells);
                     self.scene.highLightCells(self.validCannonCells, "default");
+                    self.currentState = self.state.BLACK_PLAYER_TURN;
                 },
     
                 function() {
@@ -541,10 +545,22 @@ class Cannon
                     validCells.push(coords);
                 }
 
-                self.validMoveCells = validCells;
+                if(validCells.length != 0){
+                    self.validMoveCells = validCells;
+                    self.scene.highLightCells(self.validMoveCells, "move");
+                    self.currentState = self.state.CANNON_MOVE;
+                }
 
-                self.scene.highLightCells(self.validMoveCells, "move");
-                self.currentState = self.state.CANNON_MOVE;
+                else {
+
+                    if(self.playerUsingCannon == "red"){
+                        self.currentState = self.state.RED_PLAYER_TURN;
+                    }
+    
+                    else {
+                        self.currentState = self.state.BLACK_PLAYER_TURN;
+                    }
+                }
             },
 
             function() {
@@ -569,7 +585,14 @@ class Cannon
                 //onSuccess
                 self.parseResponseBoard(data.target.response);
                 self.scene.highLightCells(self.validMoveCells, "default");
-                //self.currentState = self.state.CANNON_MOVE;
+
+                if(self.playerUsingCannon == "red"){
+                    self.currentState = self.state.BLACK_PLAYER_TURN;
+                }
+
+                else {
+                    self.currentState = self.state.RED_PLAYER_TURN;
+                }
             },
 
             function() {
