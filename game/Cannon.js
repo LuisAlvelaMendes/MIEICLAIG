@@ -18,7 +18,8 @@ class Cannon
             RED_PLAYER_TURN:3,
             RED_PLAYER_MOVE:4,
             BLACK_PLAYER_TURN:5,
-            BLACK_PLAYER_MOVE:6
+            BLACK_PLAYER_MOVE:6,
+            CANNON_MOVE:7
         };
 
         this.mode = {
@@ -40,6 +41,8 @@ class Cannon
 
         this.validMoveCells;
         this.validCaptureCells = [];
+        this.validCannons = [];
+        this.validCannonCells;
 
         this.oldRow;
         this.oldColumn;
@@ -49,6 +52,11 @@ class Cannon
 
         this.newCaptureRow;
         this.newCaputureColumn;
+
+        this.cannonType;
+        this.pieceNumber;
+        this.cannonMovements;
+        this.selectedCannonMove;
     };
 
     start(gameMode, gameLevel) {
@@ -83,6 +91,15 @@ class Cannon
         
         this.board = JSON.parse(responseReplaceString5);
     };
+
+    parseResponseCannon(data){
+        var responseReplaceString = data.replace(/verticalCannon/g, '"verticalCannon"');
+        var responseReplaceString2 = responseReplaceString.replace(/diagonalNWSECannon/g, '"diagonalNWSECannon"');
+        var responseReplaceString3 = responseReplaceString2.replace(/diagonalSWNECannon/g, '"diagonalSWNECannon"');
+        var responseReplaceString4 = responseReplaceString3.replace(/horizontalCannon/g, '"horizontalCannon"');
+
+        return responseReplaceString4;
+    }
 
     getInitialBoard() {
 
@@ -160,6 +177,51 @@ class Cannon
             }
         }
 
+        for(var i = 0; i < this.validCannons.length; i++){
+            
+            var cannonExtremity = this.validCannons[i];
+
+            if(row == cannonExtremity[2] && column == cannonExtremity[3]){
+                foundMatch = 3;
+                this.cannonType = cannonExtremity[0];
+                this.pieceNumber = cannonExtremity[1];
+                return foundMatch;
+            }
+        }
+
+        return 0;
+    }
+
+    checkIfValidMoveCannon(row, column){
+
+        var foundMatch = 0;
+
+        console.log("w3242342342342432423423wg");
+
+        for(var i = 0; i < this.cannonMovements.length; i++){
+            
+            var cellCoord = [this.cannonMovements[i][1], this.cannonMovements[i][2]];
+
+            console.log("wuigwuiogwg");
+
+            if(row == cellCoord[0] && column == cellCoord[1]){
+                foundMatch = 1;
+                this.selectedCannonMove = this.cannonMovements[i][0];
+                console.log("wuigwuio342342343242gwg");;
+                return foundMatch;
+            }
+        }
+
+        /*for(var i = 0; i < this.validCaptureCells.length; i++){
+            
+            var captureCoord = this.validCaptureCells[i];
+
+            if(row == captureCoord[0] && column == captureCoord[1]){
+                foundMatch = 2;
+                return foundMatch;
+            }
+        }*/
+
         return 0;
     }
 
@@ -185,6 +247,20 @@ class Cannon
             if(this.checkIfValidMoveCell(row, column) == 2){
                 this.movePiece(this.newCaptureRow, this.newCaptureColumn);
             }
+
+            if(this.checkIfValidMoveCell(row, column) == 3){
+                this.moveCannon();
+            }
+        }
+
+        if(this.currentState == this.state.CANNON_MOVE){
+            if(this.checkIfValidMoveCannon(row, column) == 1){
+                this.moveCannonDirection(this.newMoveRow, this.newMoveColumn);
+            }
+
+            /*if(this.checkIfValidMoveCell(row, column) == 2){
+                this.movePiece(this.newCaptureRow, this.newCaptureColumn);
+            } */
         }
     };
 
@@ -237,6 +313,52 @@ class Cannon
             );
         }
     };
+
+    formatCannonCells(possibleCannons, startingArray){
+
+        for(var i = 0; i < possibleCannons.length; i++){
+            var extremityCoords = [possibleCannons[i][2], possibleCannons[i][3]];
+            startingArray.push(extremityCoords);
+        }
+
+        return startingArray;
+    }
+
+    selectPieceToUseCannon(player){
+        var self = this;
+
+        var boardString = this.parseBoardToPLOG();
+        var command = "validatePieceCannon(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + "," + player + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                var formattedResponse = self.parseResponseCannon(data.target.response);
+                var possibleCannons = JSON.parse(formattedResponse);
+
+
+                if(possibleCannons.length != 0){
+                    self.validCannons = possibleCannons;
+                    var temp = [[self.currentlySelectedRow, self.currentlySelectedColumn]];
+                    self.validCannonCells = self.formatCannonCells(possibleCannons, temp);
+
+
+                    self.scene.highLightCells(self.validCannonCells, "cannon");
+                }
+                
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT RED PLAYER");
+            }
+
+        );
+        
+    }
     
     selectPieceToCapture(){
         var self = this;
@@ -282,12 +404,15 @@ class Cannon
     
                 function(data) {
                     //onSuccess
+
                     var placesToMove = JSON.parse(data.target.response);
 
                     self.validMoveCells = placesToMove;
                     self.scene.highLightCells(placesToMove, "move");
 
                     self.selectPieceToCapture();
+                    
+                    self.selectPieceToUseCannon("redSoldier");
 
                     self.currentState = self.state.RED_PLAYER_MOVE;
                 },
@@ -316,6 +441,8 @@ class Cannon
                     self.scene.highLightCells(placesToMove, "move");
 
                     self.selectPieceToCapture();
+
+                    self.selectPieceToUseCannon("blackSoldier");
 
                     self.currentState = self.state.BLACK_PLAYER_MOVE;
                 },
@@ -346,7 +473,8 @@ class Cannon
                     self.parseResponseBoard(data.target.response);
                     self.scene.highLightCells(self.validMoveCells, "default");
                     self.scene.highLightCells(self.validCaptureCells, "default");
-                    self.currentState = self.state.BLACK_PLAYER_TURN;
+                    console.log(self.validCannonCells);
+                    self.scene.highLightCells(self.validCannonCells, "default");
                 },
     
                 function() {
@@ -371,6 +499,7 @@ class Cannon
                     self.parseResponseBoard(data.target.response);
                     self.scene.highLightCells(self.validMoveCells, "default");
                     self.scene.highLightCells(self.validCaptureCells, "default");
+                    self.scene.highLightCells(self.validCannonCells, "default");
                     self.currentState = self.state.RED_PLAYER_TURN;
                 },
     
@@ -382,4 +511,73 @@ class Cannon
             );
         }
     }
+
+    moveCannon(){
+        var self = this;
+        var boardString = this.parseBoardToPLOG();
+        var command = "moveCannon(" + boardString + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + this.cannonType + "," + this.pieceNumber + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                self.scene.highLightCells(self.validMoveCells, "default");
+                self.scene.highLightCells(self.validCaptureCells, "default");
+                self.scene.highLightCells(self.validCannonCells, "default");
+
+                var responseReplaceString = data.target.response.replace(/forward/g, '"forward"');
+                var final = responseReplaceString.replace(/backward/g, '"backward"');
+
+                var temp = JSON.parse(final);
+
+                self.cannonMovements = temp;
+
+                var validCells = [];
+
+                for(var i = 0; i < temp.length; i++){
+                    var coords = [temp[i][1], temp[i][2]];
+                    validCells.push(coords);
+                }
+
+                self.validMoveCells = validCells;
+
+                self.scene.highLightCells(self.validMoveCells, "move");
+                self.currentState = self.state.CANNON_MOVE;
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT CANNON");
+            }
+
+        );
+    }
+
+    moveCannonDirection(){
+        var self = this;
+        var boardString = this.parseBoardToPLOG();
+
+        var command = "moveCannonDirection(" + this.selectedCannonMove + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + boardString + "," + this.cannonType + "," + this.pieceNumber + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                self.parseResponseBoard(data.target.response);
+                self.scene.highLightCells(self.validMoveCells, "default");
+                //self.currentState = self.state.CANNON_MOVE;
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT CANNON");
+            }
+
+        );
+    }
+
 };

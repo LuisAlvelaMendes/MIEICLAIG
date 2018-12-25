@@ -35,6 +35,11 @@ class TransparentCells extends CGFobject
         this.highlightAppearanceCapture.setDiffuse(1, 1, 0.2, 1);
         this.highlightAppearanceCapture.setSpecular(0.1, 1, 0.1, 1);
 
+        this.highlightAppearanceCannon = new CGFappearance(this.scene);
+        this.highlightAppearanceCannon.setAmbient(1, 1, 0.3, 1);
+        this.highlightAppearanceCannon.setDiffuse(1, 1, 0.2, 1);
+        this.highlightAppearanceCannon.setSpecular(0, 0, 1, 1);
+
         this.objects= [
             new MyPlane(this.scene, 'plane', 2, 2),
             new MyPlane(this.scene, 'plane', 2, 2),
@@ -204,6 +209,10 @@ class TransparentCells extends CGFobject
 
             if(action == "capture"){
                 this.objects[index].setMaterial(this.highlightAppearanceCapture);
+            } 
+
+            if(action == "cannon"){
+                this.objects[index].setMaterial(this.highlightAppearanceCannon);
             } 
 
             if(action == "default"){

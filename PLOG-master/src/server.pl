@@ -113,6 +113,194 @@ newPlaceCityBlack(Board, BlackCityColumn, NewBoard):-
 	BlackCityColumn \= 9,
 	replaceInMatrix(Board, 9, BlackCityColumn, blackCityPiece, NewBoard).
 
+/* line 1: purely vertical line */
+
+/*
+   Piece1
+   Piece2
+   Piece3
+*/
+
+/* imagining Piece1 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = verticalCannon,
+        PieceNumber = 1,
+        Row2 is Row + 1,
+        Column2 is Column,
+        getPiece(Row2, Column2, Board, BackPiece),
+        BackPiece == Piece,
+        ExtremityRow is Row + 2,
+        ExtremityColumn is Column,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondBackPiece),
+        SecondBackPiece == Piece.
+
+/* imagining Piece 2 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = verticalCannon,
+        PieceNumber = 2,
+        ExtremityRow is Row - 1,
+        ExtremityColumn is Column,
+        getPiece(ExtremityRow, ExtremityColumn, Board, FrontPiece),
+        FrontPiece == Piece,
+        Row3 is Row + 1,
+        Column3 is Column,
+        getPiece(Row3, Column3, Board, BackPiece),
+        BackPiece == Piece.
+
+/* imagining Piece 3 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = verticalCannon,
+        PieceNumber = 3,
+        Row1 is Row - 1,
+        Column1 is Column,
+        getPiece(Row1, Column1, Board, FrontPiece),
+        FrontPiece == Piece,
+        ExtremityRow is Row - 2,
+        ExtremityColumn is Column,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondFrontPiece),
+        SecondFrontPiece == Piece.
+
+
+/* line 2: NW -> SE diagonal line */
+
+/*      Piece1
+                Piece2
+                        Piece3
+*/
+
+/* imagining Piece1 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = diagonalNWSECannon,
+        PieceNumber = 1,
+        Row2 is Row + 1,
+        Column2 is Column + 1,
+        getPiece(Row2, Column2, Board, BackPiece),
+        BackPiece == Piece,
+        ExtremityRow is Row + 2,
+        ExtremityColumn is Column + 2,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondBackPiece),
+        SecondBackPiece == Piece.
+
+
+/* imagining Piece 2 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = diagonalNWSECannon,
+        PieceNumber = 2,
+        ExtremityRow is Row - 1,
+        ExtremityColumn is Column - 1,
+        getPiece(ExtremityRow, ExtremityColumn, Board, FrontPiece),
+        FrontPiece == Piece,
+        Row3 is Row + 1,
+        Column3 is Column + 1,
+        getPiece(Row3, Column3, Board, BackPiece),
+        BackPiece == Piece.
+
+
+/* imagining Piece 3 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = diagonalNWSECannon,
+        PieceNumber = 3,
+        Row1 is Row - 1,
+        Column1 is Column - 1,
+        getPiece(Row1, Column1, Board, FrontPiece),
+        FrontPiece == Piece,
+        ExtremityRow is Row - 2,
+        ExtremityColumn is Column - 2,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondFrontPiece),
+        SecondFrontPiece == Piece.
+
+/* line 3: SW -> NE diagonal line */
+
+/*
+                        Piece1
+                Piece2
+        Piece3
+*/
+
+/* imagining Piece1 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = diagonalSWNECannon,
+        PieceNumber = 1,
+        Row2 is Row + 1,
+        Column2 is Column - 1,
+        getPiece(Row2, Column2, Board, BackPiece),
+        BackPiece == Piece,
+        ExtremityRow is Row + 2,
+        ExtremityColumn is Column - 2,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondBackPiece),
+        SecondBackPiece == Piece.
+
+/* imagining Piece 2 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = diagonalSWNECannon,
+        PieceNumber = 2,
+        ExtremityRow is Row - 1,
+        ExtremityColumn is Column + 1,
+        getPiece(ExtremityRow, ExtremityColumn, Board, FrontPiece),
+        FrontPiece == Piece,
+        Row3 is Row + 1,
+        Column3 is Column - 1,
+        getPiece(Row3, Column3, Board, BackPiece),
+        BackPiece == Piece.
+
+/* imagining Piece 3 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = diagonalSWNECannon,
+        PieceNumber = 3,
+        Row1 is Row - 1,
+        Column1 is Column + 1,
+        getPiece(Row1, Column1, Board, FrontPiece),
+        FrontPiece == Piece,
+        ExtremityRow is Row - 2,
+        ExtremityColumn is Column + 2,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondFrontPiece),
+        SecondFrontPiece == Piece.
+
+/* line 4: purely horizontal line */
+
+/* Piece1 Piece2 Piece3 */
+
+/* imagining Piece1 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = horizontalCannon,
+        PieceNumber = 1,
+        Row2 is Row,
+        Column2 is Column + 1,
+        getPiece(Row2, Column2, Board, BackPiece),
+        BackPiece == Piece,
+        ExtremityRow is Row,
+        ExtremityColumn is Column + 2,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondBackPiece),
+        SecondBackPiece == Piece.
+
+/* imagining Piece 2 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = horizontalCannon,
+        PieceNumber = 2,
+        ExtremityRow is Row,
+        ExtremityColumn is Column + 1,
+        getPiece(ExtremityRow, ExtremityColumn, Board, FrontPiece),
+        FrontPiece == Piece,
+        Row2 is Row,
+        Column2 is Column - 1,
+        getPiece(Row2, Column2, Board, BackPiece),
+        BackPiece == Piece.
+
+/* imagining Piece 3 */
+newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber):-
+        CannonType = horizontalCannon,
+        PieceNumber = 3,
+        Row1 is Row,
+        Column1 is Column - 1,
+        getPiece(Row1, Column1, Board, FrontPiece),
+        FrontPiece == Piece,
+        ExtremityRow is Row,
+        ExtremityColumn is Column - 2,
+        getPiece(ExtremityRow, ExtremityColumn, Board, SecondFrontPiece),
+        SecondFrontPiece == Piece.
+
+newCheckPieceInCannonComputer(_, _, _, _, _, _, _, _):- nl, fail.
+
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
@@ -138,6 +326,9 @@ parse_input(validatePiece(Board, Column, Row, Player), Response):-
 parse_input(validatePieceCapture(Board, Column, Row), Response):-
 	findall([Row2,Column2], validateComputerCapture(Row, Column, Row2, Column2, Board, _), Response).
 
+parse_input(validatePieceCannon(Board, Column, Row, Piece), Response):-
+	findall([CannonType, PieceNumber, ExtremityRow, ExtremityColumn], newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board, Piece, CannonType, PieceNumber), Response).
+
 parse_input(moveRedPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Response):-
 	replaceInMatrix(Board, OldRow, OldColumn, emptyCell, TempBoard),
     replaceInMatrix(TempBoard, NewRow, NewColumn, redSoldier, Response).
@@ -145,6 +336,12 @@ parse_input(moveRedPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Response)
 parse_input(moveBlackPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Response):-
 	replaceInMatrix(Board, OldRow, OldColumn, emptyCell, TempBoard),
     replaceInMatrix(TempBoard, NewRow, NewColumn, blackSoldier, Response).
+
+parse_input(moveCannon(Board, Row, Column, CannonType, PieceNumber), Response):-
+	findall([CurrentMove,Row2,Column2], validateComputerMoveCannon(Row, Column, Row2, Column2, Board, CannonType, PieceNumber, CurrentMove), Response).
+
+parse_input(moveCannonDirection(CurrentMove, Row, Column, Board, CannonType, PieceNumber), Response):-
+	move_cannon(CurrentMove, Row, Column, Board, Response, CannonType, PieceNumber).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
