@@ -222,6 +222,25 @@ class TransparentCells extends CGFobject
         }
     }
 
+    setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn){
+
+        console.log(pieceRow);
+        console.log(pieceColumn);
+
+        var index1 = (pieceRow*10) + pieceColumn;
+        console.log(index1);
+        var coord1 = [this.objects[index1].coordsX, this.objects[index1].coordsY, this.objects[index1].coordsZ];
+
+        var index2 = (newRow*10) + newColumn;
+        var coord2 = [this.objects[index2].coordsX, this.objects[index2].coordsY, this.objects[index2].coordsZ];
+
+        var controlPoints = [coord1, coord2];
+
+        console.log(controlPoints);
+
+        this.pieces[pieceRow][pieceColumn].setAnimation(controlPoints);
+    }
+
     display()
     {
         var xCoord = 3.44;
@@ -244,6 +263,8 @@ class TransparentCells extends CGFobject
                     }
                 }
 
+                // set coords in objects, obtain object coords in function of their row and column and then make the control points.
+                this.objects[objectIndex].setCoords(xCoord, zCoord);
                 this.objects[objectIndex].material.apply();
                 this.objects[objectIndex].display();
 

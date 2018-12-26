@@ -24,6 +24,5 @@ class City extends CGFobject
         cube.display();
         this.scene.popMatrix();
     };
-    
 
 };

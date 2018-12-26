@@ -11,6 +11,9 @@ class MyPlane extends CGFobject
 		this.npartsU = npartsU;
 		this.npartsV = npartsV;
 		this.id = id;
+		this.coordsX;
+		this.coordsY = -0.56;
+		this.coordsZ;
 		this.material = this.scene.materialDefault;
 		this.initBuffers();    
 	};
@@ -34,6 +37,10 @@ class MyPlane extends CGFobject
 		this.nurbs.display();
 	};
 
+	setCoords(x, z){
+		this.coordsX = x;
+		this.coordsZ = z;
+	}
 
 	// Don't know if we will need to apply textures to NURBS / if it is applied in the same way.
 

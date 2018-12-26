@@ -11,6 +11,8 @@ class Piece extends CGFobject
        this.scene = scene;
        this.id = id;
        this.type = type;
+       this.animationEnabled = false;
+       this.animation;
        this.ComponentApperance = appearance;
     };
 
@@ -21,9 +23,19 @@ class Piece extends CGFobject
         this.scene.scale(0.35,0.35,0.35);
         this.scene.rotate(-90*3.14/180,1,0,0);
         var cylinder = new MyCylinder(this.scene, "cyl", 20, 20, 1, 1, 1);
+
+        if(this.animationEnabled == true){
+            this.animation.apply();
+            this.animationEnabled = false;
+        }
+
         cylinder.display();
         this.scene.popMatrix();
     };
-    
+
+    setAnimation(controlpoints){
+        this.animation = new LinearAnimation(this.scene, "move", 3, controlpoints);
+        this.animationEnabled = true;
+    }
 
 };

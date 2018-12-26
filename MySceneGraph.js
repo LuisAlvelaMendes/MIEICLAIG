@@ -1569,6 +1569,10 @@ class MySceneGraph {
         this.primitives["myCells"].highLight(cellCoords, action);
     }
 
+    setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn){
+        this.primitives["myCells"].setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn);
+    }
+
 
     /**
      * Displays the scene, processing each node, starting in the root node.
