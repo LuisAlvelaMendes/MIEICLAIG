@@ -301,6 +301,16 @@ newCheckPieceInCannonComputer(Row, Column, ExtremityRow, ExtremityColumn, Board,
 
 newCheckPieceInCannonComputer(_, _, _, _, _, _, _, _):- nl, fail.
 
+checkRedCity(RedCityColumn, Board, Response):-
+        getPiece(0, RedCityColumn, Board, Piece),
+        (Piece == empty ; Piece == blackSoldier),
+        Response = 'yesRed'.
+
+checkBlackCity(BlackCityColumn, Board, Response):-
+        getPiece(9, BlackCityColumn, Board, Piece),
+        (Piece == empty ; Piece == redSoldier),
+        Response = 'yesBlack'.
+
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
@@ -340,8 +350,21 @@ parse_input(moveBlackPiece(Board, OldRow, OldColumn, NewRow, NewColumn), Respons
 parse_input(moveCannon(Board, Row, Column, CannonType, PieceNumber), Response):-
 	findall([CurrentMove,Row2,Column2], validateComputerMoveCannon(Row, Column, Row2, Column2, Board, CannonType, PieceNumber, CurrentMove), Response).
 
+parse_input(captureCannon(Board, Row, Column, CannonType, PieceNumber), Response):-
+	findall([Row2,Column2], validateComputerCaptureCannon(Row, Column, Row2, Column2, Board, CannonType, PieceNumber), Response).
+
 parse_input(moveCannonDirection(CurrentMove, Row, Column, Board, CannonType, PieceNumber), Response):-
 	move_cannon(CurrentMove, Row, Column, Board, Response, CannonType, PieceNumber).
+
+parse_input(captureCannonDirection(Board, Row1, Column1), Response):-
+        capture_cannon(Row1, Column1, Board, Response).
+
+parse_input(gameOver(RedCityColumn, BlackCityColumn, Board), Response):-
+        checkRedCity(RedCityColumn, Board, Response); 
+        checkBlackCity(BlackCityColumn, Board, Response).
+
+parse_input(gameOver(_, _, _), Response):-
+        Response = 'no'.
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

@@ -19,7 +19,8 @@ class Cannon
             RED_PLAYER_MOVE:4,
             BLACK_PLAYER_TURN:5,
             BLACK_PLAYER_MOVE:6,
-            CANNON_MOVE:7
+            CANNON_MOVE:7,
+            GAME_OVER:8
         };
 
         this.mode = {
@@ -33,8 +34,8 @@ class Cannon
 
         this.currentState = this.state.WAITING_FOR_START;
 
-        this.citySavedRow;
-        this.citySavedColumn;
+        this.cityRedSavedColumn;
+        this.cityBlackSavedColumn;
 
         this.currentlySelectedRow;
         this.currentlySelectedColumn;
@@ -58,6 +59,7 @@ class Cannon
         this.cannonMovements;
         this.selectedCannonMove;
         this.playerUsingCannon;
+        this.winner = "none";
     };
 
     start(gameMode, gameLevel) {
@@ -197,27 +199,24 @@ class Cannon
 
         var foundMatch = 0;
 
-
         for(var i = 0; i < this.cannonMovements.length; i++){
-            
-            var cellCoord = [this.cannonMovements[i][1], this.cannonMovements[i][2]];
 
-            if(row == cellCoord[0] && column == cellCoord[1]){
+            if(row == this.cannonMovements[i][1] && column == this.cannonMovements[i][2]){
                 foundMatch = 1;
                 this.selectedCannonMove = this.cannonMovements[i][0];
                 return foundMatch;
             }
         }
 
-       /* for(var i = 0; i < this.validCaptureCells.length; i++){
-            
-            var captureCoord = this.validCaptureCells[i];
+        for(var i = 0; i < this.validCaptureCells.length; i++){
 
-            if(row == captureCoord[0] && column == captureCoord[1]){
+            if(row == this.validCaptureCells[i][0] && column == this.validCaptureCells[i][1]){
                 foundMatch = 2;
+                this.newCaptureRow = row;
+                this.newCaptureColumn = column;
                 return foundMatch;
             }
-        } */
+        } 
 
         return 0;
     }
@@ -252,12 +251,16 @@ class Cannon
 
         if(this.currentState == this.state.CANNON_MOVE){
             if(this.checkIfValidMoveCannon(row, column) == 1){
-                this.moveCannonDirection(this.newMoveRow, this.newMoveColumn);
+                this.moveCannonDirection();
             }
 
-            /*if(this.checkIfValidMoveCannon(row, column) == 2){
+            if(this.checkIfValidMoveCannon(row, column) == 2){
                 this.captureCannonDirection(this.newCaptureRow, this.newCaptureColumn);
-            }*/
+            }
+        }
+
+        if(this.currentState == this.state.GAME_OVER){
+            console.log("GAME OVER!");
         }
     };
 
@@ -268,6 +271,8 @@ class Cannon
 
             var boardString = this.parseBoardToPLOG();
             var command = "placeCityRed(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + ")";
+
+            this.cityRedSavedColumn = this.currentlySelectedColumn;
 
             this.client.getPrologRequest(
 
@@ -291,6 +296,8 @@ class Cannon
 
             var boardString = this.parseBoardToPLOG();
             var command = "placeCityBlack(" + boardString + "," + this.currentlySelectedColumn + "," + this.currentlySelectedRow + ")";
+
+            this.cityBlackSavedColumn = this.currentlySelectedColumn;
 
             this.client.getPrologRequest(
 
@@ -459,6 +466,43 @@ class Cannon
         }
     }
 
+    gameOver(){
+        var self = this;
+
+        var boardString = this.parseBoardToPLOG();
+        var command = "gameOver(" + this.cityRedSavedColumn + "," + this.cityBlackSavedColumn + "," + boardString + ")"; 
+
+        this.client.getPrologRequest(
+            command,
+
+            function(data){
+
+                console.log(data.target.response);
+
+                if(data.target.response == "yesRed"){
+                    self.winner = "Black";
+                    self.currentState = self.state.GAME_OVER;
+                }
+
+                else if(data.target.response == "yesBlack"){
+                    self.winner = "Red";
+                    self.currentState = self.state.GAME_OVER;
+                }
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! gameover");
+            }
+        );
+
+        if(this.winner != "none"){
+            return 1;
+        }
+
+        return 0;
+    }
+
     movePiece(newRow, newColumn){
         var self = this;
 
@@ -478,7 +522,10 @@ class Cannon
                     self.scene.highLightCells(self.validCaptureCells, "default");
                     console.log(self.validCannonCells);
                     self.scene.highLightCells(self.validCannonCells, "default");
-                    self.currentState = self.state.BLACK_PLAYER_TURN;
+
+                    if(!self.gameOver()){
+                        self.currentState = self.state.BLACK_PLAYER_TURN;
+                    }
                 },
     
                 function() {
@@ -504,7 +551,10 @@ class Cannon
                     self.scene.highLightCells(self.validMoveCells, "default");
                     self.scene.highLightCells(self.validCaptureCells, "default");
                     self.scene.highLightCells(self.validCannonCells, "default");
-                    self.currentState = self.state.RED_PLAYER_TURN;
+                    
+                    if(!self.gameOver()){
+                        self.currentState = self.state.RED_PLAYER_TURN;
+                    }
                 },
     
                 function() {
@@ -514,6 +564,37 @@ class Cannon
     
             );
         }
+    }
+
+    captureCannon(){
+        var self = this;
+        var boardString = this.parseBoardToPLOG();        
+        var command = "captureCannon(" + boardString + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + this.cannonType + "," + this.pieceNumber +  ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+
+                var temp = JSON.parse(data.target.response);
+                
+                console.log(temp);
+
+                if(temp.length != 0){
+                    self.validCaptureCells = temp;
+                    self.scene.highLightCells(self.validCaptureCells, "capture");
+                }
+
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT CANNON");
+            }
+
+        );
     }
 
     moveCannon(){
@@ -548,11 +629,11 @@ class Cannon
                 if(validCells.length != 0){
                     self.validMoveCells = validCells;
                     self.scene.highLightCells(self.validMoveCells, "move");
+                    self.captureCannon();
                     self.currentState = self.state.CANNON_MOVE;
                 }
 
                 else {
-
                     if(self.playerUsingCannon == "red"){
                         self.currentState = self.state.RED_PLAYER_TURN;
                     }
@@ -585,6 +666,7 @@ class Cannon
                 //onSuccess
                 self.parseResponseBoard(data.target.response);
                 self.scene.highLightCells(self.validMoveCells, "default");
+                self.scene.highLightCells(self.validCaptureCells, "default");
 
                 if(self.playerUsingCannon == "red"){
                     self.currentState = self.state.BLACK_PLAYER_TURN;
@@ -592,6 +674,41 @@ class Cannon
 
                 else {
                     self.currentState = self.state.RED_PLAYER_TURN;
+                }
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT CANNON");
+            }
+
+        );
+    }
+
+    captureCannonDirection(){
+        var self = this;
+        var boardString = this.parseBoardToPLOG();
+
+        var command = "captureCannonDirection(" + boardString + "," + this.newCaptureRow + "," + this.newCaptureColumn + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                self.parseResponseBoard(data.target.response);
+                self.scene.highLightCells(self.validMoveCells, "default");
+                self.scene.highLightCells(self.validCaptureCells, "default");
+
+                if(!self.gameOver()){
+                    if(self.playerUsingCannon == "red") {
+                        self.currentState = self.state.BLACK_PLAYER_TURN;
+                    }
+
+                    else {
+                        self.currentState = self.state.RED_PLAYER_TURN;
+                    }
                 }
             },
 
