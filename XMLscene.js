@@ -113,6 +113,12 @@ class XMLscene extends CGFscene {
         if(this.graph.primitives != undefined){
             this.graph.primitives["myWater"].update(currTime/90);
         }
+
+        if (typeof this.game != "undefined") {
+            if(this.graph.primitives != undefined){
+                this.graph.primitives["myCells"].update(deltaTime);
+            }
+        }
     }
 
     // Take values from Parser to actually create CGF Cameras

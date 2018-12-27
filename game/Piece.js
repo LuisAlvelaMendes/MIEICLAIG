@@ -25,8 +25,13 @@ class Piece extends CGFobject
         var cylinder = new MyCylinder(this.scene, "cyl", 20, 20, 1, 1, 1);
 
         if(this.animationEnabled == true){
+            this.scene.pushMatrix();
             this.animation.apply();
-            this.animationEnabled = false;
+
+            if(this.animation.animationReachedLoop){
+                this.animationEnabled = false;
+            }
+            this.scene.popMatrix();
         }
 
         cylinder.display();
@@ -34,8 +39,12 @@ class Piece extends CGFobject
     };
 
     setAnimation(controlpoints){
-        this.animation = new LinearAnimation(this.scene, "move", 3, controlpoints);
+        this.animation = new LinearAnimation(this.scene, "move", 20, controlpoints);
         this.animationEnabled = true;
+    }
+
+    update(deltaTime){
+        this.animation.update(deltaTime);
     }
 
 };

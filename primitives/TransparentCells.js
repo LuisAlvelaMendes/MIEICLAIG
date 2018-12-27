@@ -223,7 +223,6 @@ class TransparentCells extends CGFobject
     }
 
     setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn){
-
         console.log(pieceRow);
         console.log(pieceColumn);
 
@@ -231,14 +230,29 @@ class TransparentCells extends CGFobject
         console.log(index1);
         var coord1 = [this.objects[index1].coordsX, this.objects[index1].coordsY, this.objects[index1].coordsZ];
 
+        var coord3 = [20, 2, 20];
+        var coord4 = [10, 1, 10];
+
         var index2 = (newRow*10) + newColumn;
         var coord2 = [this.objects[index2].coordsX, this.objects[index2].coordsY, this.objects[index2].coordsZ];
 
-        var controlPoints = [coord1, coord2];
+        var controlPoints = [coord1, coord3, coord4, coord2];
 
         console.log(controlPoints);
 
         this.pieces[pieceRow][pieceColumn].setAnimation(controlPoints);
+    }
+
+    update(deltaTime){
+
+        for(var i = 0; i < this.pieces.length; i++){
+            for(var j = 0; j < this.pieces[i].length; j++){
+                if(this.pieces[i][j] != null && this.pieces[i][j].animationEnabled == true){
+                    this.pieces[i][j].update(deltaTime);
+                }
+            }
+        }
+
     }
 
     display()

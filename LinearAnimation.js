@@ -83,6 +83,7 @@ class LinearAnimation extends Animation
      * @param {*} deltaTime 
      */
     update(deltaTime){
+
         this.distanceTravelled += deltaTime * this.velocity;
 
         if(this.distanceTravelled > this.pathLength){

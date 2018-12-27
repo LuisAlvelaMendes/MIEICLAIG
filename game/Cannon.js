@@ -520,8 +520,9 @@ class Cannon
                     self.parseResponseBoard(data.target.response);
                     self.scene.highLightCells(self.validMoveCells, "default");
                     self.scene.highLightCells(self.validCaptureCells, "default");
-                    console.log(self.validCannonCells);
                     self.scene.highLightCells(self.validCannonCells, "default");
+
+                    console.log(self.validCannonCells);
 
                     if(!self.gameOver()){
                         self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn);
