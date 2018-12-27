@@ -525,7 +525,7 @@ class Cannon
                     console.log(self.validCannonCells);
 
                     if(!self.gameOver()){
-                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn);
+                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn, "red");
                         self.currentState = self.state.BLACK_PLAYER_TURN;
                     }
                 },
@@ -555,7 +555,7 @@ class Cannon
                     self.scene.highLightCells(self.validCannonCells, "default");
                     
                     if(!self.gameOver()){
-                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn);
+                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn, "black");
                         self.currentState = self.state.RED_PLAYER_TURN;
                     }
                 },

@@ -232,7 +232,7 @@ class TransparentCells extends CGFobject
         }
     }
 
-    setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn){
+    setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn, color){
         console.log(pieceRow);
         console.log(pieceColumn);
 
@@ -242,11 +242,71 @@ class TransparentCells extends CGFobject
         console.log(index1);
         var coord1 = [this.objects[index1].coordsX, this.objects[index1].coordsY, this.objects[index1].coordsZ];
 
-        var index2 = (newRow*10) + newColumn;
+        var index2 = (newRow*10) + (newColumn);
         var coord2 = [this.objects[index2].coordsX, this.objects[index2].coordsY, this.objects[index2].coordsZ];
 
-        controlPoints.push(coord1);
-        controlPoints.push(coord2);
+        var xDiff = Math.abs(this.objects[index1].coordsX - this.objects[index2].coordsX);
+        var zDiff = this.objects[index1].coordsZ - this.objects[index2].coordsZ;
+
+        console.log("xDiff: " + xDiff);
+        console.log(Math.round(xDiff));
+        console.log("zDiff: " + zDiff);
+
+        if(Math.round(xDiff) == 3 && zDiff == 0){
+            xDiff = -9;
+        }
+
+        if(Math.round(xDiff) == 3 && zDiff < 0){
+            xDiff = -6;
+            zDiff = zDiff - 3;
+        }
+
+        if(Math.round(xDiff) == 3 && zDiff > 0){
+            xDiff = -6;
+            zDiff = zDiff + 3;
+        }
+
+        if(xDiff > 0 && Math.round(xDiff) != 3 && zDiff == 0){
+            xDiff = xDiff + 3;
+        }
+
+        if(xDiff > 0 && Math.round(xDiff) != 3 && zDiff < 0){
+            xDiff = xDiff + 3;
+            zDiff = zDiff - 3;
+        }
+
+        if(xDiff < 0 && zDiff > 0){
+            xDiff = xDiff - 3;
+            zDiff = zDiff + 3;
+        }
+
+        if(xDiff > 0 && Math.round(xDiff) != 3 && zDiff > 0){
+            xDiff = xDiff + 3;
+            zDiff = zDiff + 3;
+        }
+
+        if(xDiff < 0 && zDiff < 0){
+            xDiff = xDiff - 3;
+            zDiff = zDiff - 3;
+        }
+
+        var point1 = vec3.fromValues(0,0,0);
+        var point2 = vec3.fromValues(0,0,3);
+
+        if(color == "red"){
+            var point3 = vec3.fromValues(xDiff, zDiff, 3);
+            var point4 = vec3.fromValues(xDiff, zDiff, 0.7);
+        }
+
+        if(color == "black"){
+            var point3 = vec3.fromValues(-xDiff, zDiff, 3);
+            var point4 = vec3.fromValues(-xDiff, zDiff, 0.7);
+        }
+
+       // var point4 = vec3.fromValues(this.objects[index2].coordsX, 1.5, this.objects[index2].coordsZ);
+    //var point5 = vec3.fromValues(this.objects[index2].coordsX, 0, this.objects[index2].coordsZ)
+
+        controlPoints = [point1, point2, point3, point4];
 
         console.log(controlPoints);
 

@@ -299,7 +299,7 @@ class XMLscene extends CGFscene {
         this.graph.highLightCells(cellCoords, action);
     }
 
-    setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn){
-        this.graph.setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn);
+    setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn, color){
+        this.graph.setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn, color);
     }
 }

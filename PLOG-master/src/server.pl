@@ -331,7 +331,7 @@ parse_input(validatePiece(Board, Column, Row, Player), Response):-
 	check_if_invalid_piece(Row, Column, Board, Player),
 	findall([Row2,Column2], validateComputerMove(Row, Column, Row2, Column2, Board, Move), MovesN),
 	findall([Row2,Column2], validateComputerRetreat(Row, Column, Row2, Column2, Board, Move), MovesR),
-    append(MovesN,MovesR, Response).
+        append(MovesN, MovesR, Response).
 
 parse_input(validatePieceCapture(Board, Column, Row), Response):-
 	findall([Row2,Column2], validateComputerCapture(Row, Column, Row2, Column2, Board, _), Response).

@@ -39,7 +39,7 @@ class Piece extends CGFobject
     };
 
     setAnimation(controlpoints){
-        this.animation = new LinearAnimation(this.scene, "move", 5, controlpoints);
+        this.animation = new LinearAnimation(this.scene, "move", 3, controlpoints);
         this.animationEnabled = true;
     }
 

@@ -1569,8 +1569,8 @@ class MySceneGraph {
         this.primitives["myCells"].highLight(cellCoords, action);
     }
 
-    setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn){
-        this.primitives["myCells"].setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn);
+    setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn, color){
+        this.primitives["myCells"].setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn, color);
     }
 
 
