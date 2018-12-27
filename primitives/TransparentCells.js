@@ -10,6 +10,8 @@ class TransparentCells extends CGFobject
         super(scene);
         this.scene = scene;
         this.pieces = [];
+        this.animationEnabledRow = 0;
+        this.animationEnabledColumn = 0;
 		this.initBuffers();    
 	};
 
@@ -144,8 +146,6 @@ class TransparentCells extends CGFobject
         ];
 
         this.piecesReserve = [
-            new Piece(this.scene, 1, "redSoldier", this.redAppearance),
-            new Piece(this.scene, 2, "blackSoldier", this.blackAppearance),
             new City(this.scene, 3, "redCityPiece", this.redAppearance),
             new City(this.scene, 4, "blackCityPiece", this.blackAppearance)
         ]
@@ -155,43 +155,53 @@ class TransparentCells extends CGFobject
     updatePieces(board){
 
         var tempPieces = [];
+        var waitForAnimationToFinish = false;
 
-        if(board.length != 0){
-            for(var i = 0; i < 10; i++){
-                
-                var row = [];
-
-                for(var j = 0; j < 10; j++){
-
-                    if(board[i][j] == "emptyCell"){
-                        row.push(null);
-                    }
-
-                    else{
-                        if(board[i][j] == "redSoldier"){
-                            row.push(this.piecesReserve[0]);
-                        }
-
-                        if(board[i][j] == "blackSoldier"){
-                            row.push(this.piecesReserve[1]);
-                        }
-
-                        if(board[i][j] == "redCityPiece"){
-                            row.push(this.piecesReserve[2]);
-                        }
-
-                        if(board[i][j] == "blackCityPiece"){
-                            row.push(this.piecesReserve[3]);
-                        }
-                    }
-
-                }
-
-                tempPieces.push(row);
+        if(this.pieces.length != 0){
+            if(this.pieces[this.animationEnabledRow][this.animationEnabledColumn] != null && this.pieces[this.animationEnabledRow][this.animationEnabledColumn].animationEnabled == true){
+                waitForAnimationToFinish = true;
             }
         }
 
-        this.pieces = tempPieces;
+        if(!waitForAnimationToFinish){
+            if(board.length != 0){
+                for(var i = 0; i < 10; i++){
+                    
+                    var row = [];
+    
+                    for(var j = 0; j < 10; j++){
+    
+                        if(board[i][j] == "emptyCell"){
+                            row.push(null);
+                        }
+    
+                        else{
+                            if(board[i][j] == "redSoldier"){
+                                row.push(new Piece(this.scene, i*j, "redSoldier", this.redAppearance));
+                            }
+    
+                            if(board[i][j] == "blackSoldier"){
+                                row.push(new Piece(this.scene, i*j, "blackSoldier", this.blackAppearance));
+                            }
+    
+                            if(board[i][j] == "redCityPiece"){
+                                row.push(this.piecesReserve[0]);
+                            }
+    
+                            if(board[i][j] == "blackCityPiece"){
+                                row.push(this.piecesReserve[1]);
+                            }
+                        }
+    
+                    }
+    
+                    tempPieces.push(row);
+                }
+            }
+    
+            this.pieces = tempPieces;
+        }
+
     }
 
     highLight(cellCoords, action){
@@ -226,19 +236,22 @@ class TransparentCells extends CGFobject
         console.log(pieceRow);
         console.log(pieceColumn);
 
+        var controlPoints = [];
+
         var index1 = (pieceRow*10) + pieceColumn;
         console.log(index1);
         var coord1 = [this.objects[index1].coordsX, this.objects[index1].coordsY, this.objects[index1].coordsZ];
 
-        var coord3 = [20, 2, 20];
-        var coord4 = [10, 1, 10];
-
         var index2 = (newRow*10) + newColumn;
         var coord2 = [this.objects[index2].coordsX, this.objects[index2].coordsY, this.objects[index2].coordsZ];
 
-        var controlPoints = [coord1, coord3, coord4, coord2];
+        controlPoints.push(coord1);
+        controlPoints.push(coord2);
 
         console.log(controlPoints);
+
+        this.animationEnabledRow = pieceRow;
+        this.animationEnabledColumn = pieceColumn;
 
         this.pieces[pieceRow][pieceColumn].setAnimation(controlPoints);
     }
