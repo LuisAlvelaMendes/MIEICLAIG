@@ -19,8 +19,9 @@ class Cannon
             RED_PLAYER_MOVE:4,
             BLACK_PLAYER_TURN:5,
             BLACK_PLAYER_MOVE:6,
-            CANNON_MOVE:7,
-            GAME_OVER:8
+            ANIMATION:7,
+            CANNON_MOVE:8,
+            GAME_OVER:9
         };
 
         this.mode = {
@@ -33,6 +34,7 @@ class Cannon
         this.moves = [];
 
         this.currentState = this.state.WAITING_FOR_START;
+        this.previousState;
 
         this.cityRedSavedColumn;
         this.cityBlackSavedColumn;
@@ -219,6 +221,18 @@ class Cannon
         } 
 
         return 0;
+    }
+
+    transitionBackToMove(){
+        if(this.previousState == this.state.RED_PLAYER_MOVE){
+            this.currentState = this.state.BLACK_PLAYER_TURN;
+            this.previousState = null;
+        }
+
+        if(this.previousState == this.state.BLACK_PLAYER_MOVE){
+            this.currentState = this.state.RED_PLAYER_TURN;
+            this.previousState = null;
+        }
     }
 
     selectedCell(row, column){
@@ -446,6 +460,8 @@ class Cannon
     
                 function(data) {
                     //onSuccess
+                    console.log(data.target.response);
+
                     var placesToMove = JSON.parse(data.target.response);
                     self.validMoveCells = placesToMove;
                     self.scene.highLightCells(placesToMove, "move");
@@ -522,11 +538,10 @@ class Cannon
                     self.scene.highLightCells(self.validCaptureCells, "default");
                     self.scene.highLightCells(self.validCannonCells, "default");
 
-                    console.log(self.validCannonCells);
-
                     if(!self.gameOver()){
                         self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn, "red");
-                        self.currentState = self.state.BLACK_PLAYER_TURN;
+                        self.currentState = self.state.ANIMATION;
+                        self.previousState = self.state.RED_PLAYER_MOVE;
                     }
                 },
     
@@ -550,13 +565,15 @@ class Cannon
                 function(data) {
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
+
                     self.scene.highLightCells(self.validMoveCells, "default");
                     self.scene.highLightCells(self.validCaptureCells, "default");
                     self.scene.highLightCells(self.validCannonCells, "default");
                     
                     if(!self.gameOver()){
                         self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn, "black");
-                        self.currentState = self.state.RED_PLAYER_TURN;
+                        self.currentState = self.state.ANIMATION;
+                        self.previousState = self.state.BLACK_PLAYER_MOVE;
                     }
                 },
     

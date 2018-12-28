@@ -1221,7 +1221,7 @@ class MySceneGraph {
                         }
 
                         if(grandChildren[0].nodeName == "cells"){
-                            var cells = new TransparentCells(this.scene);
+                            var cells = new TransparentCells(this.scene, this.scene.game);
                             this.primitives[primitiveId] = cells;
                         }
                         

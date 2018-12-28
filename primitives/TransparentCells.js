@@ -5,13 +5,14 @@
  */
 class TransparentCells extends CGFobject
 {
-	constructor(scene) 
+	constructor(scene, cannon) 
 	{
         super(scene);
         this.scene = scene;
         this.pieces = [];
         this.animationEnabledRow = 0;
         this.animationEnabledColumn = 0;
+        this.game = cannon;
 		this.initBuffers();    
 	};
 
@@ -164,6 +165,9 @@ class TransparentCells extends CGFobject
         }
 
         if(!waitForAnimationToFinish){
+
+            this.game.transitionBackToMove();
+
             if(board.length != 0){
                 for(var i = 0; i < 10; i++){
                     
@@ -233,24 +237,15 @@ class TransparentCells extends CGFobject
     }
 
     setPieceAnimation(pieceRow, pieceColumn, newRow, newColumn, color){
-        console.log(pieceRow);
-        console.log(pieceColumn);
 
         var controlPoints = [];
 
         var index1 = (pieceRow*10) + pieceColumn;
-        console.log(index1);
-        var coord1 = [this.objects[index1].coordsX, this.objects[index1].coordsY, this.objects[index1].coordsZ];
 
         var index2 = (newRow*10) + (newColumn);
-        var coord2 = [this.objects[index2].coordsX, this.objects[index2].coordsY, this.objects[index2].coordsZ];
 
         var xDiff = Math.abs(this.objects[index1].coordsX - this.objects[index2].coordsX);
         var zDiff = this.objects[index1].coordsZ - this.objects[index2].coordsZ;
-
-        console.log("xDiff: " + xDiff);
-        console.log(Math.round(xDiff));
-        console.log("zDiff: " + zDiff);
 
         if(Math.round(xDiff) == 3 && zDiff == 0){
             xDiff = -9;
@@ -303,12 +298,7 @@ class TransparentCells extends CGFobject
             var point4 = vec3.fromValues(-xDiff, zDiff, 0.7);
         }
 
-       // var point4 = vec3.fromValues(this.objects[index2].coordsX, 1.5, this.objects[index2].coordsZ);
-    //var point5 = vec3.fromValues(this.objects[index2].coordsX, 0, this.objects[index2].coordsZ)
-
         controlPoints = [point1, point2, point3, point4];
-
-        console.log(controlPoints);
 
         this.animationEnabledRow = pieceRow;
         this.animationEnabledColumn = pieceColumn;
