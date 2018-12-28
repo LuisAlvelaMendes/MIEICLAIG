@@ -539,7 +539,7 @@ class Cannon
                     self.scene.highLightCells(self.validCannonCells, "default");
 
                     if(!self.gameOver()){
-                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn, "red");
+                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, newRow, newColumn, "red");
                         self.currentState = self.state.ANIMATION;
                         self.previousState = self.state.RED_PLAYER_MOVE;
                     }
@@ -571,7 +571,7 @@ class Cannon
                     self.scene.highLightCells(self.validCannonCells, "default");
                     
                     if(!self.gameOver()){
-                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, self.newMoveRow, self.newMoveColumn, "black");
+                        self.scene.setPieceAnimations(self.oldRow, self.oldColumn, newRow, newColumn, "black");
                         self.currentState = self.state.ANIMATION;
                         self.previousState = self.state.BLACK_PLAYER_MOVE;
                     }
