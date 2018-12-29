@@ -30,6 +30,11 @@ class Cannon
             COMPUTER_VS_COMPUTER: 2
         };
 
+        this.level = {
+            AGRESSIVE:0,
+            EASY:1
+        }
+
         this.board = [];
         this.moves = [];
 
@@ -71,6 +76,29 @@ class Cannon
             switch (gameMode) {
                 case "Human vs Human":
                     this.gameMode = this.mode.HUMAN_VS_HUMAN;
+                    this.currentState = this.state.RED_PLAYER_PICK_CITY;
+                    break;
+            }
+
+            switch (gameMode) {
+                case "Human vs Computer":
+                    this.gameMode = this.mode.HUMAN_VS_COMPUTER;
+
+                    if(gameLevel == "easy"){
+                        this.currentLevel = this.level.EASY;
+                    }
+
+                    if(gameLevel == "agressive"){
+                        this.currentLevel = this.level.AGRESSIVE;
+                    }
+
+                    this.currentState = this.state.RED_PLAYER_PICK_CITY;
+                    break;
+            }
+
+            switch (gameMode) {
+                case "Computer vs Computer":
+                    this.gameMode = this.mode.COMPUTER_VS_COMPUTER;
                     this.currentState = this.state.RED_PLAYER_PICK_CITY;
                     break;
             }
@@ -224,6 +252,7 @@ class Cannon
     }
 
     transitionBackToMove(){
+
         if(this.previousState == this.state.RED_PLAYER_MOVE){
             this.currentState = this.state.BLACK_PLAYER_TURN;
             this.previousState = null;
@@ -235,7 +264,7 @@ class Cannon
         }
     }
 
-    selectedCell(row, column){
+    humanVsHumanLogic(row, column){
         this.currentlySelectedRow = row;
         this.currentlySelectedColumn = column;
 
@@ -259,7 +288,7 @@ class Cannon
             }
 
             if(this.checkIfValidMoveCell(row, column) == 3){
-                this.moveCannon();
+                this.selectCannonMove();
             }
         }
 
@@ -275,6 +304,92 @@ class Cannon
 
         if(this.currentState == this.state.GAME_OVER){
             console.log("GAME OVER!");
+        }
+    }
+
+    humanVsComputerLogic(row, column){
+
+        // It is presumed that the computer will always be the black player and the red player will always be the human.
+
+        this.currentlySelectedRow = row;
+        this.currentlySelectedColumn = column;
+
+        if(this.currentState == this.state.RED_PLAYER_PICK_CITY){
+            this.citySelect();
+        }
+
+        if(this.currentState == this.state.BLACK_PLAYER_PICK_CITY){
+            this.computerCitySelect();
+        }
+        
+        if(this.currentState == this.state.RED_PLAYER_TURN){
+            this.oldRow = row;
+            this.oldColumn = column;
+            this.selectPieceToMove();
+        }
+
+        if(this.currentState == this.state.RED_PLAYER_MOVE){
+            if(this.checkIfValidMoveCell(row, column) == 1){
+                this.movePiece(this.newMoveRow, this.newMoveColumn);
+            }
+
+            if(this.checkIfValidMoveCell(row, column) == 2){
+                this.movePiece(this.newCaptureRow, this.newCaptureColumn);
+            }
+
+            if(this.checkIfValidMoveCell(row, column) == 3){
+                this.selectCannonMove();
+            }
+        }
+
+        if(this.currentState == this.state.CANNON_MOVE){
+            if(this.checkIfValidMoveCannon(row, column) == 1){
+                this.moveCannonDirection();
+            }
+
+            if(this.checkIfValidMoveCannon(row, column) == 2){
+                this.captureCannonDirection(this.newCaptureRow, this.newCaptureColumn);
+            }
+        }
+                
+        if(this.currentState == this.state.BLACK_PLAYER_TURN){
+            this.computerMoveRandomPiece();
+        }
+
+        if(this.currentState == this.state.GAME_OVER){
+            console.log("GAME OVER!");
+        }
+        
+    }
+
+    computerVsComputerLogic(){
+
+        if(this.currentState == this.state.RED_PLAYER_PICK_CITY || this.currentState == this.state.BLACK_PLAYER_PICK_CITY){
+            this.computerCitySelect();
+        }
+        
+        if(this.currentState == this.state.RED_PLAYER_TURN || this.currentState == this.state.BLACK_PLAYER_TURN){
+            this.computerMoveRandomPiece();
+        }
+
+        if(this.currentState == this.state.GAME_OVER){
+            console.log("GAME OVER!");
+        }
+        
+    }
+
+    selectedCell(row, column){
+        if(this.gameMode == this.mode.HUMAN_VS_HUMAN){
+            this.humanVsHumanLogic(row, column);
+        }
+
+        if(this.gameMode == this.mode.HUMAN_VS_COMPUTER){
+            console.log("selecting the proper logic");
+            this.humanVsComputerLogic(row, column);
+        }
+
+        if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER){
+            this.computerVsComputerLogic();
         }
     };
 
@@ -295,6 +410,7 @@ class Cannon
                 function(data) {
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
+                    console.log("swapping state");
                     self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
                 },
     
@@ -331,6 +447,192 @@ class Cannon
             );
         }
     };
+
+    computerCitySelect(){
+        var self = this;
+        var player = "";
+        
+        if(this.currentState == this.state.RED_PLAYER_PICK_CITY){
+            player = "red";
+        }
+
+        if(this.currentState == this.state.BLACK_PLAYER_PICK_CITY){
+            player = "black";
+        }
+
+        var boardString = this.parseBoardToPLOG();
+        var command = "placeCityComputer(" + boardString + "," + player + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+
+                if(self.currentState == self.state.RED_PLAYER_PICK_CITY){
+                    self.cityRedSavedColumn = parseInt(data.target.response[1]);
+                }                
+                
+                else if(self.currentState == self.state.BLACK_PLAYER_PICK_CITY){
+                    self.cityBlackSavedColumn = parseInt(data.target.response[1]);
+                }  
+
+                var temp = data.target.response.substring(2);
+                var actualBoard = temp.replace(/^.{1}/g, '[');
+
+                self.parseResponseBoard(actualBoard);
+
+                if(self.currentState == self.state.RED_PLAYER_PICK_CITY){
+                    self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
+                }
+
+                else if(self.currentState == self.state.BLACK_PLAYER_PICK_CITY){
+                    self.currentState = self.state.RED_PLAYER_TURN;
+                }
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT CITY BLACK PLAYER COMPUTER");
+            }
+
+        );
+    }
+
+    computerMoveRandomCannon(){
+
+        var player = "";
+
+        if(this.currentState == this.state.RED_PLAYER_TURN){
+            player = "red";
+        }
+
+        if(this.currentState == this.state.BLACK_PLAYER_TURN){
+            player = "black";
+        }
+
+        var self = this;
+
+        var boardString = this.parseBoardToPLOG();
+
+        var botType = " ";
+
+        if(this.currentLevel == this.level.EASY){
+            botType = "easy";
+        }
+
+        if(this.currentLevel == this.level.AGRESSIVE){
+            botType = "agressive";
+        }
+
+        var command = "moveRandomPieceButWithCannon(" + boardString + "," + player + "," + botType + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
+                self.parseResponseBoard(actualBoard);
+
+                if(self.currentState == self.state.RED_PLAYER_TURN){
+                    self.currentState = self.state.BLACK_PLAYER_TURN;
+                }
+
+                else if(self.currentState == self.state.BLACK_PLAYER_TURN){
+                    self.currentState = self.state.RED_PLAYER_TURN;
+                }
+
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T MOVE CANNON BLACK PLAYER COMPUTER");
+            }
+
+        );
+    }
+
+    computerMoveRandomPiece(){
+
+        var player = "";
+
+        if(this.currentState == this.state.RED_PLAYER_TURN){
+            player = "red";
+        }
+
+        if(this.currentState == this.state.BLACK_PLAYER_TURN){
+            player = "black";
+        }
+
+        var self = this;
+
+        var boardString = this.parseBoardToPLOG();
+
+        var botType = "";
+
+        if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER){
+            botType = "agressive";
+        }
+
+        else {
+            if(this.currentLevel == this.level.EASY){
+                botType = "easy";
+            }
+
+            if(this.currentLevel == this.level.AGRESSIVE){
+                botType = "agressive";
+            }
+        }
+
+        var command = "moveRandomPiece(" + boardString + "," + player + "," + botType + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                if(data.target.response != "Bad Request"){
+                    var oldRow = parseInt(data.target.response[2]);
+                    var oldColumn = parseInt(data.target.response[4]);
+                    var newRow = parseInt(data.target.response[8]);
+                    var newColumn = parseInt(data.target.response[10]);
+                    
+                    var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
+
+                    self.parseResponseBoard(actualBoard);
+
+                    if(!self.gameOver()){
+                        self.scene.setPieceAnimations(oldRow, oldColumn, newRow, newColumn, player);
+                        
+                        if(player == "red"){
+                            self.previousState = self.state.RED_PLAYER_MOVE;
+                        } 
+
+                        if(player == "black"){
+                            self.previousState = self.state.BLACK_PLAYER_MOVE;
+                        }
+
+                        self.currentState = self.state.ANIMATION;
+                    }
+                }
+
+                else{
+                    self.computerMoveRandomCannon();
+                }
+
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T MOVE PIECE BLACK PLAYER COMPUTER");
+            }
+
+        ); 
+    }
 
     formatCannonCells(possibleCannons, startingArray){
 
@@ -617,7 +919,7 @@ class Cannon
         );
     }
 
-    moveCannon(){
+    selectCannonMove(){
         var self = this;
         var boardString = this.parseBoardToPLOG();
         var command = "moveCannon(" + boardString + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + this.cannonType + "," + this.pieceNumber + ")";

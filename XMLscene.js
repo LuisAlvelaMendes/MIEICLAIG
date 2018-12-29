@@ -31,7 +31,7 @@ class XMLscene extends CGFscene {
         this.initCameras();
 
         this.game = new Cannon(this);
-        this.game.start("Human vs Human", -1);
+        this.game.start("Human vs Human", "agressive");
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);

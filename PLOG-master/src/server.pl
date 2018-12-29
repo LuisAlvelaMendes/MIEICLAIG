@@ -311,6 +311,100 @@ checkBlackCity(BlackCityColumn, Board, Response):-
         (Piece == empty ; Piece == redSoldier),
         Response = 'yesBlack'.
 
+newChoose_action_computer(Board, NewBoard, Player, BotType, Coords, RowToReplace, ColumnToReplace):-
+        Player == red,
+        nl,
+        findall([MRow,MColumn],matrixred(Board, MColumn, MRow),RedPieces),
+        length(RedPieces,Len),
+        random(0,Len,N),
+        nth0(N, RedPieces, Coords),
+        newMain_action_logic(Coords, Board, NewBoard, Player, BotType, RowToReplace, ColumnToReplace), !.
+
+newChoose_action_computer(Board, NewBoard, Player, BotType, Coords, RowToReplace, ColumnToReplace):-
+        Player == black,
+        nl,
+        findall([MRow,MColumn],matrixblack(Board, MColumn, MRow), BlackPieces),
+        length(BlackPieces,Len),
+        random(1,Len,N),
+        nth0(N, BlackPieces, Coords),
+        newMain_action_logic(Coords, Board, NewBoard, Player, BotType, RowToReplace, ColumnToReplace), !.
+
+newMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == agressive,
+        checkComputerNearbyEnemies(Row, Column, Board),
+        choose_to_capture(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+newMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == agressive,
+        checkComputerNearbyEnemies(Row, Column, Board),
+        choose_to_retreat(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+newMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == agressive,
+        choose_to_move_computer(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+newMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == easy,
+        checkComputerNearbyEnemies(Row, Column, Board),
+        choose_to_retreat(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+newMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == easy,
+        checkComputerNearbyEnemies(Row, Column, Board),
+        choose_to_capture(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+newMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == easy,
+        choose_to_move_computer(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+otherChoose_action_computer(Board, NewBoard, Player, BotType, Coords, RowToReplace, ColumnToReplace):-
+        Player == red,
+        nl,
+        findall([MRow,MColumn],matrixred(Board, MColumn, MRow),RedPieces),
+        length(RedPieces,Len),
+        random(0,Len,N),
+        nth0(N, RedPieces, Coords),
+        otherMain_action_logic(Coords, Board, NewBoard, Player, BotType, RowToReplace, ColumnToReplace), !.
+
+otherChoose_action_computer(Board, NewBoard, Player, BotType, Coords, RowToReplace, ColumnToReplace):-
+        Player == black,
+        nl,
+        findall([MRow,MColumn],matrixblack(Board, MColumn, MRow), BlackPieces),
+        length(BlackPieces,Len),
+        random(1,Len,N),
+        nth0(N, BlackPieces, Coords),
+        otherMain_action_logic(Coords, Board, NewBoard, Player, BotType, RowToReplace, ColumnToReplace), !.
+
+otherMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == agressive,
+        choose_to_capture_cannon(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+otherMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == agressive,
+        choose_to_move_cannon(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
+otherMain_action_logic(Coords, Board, NewBoard, _, BotType, RowToReplace, ColumnToReplace):-
+        nth0(0, Coords, Row),
+        nth0(1, Coords, Column),
+        BotType == easy,
+        choose_to_move_cannon(Row, Column, Board, NewBoard, RowToReplace, ColumnToReplace).
+
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
@@ -354,7 +448,7 @@ parse_input(captureCannon(Board, Row, Column, CannonType, PieceNumber), Response
 	findall([Row2,Column2], validateComputerCaptureCannon(Row, Column, Row2, Column2, Board, CannonType, PieceNumber), Response).
 
 parse_input(moveCannonDirection(CurrentMove, Row, Column, Board, CannonType, PieceNumber), Response):-
-	move_cannon(CurrentMove, Row, Column, Board, Response, CannonType, PieceNumber).
+	move_cannon(CurrentMove, Row, Column, Board, Response, CannonType, PieceNumber, _, _).
 
 parse_input(captureCannonDirection(Board, Row1, Column1), Response):-
         capture_cannon(Row1, Column1, Board, Response).
@@ -362,6 +456,20 @@ parse_input(captureCannonDirection(Board, Row1, Column1), Response):-
 parse_input(gameOver(RedCityColumn, BlackCityColumn, Board), Response):-
         checkRedCity(RedCityColumn, Board, Response); 
         checkBlackCity(BlackCityColumn, Board, Response).
+
+parse_input(placeCityComputer(Board, Player), Response):-
+        placeCityComputer(Board, Temp, Player, Column),
+        append([Column], Temp, Response).
+
+parse_input(moveRandomPiece(Board, Player, BotType), Response):-
+        newChoose_action_computer(Board, Temp, Player, BotType, Coords, RowToReplace, ColumnToReplace),
+        append([Coords], [[RowToReplace, ColumnToReplace]], Coordinates),
+        append(Coordinates, Temp, Response).
+
+parse_input(moveRandomPieceButWithCannon(Board, Player, BotType), Response):-
+        otherChoose_action_computer(Board, Temp, Player, BotType, Coords, RowToReplace, ColumnToReplace),
+        append([Coords], [[RowToReplace, ColumnToReplace]], Coordinates),
+        append(Coordinates, Temp, Response).
 
 parse_input(gameOver(_, _, _), Response):-
         Response = 'no'.

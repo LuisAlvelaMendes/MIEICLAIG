@@ -157,6 +157,7 @@ matrixred(Matrix, I, J) :-
     Value == redSoldier.
 
 matrixblack(Matrix, I, J) :-
+    format("Matrixblack matrix ~w:", [Matrix]);    
     nth0(J, Matrix, Row),
     nth0(I, Row, Value),
     Value == blackSoldier.

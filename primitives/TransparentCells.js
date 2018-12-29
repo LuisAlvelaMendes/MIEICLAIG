@@ -247,6 +247,14 @@ class TransparentCells extends CGFobject
         var xDiff = Math.abs(this.objects[index1].coordsX - this.objects[index2].coordsX);
         var zDiff = this.objects[index1].coordsZ - this.objects[index2].coordsZ;
 
+        if(xDiff == 0 && zDiff < 0){
+            zDiff = zDiff - 3;
+        }
+
+        if(xDiff == 0 && zDiff > 0){
+            zDiff = zDiff + 3;
+        }
+
         if(Math.round(xDiff) == 3 && zDiff == 0){
             xDiff = -9;
         }
