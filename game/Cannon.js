@@ -256,17 +256,27 @@ class Cannon
         if(this.previousState == this.state.RED_PLAYER_MOVE){
             this.currentState = this.state.BLACK_PLAYER_TURN;
             this.previousState = null;
+
+            if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER || this.gameMode == this.mode.HUMAN_VS_COMPUTER){
+                this.scene.pickResults = [[-1,-1]];
+            }
         }
 
         if(this.previousState == this.state.BLACK_PLAYER_MOVE){
             this.currentState = this.state.RED_PLAYER_TURN;
             this.previousState = null;
+
+            if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER || this.gameMode == this.mode.HUMAN_VS_COMPUTER){
+                this.scene.pickResults = [[-1,-1]];
+            }
         }
     }
 
     humanVsHumanLogic(row, column){
         this.currentlySelectedRow = row;
         this.currentlySelectedColumn = column;
+
+        console.log(this.currentState);
 
         if(this.currentState == this.state.RED_PLAYER_PICK_CITY || this.currentState == this.state.BLACK_PLAYER_PICK_CITY){
             this.citySelect();
@@ -323,9 +333,11 @@ class Cannon
         }
         
         if(this.currentState == this.state.RED_PLAYER_TURN){
-            this.oldRow = row;
-            this.oldColumn = column;
-            this.selectPieceToMove();
+            if(row >= 0 && column >=0){
+                this.oldRow = row;
+                this.oldColumn = column;
+                this.selectPieceToMove();
+            }
         }
 
         if(this.currentState == this.state.RED_PLAYER_MOVE){
@@ -412,6 +424,10 @@ class Cannon
                     self.parseResponseBoard(data.target.response);
                     console.log("swapping state");
                     self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
+                    
+                    if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
+                        self.scene.pickResults = [[-1,-1]];
+                    }
                 },
     
                 function() {
@@ -485,10 +501,12 @@ class Cannon
 
                 if(self.currentState == self.state.RED_PLAYER_PICK_CITY){
                     self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
+                    self.scene.pickResults = [[-1,-1]];
                 }
 
                 else if(self.currentState == self.state.BLACK_PLAYER_PICK_CITY){
                     self.currentState = self.state.RED_PLAYER_TURN;
+                    self.scene.pickResults = [[-1,-1]];
                 }
             },
 
@@ -516,14 +534,20 @@ class Cannon
 
         var boardString = this.parseBoardToPLOG();
 
-        var botType = " ";
+        var botType = "";
 
-        if(this.currentLevel == this.level.EASY){
-            botType = "easy";
+        if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER){
+            botType = "agressive";
         }
 
-        if(this.currentLevel == this.level.AGRESSIVE){
-            botType = "agressive";
+        else {
+            if(this.currentLevel == this.level.EASY){
+                botType = "easy";
+            }
+
+            if(this.currentLevel == this.level.AGRESSIVE){
+                botType = "agressive";
+            }
         }
 
         var command = "moveRandomPieceButWithCannon(" + boardString + "," + player + "," + botType + ")";
@@ -534,15 +558,31 @@ class Cannon
 
             function(data) {
                 //onSuccess
-                var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
-                self.parseResponseBoard(actualBoard);
+                if(data.target.response != "Bad Request"){
+                    var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
+                    self.parseResponseBoard(actualBoard);
 
-                if(self.currentState == self.state.RED_PLAYER_TURN){
-                    self.currentState = self.state.BLACK_PLAYER_TURN;
+                    if(self.currentState == self.state.RED_PLAYER_TURN){
+                        self.currentState = self.state.BLACK_PLAYER_TURN;
+                        self.scene.pickResults = [[-1,-1]];
+                    }
+
+                    else if(self.currentState == self.state.BLACK_PLAYER_TURN){
+                        self.currentState = self.state.RED_PLAYER_TURN;
+                        self.scene.pickResults = [[-1,-1]];
+                    }
                 }
 
-                else if(self.currentState == self.state.BLACK_PLAYER_TURN){
-                    self.currentState = self.state.RED_PLAYER_TURN;
+                else{
+                    if(self.currentState == self.state.RED_PLAYER_TURN){
+                        self.currentState = self.state.BLACK_PLAYER_TURN;
+                        self.scene.pickResults = [[-1,-1]];
+                    }
+
+                    else if(self.currentState == self.state.BLACK_PLAYER_TURN){
+                        self.currentState = self.state.RED_PLAYER_TURN;
+                        self.scene.pickResults = [[-1,-1]];
+                    }
                 }
 
             },
@@ -595,35 +635,36 @@ class Cannon
 
             function(data) {
                 //onSuccess
-                if(data.target.response != "Bad Request"){
-                    var oldRow = parseInt(data.target.response[2]);
-                    var oldColumn = parseInt(data.target.response[4]);
-                    var newRow = parseInt(data.target.response[8]);
-                    var newColumn = parseInt(data.target.response[10]);
-                    
-                    var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
-
-                    self.parseResponseBoard(actualBoard);
-
-                    if(!self.gameOver()){
-                        self.scene.setPieceAnimations(oldRow, oldColumn, newRow, newColumn, player);
+                if(!self.gameOver()){
+                    if(data.target.response != "Bad Request"){
+                        var oldRow = parseInt(data.target.response[2]);
+                        var oldColumn = parseInt(data.target.response[4]);
+                        var newRow = parseInt(data.target.response[8]);
+                        var newColumn = parseInt(data.target.response[10]);
                         
-                        if(player == "red"){
-                            self.previousState = self.state.RED_PLAYER_MOVE;
-                        } 
-
-                        if(player == "black"){
-                            self.previousState = self.state.BLACK_PLAYER_MOVE;
+                        var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
+    
+                        self.parseResponseBoard(actualBoard);
+    
+                        if(!self.gameOver()){
+                            self.scene.setPieceAnimations(oldRow, oldColumn, newRow, newColumn, player);
+                            
+                            if(player == "red"){
+                                self.previousState = self.state.RED_PLAYER_MOVE;
+                            } 
+    
+                            if(player == "black"){
+                                self.previousState = self.state.BLACK_PLAYER_MOVE;
+                            }
+    
+                            self.currentState = self.state.ANIMATION;
                         }
-
-                        self.currentState = self.state.ANIMATION;
+                    }
+    
+                    else{
+                        self.computerMoveRandomCannon();
                     }
                 }
-
-                else{
-                    self.computerMoveRandomCannon();
-                }
-
             },
 
             function() {
@@ -800,11 +841,13 @@ class Cannon
                 if(data.target.response == "yesRed"){
                     self.winner = "Black";
                     self.currentState = self.state.GAME_OVER;
+                    self.scene.setPickEnabled(false);
                 }
 
                 else if(data.target.response == "yesBlack"){
                     self.winner = "Red";
                     self.currentState = self.state.GAME_OVER;
+                    self.scene.setPickEnabled(false);
                 }
             },
 
@@ -992,6 +1035,10 @@ class Cannon
 
                 if(self.playerUsingCannon == "red"){
                     self.currentState = self.state.BLACK_PLAYER_TURN;
+
+                    if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
+                        self.scene.pickResults = [[-1,-1]];
+                    }
                 }
 
                 else {
@@ -1026,6 +1073,10 @@ class Cannon
                 if(!self.gameOver()){
                     if(self.playerUsingCannon == "red") {
                         self.currentState = self.state.BLACK_PLAYER_TURN;
+
+                        if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
+                            self.scene.pickResults = [[-1,-1]];
+                        }
                     }
 
                     else {

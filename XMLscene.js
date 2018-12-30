@@ -31,7 +31,7 @@ class XMLscene extends CGFscene {
         this.initCameras();
 
         this.game = new Cannon(this);
-        this.game.start("Human vs Human", "agressive");
+        this.game.start("Human vs Computer", "easy");
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -253,6 +253,7 @@ class XMLscene extends CGFscene {
         this.pushMatrix();
 
         if (this.sceneInited) {
+
             // Draw axis
             this.axis.display();
             this.materialDefault.apply();
@@ -279,7 +280,7 @@ class XMLscene extends CGFscene {
                 this.selectedCamera = "";
             }
 
-            // Displays the scene (MySceneGraph function).
+            // Displays the scene (MySceneGraph function)
 
             this.graph.displayScene(this.game);
         }
