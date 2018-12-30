@@ -30,8 +30,10 @@ class XMLscene extends CGFscene {
 
         this.initCameras();
 
+        this.cameraRotationActive = false;
+
         this.game = new Cannon(this);
-        this.game.start("Human vs Computer", "easy");
+        this.game.start("Human vs Human", "easy");
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -117,6 +119,20 @@ class XMLscene extends CGFscene {
         if (typeof this.game != "undefined") {
             if(this.graph.primitives != undefined){
                 this.graph.primitives["myCells"].update(deltaTime);
+            }
+        }
+
+        if (this.cameraRotationActive) {
+            var currAng = (Math.PI) * ((currTime/100000000000000));
+            this.cameraRotationAngle -= currAng;
+
+            if (this.cameraRotationAngle < 0) {
+              this.cameraRotationActive = false;
+              this.game.setCamera();
+            } 
+            
+            else {
+                this.camera.orbit(vec3.fromValues(0, 1, 0), currAng);
             }
         }
     }

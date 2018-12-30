@@ -1,3 +1,4 @@
+var DEGREE_TO_RAD = (Math.PI / 180);
 /**
  * Cannon
  * @constructor
@@ -10,6 +11,9 @@ class Cannon
         this.scene = scene;
 
         this.client = new Client(scene);
+        
+        this.rotationCamera = new CGFcamera(40*DEGREE_TO_RAD, 0.45, 500, vec3.fromValues(315.4, 110, 390), vec3.fromValues(250, 80, 390));
+        this.defaultCamera = new CGFcamera(40*DEGREE_TO_RAD, 0.45, 500, vec3.fromValues(154, 110, 390), vec3.fromValues(250, 80, 390));    
 
         this.state = {
             WAITING_FOR_START:0,
@@ -23,6 +27,8 @@ class Cannon
             CANNON_MOVE:8,
             GAME_OVER:9
         };
+
+        this.currentCamera = "default";
 
         this.mode = {
             HUMAN_VS_HUMAN: 0,
@@ -256,6 +262,7 @@ class Cannon
         if(this.previousState == this.state.RED_PLAYER_MOVE){
             this.currentState = this.state.BLACK_PLAYER_TURN;
             this.previousState = null;
+            this.rotateCamera();
 
             if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER || this.gameMode == this.mode.HUMAN_VS_COMPUTER){
                 this.scene.pickResults = [[-1,-1]];
@@ -265,6 +272,7 @@ class Cannon
         if(this.previousState == this.state.BLACK_PLAYER_MOVE){
             this.currentState = this.state.RED_PLAYER_TURN;
             this.previousState = null;
+            this.rotateCamera();
 
             if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER || this.gameMode == this.mode.HUMAN_VS_COMPUTER){
                 this.scene.pickResults = [[-1,-1]];
@@ -424,6 +432,7 @@ class Cannon
                     self.parseResponseBoard(data.target.response);
                     console.log("swapping state");
                     self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
+                    self.rotateCamera();
                     
                     if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
                         self.scene.pickResults = [[-1,-1]];
@@ -453,6 +462,7 @@ class Cannon
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
                     self.currentState = self.state.RED_PLAYER_TURN;
+                    self.rotateCamera();
                 },
     
                 function() {
@@ -1092,5 +1102,40 @@ class Cannon
 
         );
     }
+
+    /*
+    * CAMERA
+    */
+    setCamera() {
+
+        console.log("reached setCamera as: " + this.currentCamera);
+
+        if(this.currentCamera == "default") {
+            this.scene.camera = this.defaultCamera;
+        } 
+        
+        else if(this.currentCamera == "rotation") {
+            console.log(this.rotationCamera);
+            this.scene.camera = this.rotationCamera;
+        }
+    };
+    
+    rotateCamera() {
+
+        console.log("rotateCamera was as: " + this.currentCamera);
+
+        if(this.currentCamera == "default"){
+            this.previousCamera = this.currentCamera;
+            this.currentCamera = "rotation";
+        }
+        
+        else if(this.currentCamera == "rotation"){
+            this.previousCamera = this.currentCamera;
+            this.currentCamera = "default";
+        }
+
+        this.scene.cameraRotationAngle = Math.PI;
+        this.scene.cameraRotationActive = true;
+    };
 
 };
