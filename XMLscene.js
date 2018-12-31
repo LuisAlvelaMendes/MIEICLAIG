@@ -33,7 +33,7 @@ class XMLscene extends CGFscene {
         this.cameraRotationActive = false;
 
         this.game = new Cannon(this);
-        this.game.start("Human vs Human", "easy");
+        this.game.start("Human vs Computer", "easy");
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -123,7 +123,7 @@ class XMLscene extends CGFscene {
         }
 
         if (this.cameraRotationActive) {
-            var currAng = (Math.PI) * ((currTime/100000000000000));
+            var currAng = (Math.PI) * (deltaTime/1.5);
             this.cameraRotationAngle -= currAng;
 
             if (this.cameraRotationAngle < 0) {

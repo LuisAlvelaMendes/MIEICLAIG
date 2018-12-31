@@ -262,29 +262,33 @@ class Cannon
         if(this.previousState == this.state.RED_PLAYER_MOVE){
             this.currentState = this.state.BLACK_PLAYER_TURN;
             this.previousState = null;
-            this.rotateCamera();
-
+            
             if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER || this.gameMode == this.mode.HUMAN_VS_COMPUTER){
+                this.rotateCamera();
                 this.scene.pickResults = [[-1,-1]];
+                return; 
             }
+
+            this.rotateCamera();
         }
 
         if(this.previousState == this.state.BLACK_PLAYER_MOVE){
             this.currentState = this.state.RED_PLAYER_TURN;
             this.previousState = null;
-            this.rotateCamera();
 
             if(this.gameMode == this.mode.COMPUTER_VS_COMPUTER || this.gameMode == this.mode.HUMAN_VS_COMPUTER){
+                this.rotateCamera();
                 this.scene.pickResults = [[-1,-1]];
+                return; 
             }
+
+            this.rotateCamera();
         }
     }
 
     humanVsHumanLogic(row, column){
         this.currentlySelectedRow = row;
         this.currentlySelectedColumn = column;
-
-        console.log(this.currentState);
 
         if(this.currentState == this.state.RED_PLAYER_PICK_CITY || this.currentState == this.state.BLACK_PLAYER_PICK_CITY){
             this.citySelect();
@@ -404,7 +408,6 @@ class Cannon
         }
 
         if(this.gameMode == this.mode.HUMAN_VS_COMPUTER){
-            console.log("selecting the proper logic");
             this.humanVsComputerLogic(row, column);
         }
 
@@ -512,11 +515,13 @@ class Cannon
                 if(self.currentState == self.state.RED_PLAYER_PICK_CITY){
                     self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
                     self.scene.pickResults = [[-1,-1]];
+                    self.rotateCamera();
                 }
 
                 else if(self.currentState == self.state.BLACK_PLAYER_PICK_CITY){
                     self.currentState = self.state.RED_PLAYER_TURN;
                     self.scene.pickResults = [[-1,-1]];
+                    self.rotateCamera();
                 }
             },
 
@@ -574,11 +579,13 @@ class Cannon
 
                     if(self.currentState == self.state.RED_PLAYER_TURN){
                         self.currentState = self.state.BLACK_PLAYER_TURN;
+                        self.rotateCamera();
                         self.scene.pickResults = [[-1,-1]];
                     }
 
                     else if(self.currentState == self.state.BLACK_PLAYER_TURN){
                         self.currentState = self.state.RED_PLAYER_TURN;
+                        self.rotateCamera();
                         self.scene.pickResults = [[-1,-1]];
                     }
                 }
@@ -586,11 +593,13 @@ class Cannon
                 else{
                     if(self.currentState == self.state.RED_PLAYER_TURN){
                         self.currentState = self.state.BLACK_PLAYER_TURN;
+                        self.rotateCamera();
                         self.scene.pickResults = [[-1,-1]];
                     }
 
                     else if(self.currentState == self.state.BLACK_PLAYER_TURN){
                         self.currentState = self.state.RED_PLAYER_TURN;
+                        self.rotateCamera();
                         self.scene.pickResults = [[-1,-1]];
                     }
                 }
@@ -1045,6 +1054,7 @@ class Cannon
 
                 if(self.playerUsingCannon == "red"){
                     self.currentState = self.state.BLACK_PLAYER_TURN;
+                    self.rotateCamera();
 
                     if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
                         self.scene.pickResults = [[-1,-1]];
@@ -1053,6 +1063,7 @@ class Cannon
 
                 else {
                     self.currentState = self.state.RED_PLAYER_TURN;
+                    self.rotateCamera();
                 }
             },
 
@@ -1083,6 +1094,7 @@ class Cannon
                 if(!self.gameOver()){
                     if(self.playerUsingCannon == "red") {
                         self.currentState = self.state.BLACK_PLAYER_TURN;
+                        self.rotateCamera();
 
                         if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
                             self.scene.pickResults = [[-1,-1]];
@@ -1091,6 +1103,7 @@ class Cannon
 
                     else {
                         self.currentState = self.state.RED_PLAYER_TURN;
+                        self.rotateCamera();
                     }
                 }
             },
@@ -1108,21 +1121,18 @@ class Cannon
     */
     setCamera() {
 
-        console.log("reached setCamera as: " + this.currentCamera);
-
         if(this.currentCamera == "default") {
+            this.defaultCamera.setPosition([154, 110, 390]);
             this.scene.camera = this.defaultCamera;
         } 
         
         else if(this.currentCamera == "rotation") {
-            console.log(this.rotationCamera);
+            this.rotationCamera.setPosition([315.4, 110, 390]);
             this.scene.camera = this.rotationCamera;
         }
     };
     
     rotateCamera() {
-
-        console.log("rotateCamera was as: " + this.currentCamera);
 
         if(this.currentCamera == "default"){
             this.previousCamera = this.currentCamera;
