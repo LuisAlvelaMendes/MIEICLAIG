@@ -11,7 +11,6 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-
         this.interface = myinterface;
         this.lightValues = {};
         this.cameraParser = [];
@@ -318,5 +317,9 @@ class XMLscene extends CGFscene {
 
     setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn, color){
         this.graph.setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn, color);
+    }
+
+    undo(){
+        this.game.undo();
     }
 }

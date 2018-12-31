@@ -41,8 +41,10 @@ class Cannon
             EASY:1
         }
 
-        this.board = [];
-        this.moves = [];
+        this.board = [];        
+        this.oldBoard = [];
+        this.movesRed = [];
+        this.movesBlack = [];
 
         this.currentState = this.state.WAITING_FOR_START;
         this.previousState;
@@ -66,6 +68,7 @@ class Cannon
 
         this.newCaptureRow;
         this.newCaputureColumn;
+        this.replacedEntity;
 
         this.cannonType;
         this.pieceNumber;
@@ -112,12 +115,6 @@ class Cannon
         }
 
         this.getInitialBoard();
-    };
-
-    setVariables() {
-        this.moves = [];
-        this.player = 1;
-        this.previousPlayer = 1;
     };
 
     parseResponseBoard(data){
@@ -403,6 +400,7 @@ class Cannon
     }
 
     selectedCell(row, column){
+
         if(this.gameMode == this.mode.HUMAN_VS_HUMAN){
             this.humanVsHumanLogic(row, column);
         }
@@ -433,7 +431,6 @@ class Cannon
                 function(data) {
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
-                    console.log("swapping state");
                     self.currentState = self.state.BLACK_PLAYER_PICK_CITY;
                     self.rotateCamera();
                     
@@ -537,6 +534,8 @@ class Cannon
 
         var player = "";
 
+        this.oldBoard.push(this.board);
+
         if(this.currentState == this.state.RED_PLAYER_TURN){
             player = "red";
         }
@@ -617,6 +616,8 @@ class Cannon
     computerMoveRandomPiece(){
 
         var player = "";
+
+        this.oldBoard.push(this.board);
 
         if(this.currentState == this.state.RED_PLAYER_TURN){
             player = "red";
@@ -883,12 +884,70 @@ class Cannon
         return 0;
     }
 
+    undo(){
+
+        // undo is only possible with a human player.
+
+        if(this.gameMode == this.mode.HUMAN_VS_HUMAN){
+            if(this.currentState == this.state.RED_PLAYER_TURN && this.movesRed.length != 0){
+                var oldCoord = this.movesRed[this.movesRed.length - 1][0];
+                var newCoord = this.movesRed[this.movesRed.length - 1][1];
+
+                if(this.movesRed[this.movesRed.length - 1][2] == "emptyCell" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell"){
+                    this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
+                    this.board[newCoord[0]][newCoord[1]] = this.movesRed[this.movesRed.length - 1][2];
+                    this.movesRed.splice(this.movesRed.length - 1);
+                }
+            }
+    
+            else if(this.currentState == this.state.BLACK_PLAYER_TURN && this.movesBlack.length != 0){
+                var oldCoord = this.movesBlack[this.movesBlack.length - 1][0];
+                var newCoord = this.movesBlack[this.movesBlack.length - 1][1];
+               
+                if(this.movesBlack[this.movesBlack.length - 1][2] == "emptyCell" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell"){
+                    this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
+                    this.board[newCoord[0]][newCoord[1]] = this.movesBlack[this.movesBlack.length - 1][2];
+                    this.movesBlack.splice(this.movesBlack.length - 1);
+                }
+            }
+        }
+
+        if(this.gameMode == this.mode.HUMAN_VS_COMPUTER){
+            if(this.currentState == this.state.RED_PLAYER_TURN && this.oldBoard.length != 0){
+            
+                this.board = this.oldBoard[this.oldBoard.length - 1];
+    
+                this.oldBoard.splice(this.oldBoard.length - 1);
+    
+                this.currentState = this.state.BLACK_PLAYER_TURN;
+                this.rotateCamera();
+            }
+    
+            else if(this.currentState == this.state.BLACK_PLAYER_TURN && this.oldBoard.length != 0){
+    
+                this.board = this.oldBoard[this.oldBoard.length - 1];
+    
+                this.oldBoard.splice(this.oldBoard.length - 1);
+    
+                this.currentState = this.state.RED_PLAYER_TURN;
+                this.rotateCamera();
+            }
+        }
+    }
+
     movePiece(newRow, newColumn){
         var self = this;
+
+        this.oldBoard.push(this.board);
+
+        var destinationPiece = this.board[newRow][newColumn];
 
         if(this.currentState == this.state.RED_PLAYER_MOVE){
 
             var boardString = this.parseBoardToPLOG();
+
+            console.log(destinationPiece);
+            
             var command = "moveRedPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + newRow + "," + newColumn + ")";
 
             this.client.getPrologRequest(
@@ -906,6 +965,7 @@ class Cannon
                         self.scene.setPieceAnimations(self.oldRow, self.oldColumn, newRow, newColumn, "red");
                         self.currentState = self.state.ANIMATION;
                         self.previousState = self.state.RED_PLAYER_MOVE;
+                        self.movesRed.push([[self.oldRow, self.oldColumn], [newRow, newColumn], destinationPiece]);
                     }
                 },
     
@@ -929,7 +989,6 @@ class Cannon
                 function(data) {
                     //onSuccess
                     self.parseResponseBoard(data.target.response);
-
                     self.scene.highLightCells(self.validMoveCells, "default");
                     self.scene.highLightCells(self.validCaptureCells, "default");
                     self.scene.highLightCells(self.validCannonCells, "default");
@@ -938,6 +997,7 @@ class Cannon
                         self.scene.setPieceAnimations(self.oldRow, self.oldColumn, newRow, newColumn, "black");
                         self.currentState = self.state.ANIMATION;
                         self.previousState = self.state.BLACK_PLAYER_MOVE;
+                        self.movesBlack.push([[self.oldRow, self.oldColumn], [newRow, newColumn], destinationPiece]);
                     }
                 },
     
@@ -952,6 +1012,7 @@ class Cannon
 
     captureCannon(){
         var self = this;
+
         var boardString = this.parseBoardToPLOG();        
         var command = "captureCannon(" + boardString + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + this.cannonType + "," + this.pieceNumber +  ")";
 
@@ -1038,6 +1099,7 @@ class Cannon
 
     moveCannonDirection(){
         var self = this;
+        this.oldBoard.push(this.board);
         var boardString = this.parseBoardToPLOG();
 
         var command = "moveCannonDirection(" + this.selectedCannonMove + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + boardString + "," + this.cannonType + "," + this.pieceNumber + ")";
@@ -1077,6 +1139,7 @@ class Cannon
 
     captureCannonDirection(){
         var self = this;
+        this.oldBoard.push(this.board);
         var boardString = this.parseBoardToPLOG();
 
         var command = "captureCannonDirection(" + boardString + "," + this.newCaptureRow + "," + this.newCaptureColumn + ")";

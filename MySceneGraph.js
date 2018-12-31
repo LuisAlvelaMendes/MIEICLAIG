@@ -1558,11 +1558,9 @@ class MySceneGraph {
     }
 
     checkIfKeyMPressed() {
-
         if (this.scene.gui.isKeyPressed("KeyM")) {
             this.swapMaterial = true;
         }
-
     }
 
     highLightCells(cellCoords, action){

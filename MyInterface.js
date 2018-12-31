@@ -46,6 +46,10 @@ class MyInterface extends CGFinterface {
 
         // add a group of controls (and open/expand by defult)
 
+        var self = this;
+        var obj = { undo:function(){ self.scene.undo(); }};
+        this.gui.add(obj,'undo');
+
         return true;
     }
 
@@ -84,5 +88,12 @@ class MyInterface extends CGFinterface {
         }
 
         this.gui.add(this.scene, 'selectedCamera', sendID);
+    }
+
+    addOptionsGroup(){
+        var group = this.gui.addFolder("Options");
+        group.open();
+
+        group.add(this.scene, "undo");
     }
 }
