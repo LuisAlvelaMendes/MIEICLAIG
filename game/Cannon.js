@@ -44,7 +44,9 @@ class Cannon
         this.board = [];        
         this.oldBoard = [];
         this.movesRed = [];
+        this.cannonsRed = [];
         this.movesBlack = [];
+        this.cannonsBlack = [];
 
         this.currentState = this.state.WAITING_FOR_START;
         this.previousState;
@@ -884,29 +886,194 @@ class Cannon
         return 0;
     }
 
+    determineCorrectCells(actualDirection, cell1, cell2, type, player){
+        var returnCell1;
+        var returnCell2;
+        
+        if(player == "red"){
+            if(actualDirection == "backward" && type == "verticalCannon"){
+                returnCell1 = cell1+1;
+                returnCell2 = cell2;
+            }
+    
+            else if(actualDirection == "forward" && type == "verticalCannon"){
+                returnCell1 = cell1-1;
+                returnCell2 = cell2;
+            }
+                    
+            if(actualDirection == "backward" && type == "horizontalCannon"){
+                returnCell1 = cell1;
+                returnCell2 = cell2+1;
+            }
+    
+            else if(actualDirection == "forward" && type == "horizontalCannon"){
+                returnCell1 = cell1;
+                returnCell2 = cell2-1;
+            }
+    
+            if(actualDirection == "backward" && type == "diagonalSWNECannon"){
+                returnCell1 = cell1-1;
+                returnCell2 = cell2+1;
+            }
+    
+            else if(actualDirection == "forward" && type == "diagonalSWNECannon"){
+                returnCell1 = cell1+1;
+                returnCell2 = cell2-1;
+            }
+    
+            if(actualDirection == "backward" && type == "diagonalNWSECannon"){
+                returnCell1 = cell1-1;
+                returnCell2 = cell2-1;
+            }
+    
+            else if(actualDirection == "forward" && type == "diagonalNWSECannon"){
+                returnCell1 = cell1+1;
+                returnCell2 = cell2+1;
+            }
+        }
+
+        if(player == "black"){
+            if(actualDirection == "backward" && type == "verticalCannon"){
+                returnCell1 = cell1-1;
+                returnCell2 = cell2;
+            }
+    
+            else if(actualDirection == "forward" && type == "verticalCannon"){
+                returnCell1 = cell1+1;
+                returnCell2 = cell2;
+            }
+                    
+            if(actualDirection == "backward" && type == "horizontalCannon"){
+                returnCell1 = cell1;
+                returnCell2 = cell2+1;
+            }
+    
+            else if(actualDirection == "forward" && type == "horizontalCannon"){
+                returnCell1 = cell1;
+                returnCell2 = cell2-1;
+            }
+    
+            if(actualDirection == "backward" && type == "diagonalSWNECannon"){
+                returnCell1 = cell1-1;
+                returnCell2 = cell2+1;
+            }
+    
+            else if(actualDirection == "forward" && type == "diagonalSWNECannon"){
+                returnCell1 = cell1+1;
+                returnCell2 = cell2-1;
+            }
+    
+            if(actualDirection == "backward" && type == "diagonalNWSECannon"){
+                returnCell1 = cell1-1;
+                returnCell2 = cell2-1;
+            }
+    
+            else if(actualDirection == "forward" && type == "diagonalNWSECannon"){
+                returnCell1 = cell1+1;
+                returnCell2 = cell2+1;
+            }
+        }
+
+        return [returnCell1, returnCell2];
+    }
+
     undo(){
 
         // undo is only possible with a human player.
 
         if(this.gameMode == this.mode.HUMAN_VS_HUMAN){
             if(this.currentState == this.state.RED_PLAYER_TURN && this.movesRed.length != 0){
-                var oldCoord = this.movesRed[this.movesRed.length - 1][0];
-                var newCoord = this.movesRed[this.movesRed.length - 1][1];
+                if(this.movesRed[this.movesRed.length - 1].length != 5){
+                    var oldCoord = this.movesRed[this.movesRed.length - 1][0];
+                    var newCoord = this.movesRed[this.movesRed.length - 1][1];
+    
+                    // soldier moved to an empty cell and it is still empty
+                    if(this.movesRed[this.movesRed.length - 1][2] == "emptyCell" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell" && this.board[newCoord[0]][newCoord[1]] == "redSoldier"){
+                        this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
+                        this.board[newCoord[0]][newCoord[1]] = this.movesRed[this.movesRed.length - 1][2];
+                        this.movesRed.splice(this.movesRed.length - 1);
+                    }
+    
+                    // soldier was captured and in the position he previously moved to there's a soldier of the oposing faction
+                    else if(this.board[newCoord[0]][newCoord[1]] == "blackSoldier"){
+                        // do nothing, cannot undo. Only the side that captured may undo the capture.
+                    }
+    
+                    // captured a black soldier, trying to undo that (destination was a blackSoldier instead of emptyCell)
+                    else if(this.movesRed[this.movesRed.length - 1][2] == "blackSoldier" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell" && this.board[newCoord[0]][newCoord[1]] == "redSoldier"){
+                        this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
+                        this.board[newCoord[0]][newCoord[1]] = this.movesRed[this.movesRed.length - 1][2];
+                        this.movesRed.splice(this.movesRed.length - 1);
+                    }
+                }
 
-                if(this.movesRed[this.movesRed.length - 1][2] == "emptyCell" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell"){
-                    this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
-                    this.board[newCoord[0]][newCoord[1]] = this.movesRed[this.movesRed.length - 1][2];
+                // cannon move
+                else{
+
+                    var directionToReverse = this.movesRed[this.movesRed.length - 1][0];
+                    var cell1 = this.movesRed[this.movesRed.length - 1][1];
+                    var cell2 = this.movesRed[this.movesRed.length - 1][2];
+                    var type = this.movesRed[this.movesRed.length - 1][3];
+                    var actualDirection = "";
+
+                    if(directionToReverse == "forward"){
+                        actualDirection = "backward";
+                    }
+
+                    else if(directionToReverse == "backward"){
+                        actualDirection = "forward";
+                    }
+
+                    var actualCells = this.determineCorrectCells(actualDirection, cell1, cell2, type, "red");
+
+                    this.moveCannonVariableDirection(actualDirection, actualCells[0], actualCells[1], type, this.movesRed[this.movesRed.length - 1][4]);
                     this.movesRed.splice(this.movesRed.length - 1);
                 }
             }
     
             else if(this.currentState == this.state.BLACK_PLAYER_TURN && this.movesBlack.length != 0){
-                var oldCoord = this.movesBlack[this.movesBlack.length - 1][0];
-                var newCoord = this.movesBlack[this.movesBlack.length - 1][1];
-               
-                if(this.movesBlack[this.movesBlack.length - 1][2] == "emptyCell" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell"){
-                    this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
-                    this.board[newCoord[0]][newCoord[1]] = this.movesBlack[this.movesBlack.length - 1][2];
+                if(this.movesBlack[this.movesBlack.length - 1].length != 5){
+                    var oldCoord = this.movesBlack[this.movesBlack.length - 1][0];
+                    var newCoord = this.movesBlack[this.movesBlack.length - 1][1];
+                   
+                    if(this.movesBlack[this.movesBlack.length - 1][2] == "emptyCell" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell" && this.board[newCoord[0]][newCoord[1]] == "blackSoldier"){
+                        this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
+                        this.board[newCoord[0]][newCoord[1]] = this.movesBlack[this.movesBlack.length - 1][2];
+                        this.movesBlack.splice(this.movesBlack.length - 1);
+                    }
+    
+                    // soldier was captured and in the position he previously moved to there's a soldier of the oposing faction
+                    else if(this.board[newCoord[0]][newCoord[1]] == "redSoldier"){
+                        // do nothing, can't undo from this side.
+                    }
+    
+                    // captured a black soldier, trying to undo that (destination was a blackSoldier instead of emptyCell)
+                    else if(this.movesBlack[this.movesBlack.length - 1][2] == "redSoldier" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell" && this.board[newCoord[0]][newCoord[1]] == "blackSoldier"){
+                        this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
+                        this.board[newCoord[0]][newCoord[1]] = this.movesBlack[this.movesBlack.length - 1][2];
+                        this.movesBlack.splice(this.movesBlack.length - 1);
+                    }
+                }
+
+                else{
+
+                    var directionToReverse = this.movesBlack[this.movesBlack.length - 1][0];
+                    var cell1 = this.movesBlack[this.movesBlack.length - 1][1];
+                    var cell2 = this.movesBlack[this.movesBlack.length - 1][2];
+                    var type = this.movesBlack[this.movesBlack.length - 1][3];
+                    var actualDirection = "";
+
+                    if(directionToReverse == "forward"){
+                        actualDirection = "backward";
+                    }
+
+                    else if(directionToReverse == "backward"){
+                        actualDirection = "forward";
+                    }
+
+                    var actualCells = this.determineCorrectCells(actualDirection, cell1, cell2, type, "black");
+
+                    this.moveCannonVariableDirection(actualDirection, actualCells[0], actualCells[1], type, this.movesBlack[this.movesBlack.length - 1][4]);
                     this.movesBlack.splice(this.movesBlack.length - 1);
                 }
             }
@@ -914,9 +1081,7 @@ class Cannon
 
         if(this.gameMode == this.mode.HUMAN_VS_COMPUTER){
             if(this.currentState == this.state.RED_PLAYER_TURN && this.oldBoard.length != 0){
-            
                 this.board = this.oldBoard[this.oldBoard.length - 1];
-    
                 this.oldBoard.splice(this.oldBoard.length - 1);
     
                 this.currentState = this.state.BLACK_PLAYER_TURN;
@@ -924,9 +1089,7 @@ class Cannon
             }
     
             else if(this.currentState == this.state.BLACK_PLAYER_TURN && this.oldBoard.length != 0){
-    
                 this.board = this.oldBoard[this.oldBoard.length - 1];
-    
                 this.oldBoard.splice(this.oldBoard.length - 1);
     
                 this.currentState = this.state.RED_PLAYER_TURN;
@@ -1097,12 +1260,49 @@ class Cannon
         );
     }
 
+    moveCannonVariableDirection(direction, cell1, cell2, type, pieceNumber){
+        var self = this;
+        var boardString = this.parseBoardToPLOG();
+        var command = "moveCannonDirection(" + direction + "," + cell1 + "," + cell2 + "," + boardString + "," + type + "," + pieceNumber + ")";
+
+        this.client.getPrologRequest(
+
+            command,
+
+            function(data) {
+                //onSuccess
+                console.log(self.board);
+                console.log(data.target.response);
+                self.parseResponseBoard(data.target.response);
+                console.log(self.board);
+            },
+
+            function() {
+                //onError
+                console.log(" > Cannon: ERROR! COULDN'T SELECT CANNON");
+            }
+
+        );
+    }
+
     moveCannonDirection(){
         var self = this;
         this.oldBoard.push(this.board);
         var boardString = this.parseBoardToPLOG();
 
         var command = "moveCannonDirection(" + this.selectedCannonMove + "," + this.validCannonCells[0][0] + "," + this.validCannonCells[0][1] + "," + boardString + "," + this.cannonType + "," + this.pieceNumber + ")";
+
+        var cannonCoords = [this.selectedCannonMove, this.validCannonCells[0][0], this.validCannonCells[0][1], this.cannonType, this.pieceNumber];
+
+        console.log(cannonCoords);
+
+        if(this.playerUsingCannon == "red"){
+            this.movesRed.push(cannonCoords);
+        }
+
+        else {
+            this.movesBlack.push(cannonCoords);
+        }
 
         this.client.getPrologRequest(
 
