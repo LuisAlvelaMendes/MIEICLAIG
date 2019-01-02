@@ -43,6 +43,11 @@ class Piece extends CGFobject
         this.animationEnabled = true;
     }
 
+    setCannonAnimation(){
+        this.animation = new CircularAnimation(this.scene, "circulate", 3, [0,0,1], 1, 0, 360);
+        this.animationEnabled = true;
+    }
+
     update(deltaTime){
         this.animation.update(deltaTime);
     }

@@ -319,6 +319,10 @@ class XMLscene extends CGFscene {
         this.graph.setPieceAnimations(pieceRow, pieceColumn, newRow, newColumn, color);
     }
 
+    setCannonAnimation(pieceRow, pieceColumn){
+        this.graph.setCannonAnimation(pieceRow, pieceColumn);
+    }
+
     undo(){
         this.game.undo();
     }

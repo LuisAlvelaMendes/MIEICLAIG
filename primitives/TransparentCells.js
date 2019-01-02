@@ -314,6 +314,12 @@ class TransparentCells extends CGFobject
         this.pieces[pieceRow][pieceColumn].setAnimation(controlPoints);
     }
 
+    setCannonAnimation(pieceRow, pieceColumn){
+        this.animationEnabledRow = pieceRow;
+        this.animationEnabledColumn = pieceColumn;
+        this.pieces[pieceRow][pieceColumn].setCannonAnimation();
+    }
+
     update(deltaTime){
 
         for(var i = 0; i < this.pieces.length; i++){

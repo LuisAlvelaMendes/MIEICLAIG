@@ -259,6 +259,7 @@ class Cannon
     transitionBackToMove(){
 
         if(this.previousState == this.state.RED_PLAYER_MOVE){
+
             this.currentState = this.state.BLACK_PLAYER_TURN;
             this.previousState = null;
             
@@ -1314,18 +1315,17 @@ class Cannon
                 self.scene.highLightCells(self.validMoveCells, "default");
                 self.scene.highLightCells(self.validCaptureCells, "default");
 
-                if(self.playerUsingCannon == "red"){
-                    self.currentState = self.state.BLACK_PLAYER_TURN;
-                    self.rotateCamera();
+                if(!self.gameOver()){
+                    self.scene.setCannonAnimation(self.oldRow, self.oldColumn);
+                    self.currentState = self.state.ANIMATION;
 
-                    if(self.gameMode == self.mode.HUMAN_VS_COMPUTER){
-                        self.scene.pickResults = [[-1,-1]];
+                    if(self.playerUsingCannon == "red"){
+                        self.previousState = self.state.RED_PLAYER_MOVE;
                     }
-                }
-
-                else {
-                    self.currentState = self.state.RED_PLAYER_TURN;
-                    self.rotateCamera();
+    
+                    else {
+                        self.previousState = self.state.BLACK_PLAYER_MOVE;
+                    }
                 }
             },
 
