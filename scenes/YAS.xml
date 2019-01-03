@@ -2,7 +2,7 @@
 
     <scene root="root" axis_length="5.0" />
 
-    <views default="home" >
+    <views default="reversedHome" >
 
         <perspective id="Tabuleiro2" near="0.1" far="500" angle="60">
             <from x="48" y="18.8" z="-12.2" />
@@ -16,7 +16,12 @@
         
         <perspective id="home" near="0.45" far="500" angle="40">
             <from x="315.4" y="110" z="390" />
-            <to x="-10" y="-100" z="390"  />
+            <to x="250" y="80" z="390"  />
+        </perspective>
+
+        <perspective id="reversedHome" near="0.45" far="500" angle="40">
+            <from x="154" y="110" z="390" />
+            <to x="250" y="80" z="390"  />
         </perspective>
 
         <perspective id="underTheFloor" near="0.1" far="550" angle="30">
@@ -2805,7 +2810,6 @@
 
             <children>
                 <componentref id="myRoom"/>
-                <componentref id="myChair"/>
                 <componentref id="myTable"/>
                 <componentref id="board" />
                 <componentref id="myBed"/>
@@ -2828,22 +2832,6 @@
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
                 <componentref id="allPieces" />
-
-               
-                <componentref id="menu" />
-                <componentref id="estiloA" />
-                <componentref id="estiloB" />
-                <componentref id="estiloC" />
-                <componentref id="estiloAText" />
-                <componentref id="corImage" />
-                <componentref id="player1_1" />
-                <componentref id="player1_2" />
-                <componentref id="player2_1" />
-                <componentref id="player2_2" />
-                <componentref id="diffImage" />
-                <componentref id="difA" />
-                <componentref id="difB" />
-                <componentref id="difC" />
             </children>
         </component>
 

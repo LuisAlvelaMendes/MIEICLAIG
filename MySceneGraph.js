@@ -1575,6 +1575,14 @@ class MySceneGraph {
         this.primitives["myCells"].setCannonAnimation(pieceRow, pieceColumn);
     }
 
+    giveRedPlayerAPiece(){
+        this.primitives["myCells"].giveRedPlayerAPiece();
+    }
+
+    giveBlackPlayerAPiece(){
+        this.primitives["myCells"].giveBlackPlayerAPiece();
+    }
+
 
     /**
      * Displays the scene, processing each node, starting in the root node.

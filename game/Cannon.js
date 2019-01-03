@@ -666,6 +666,16 @@ class Cannon
                         var newColumn = parseInt(data.target.response[10]);
                         
                         var actualBoard = data.target.response.replace(/\[\d,\d\],\[\d,\d\],/, "");
+
+                        if(self.board[newRow][newColumn] == "blackSoldier"){
+                            console.log("giving piece red");
+                            self.scene.giveRedPlayerAPiece();
+                        }
+
+                        if(self.board[newRow][newColumn] == "redSoldier"){
+                            console.log("giving piece black");
+                            self.scene.giveBlackPlayerAPiece();
+                        }
     
                         self.parseResponseBoard(actualBoard);
     
@@ -677,6 +687,7 @@ class Cannon
                             } 
     
                             if(player == "black"){
+
                                 self.previousState = self.state.BLACK_PLAYER_MOVE;
                             }
     
@@ -1109,10 +1120,12 @@ class Cannon
         if(this.currentState == this.state.RED_PLAYER_MOVE){
 
             var boardString = this.parseBoardToPLOG();
-
-            console.log(destinationPiece);
             
             var command = "moveRedPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + newRow + "," + newColumn + ")";
+
+            if(destinationPiece == "blackSoldier"){
+                this.scene.giveRedPlayerAPiece();
+            }
 
             this.client.getPrologRequest(
 
@@ -1145,6 +1158,10 @@ class Cannon
 
             var boardString = this.parseBoardToPLOG();
             var command = "moveBlackPiece(" + boardString + "," + this.oldRow + "," + this.oldColumn + "," + newRow + "," + newColumn + ")";
+
+            if(destinationPiece == "redSoldier"){
+                this.scene.giveBlackPlayerAPiece();
+            }
 
             this.client.getPrologRequest(
 
@@ -1356,6 +1373,8 @@ class Cannon
 
                 if(!self.gameOver()){
                     if(self.playerUsingCannon == "red") {
+                        self.scene.giveRedPlayerAPiece();
+
                         self.currentState = self.state.BLACK_PLAYER_TURN;
                         self.rotateCamera();
 
@@ -1365,6 +1384,8 @@ class Cannon
                     }
 
                     else {
+                        self.scene.giveBlackPlayerAPiece();
+
                         self.currentState = self.state.RED_PLAYER_TURN;
                         self.rotateCamera();
                     }
