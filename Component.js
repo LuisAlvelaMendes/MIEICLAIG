@@ -212,6 +212,9 @@ class Component
 				this.scene.graph.primitives[this.childrenPrimitives[i]].updateTexCoordsGLBuffers();
 			}
 
+			//if para eslio A 
+			// antes de displai do menu fazer regiset picking , na funcoa do loginpickin no xmlscene , quando econtrar um ID pickable do meu menu
+			// fazer change texture (registerForPick)
 		}
 
 		return null;

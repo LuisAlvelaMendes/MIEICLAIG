@@ -2,7 +2,7 @@
 
     <scene root="root" axis_length="5.0" />
 
-    <views default="reversedHome" >
+    <views default="home" >
 
         <perspective id="Tabuleiro2" near="0.1" far="500" angle="60">
             <from x="48" y="18.8" z="-12.2" />
@@ -16,12 +16,7 @@
         
         <perspective id="home" near="0.45" far="500" angle="40">
             <from x="315.4" y="110" z="390" />
-            <to x="250" y="80" z="390"  />
-        </perspective>
-
-        <perspective id="reversedHome" near="0.45" far="500" angle="40">
-            <from x="154" y="110" z="390" />
-            <to x="250" y="80" z="390"  />
+            <to x="-10" y="-100" z="390"  />
         </perspective>
 
         <perspective id="underTheFloor" near="0.1" far="550" angle="30">
@@ -89,12 +84,14 @@
         <texture id="glass" file="scenes/images/glass.jpg"/>
         <texture id="black" file="scenes/images/black.jpg"/>
         <texture id="board" file="scenes/images/tab.png"/>
-        <texture id="grey" file="scenes/images/grey.jpg"/>
+        <texture id="grey" file="scenes/images/grey.png"/>
+        <texture id="white" file="scenes/images/white.png"/>
         <texture id="piece" file="scenes/images/pieceTexture.jpg"/>
         <texture id="piece2" file="scenes/images/pieceTexture2.jpg"/>
         <texture id="light" file="scenes/images/light.jpg"/>
         <texture id="newt" file="scenes/images/wood1.jpg"/>
         <texture id="rocks" file="scenes/images/rocks.jpg"/>
+        <texture id="rocks2" file="scenes/images/rocks2.png"/>
         <texture id="p1" file="scenes/images/p1.jpg"/>
         <texture id="lamp" file="scenes/images/lamp.jpg"/>
         <texture id="run" file="scenes/images/run.jpg"/>
@@ -104,6 +101,13 @@
         <texture id="basketball" file="scenes/images/basketball.jpg"/>
         <texture id="pneu" file="scenes/images/pneu.png"/>
         <texture id="grass" file="scenes/images/grass.jpg"/>
+        <texture id="cc" file="scenes/images/cc.png"/>
+        <texture id="hc" file="scenes/images/hc.png"/>
+        <texture id="hh" file="scenes/images/hh.png"/>
+        <texture id="all" file="scenes/images/all.png"/>
+        <texture id="cor" file="scenes/images/cor.png"/>
+        <texture id="dif" file="scenes/images/dif.png"/>
+
     </textures>
 
     <materials>
@@ -2505,6 +2509,233 @@
             </children>
         </component>
 
+        <component id="estiloA">
+            <transformation>
+                <translate x="6.25" y="2.1" z="12.35" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="estiloB">
+            <transformation>
+                <translate x="6.25" y="2" z="12.36" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks2" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="estiloC">
+            <transformation>
+                <translate x="6.25" y="1.89" z="12.37" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="estiloAText">
+            <transformation>
+                <translate x="6.25" y="1.98" z="12.1" />
+                <scale x="0.4" y="0.4" z="0.4" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />
+                <rotate axis="y" angle="-90" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="all" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="diffImage">
+            <transformation>
+                <translate x="6.25" y="1.98" z="11.73" />
+                <scale x="0.4" y="0.4" z="0.4" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />
+                <rotate axis="y" angle="-90" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="dif" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="difA">
+            <transformation>
+                <translate x="6.25" y="2" z="11.9" />
+                <scale x="0.035" y="0.035" z="0.035" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="difB">
+            <transformation>
+                <translate x="6.25" y="2" z="11.76" />
+                <scale x="0.035" y="0.035" z="0.035" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="difC">
+            <transformation>
+                <translate x="6.25" y="2" z="11.62" />
+                <scale x="0.035" y="0.035" z="0.035" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks2" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="corImage">
+            <transformation>
+                <translate x="6.48" y="1.73" z="12.2" />
+                <scale x="0.36" y="0.36" z="0.36" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />  
+                <rotate axis="y" angle="-90" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="cor" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="player1_1">
+            <transformation>
+                <translate x="6.49" y="1.81" z="12.18" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="player1_2">
+            <transformation>
+                <translate x="6.49" y="1.81" z="12.06" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks2" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="player2_1">
+            <transformation>
+                <translate x="6.7" y="1.79" z="12.17" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks2" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="player2_2">
+            <transformation>
+                <translate x="6.7" y="1.79" z="12.06" />
+                <scale x="0.05" y="0.05" z="0.05" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />   
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="rocks" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
+        <component id="menu">
+            <transformation>
+                <translate x="6.2" y="1.8" z="12" />
+                <scale x="1" y="0.8" z="1" />
+                <rotate axis="y" angle="180" />
+                <rotate axis="z" angle="50" />
+            </transformation>
+            <materials>
+                <material id="othermat" />
+            </materials>
+            <texture id="grey" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="myPlane" />
+            </children>
+        </component>
+
         <component id="myPlane">
             <transformation>
                 <translate x="10" y="30" z="-3" />
@@ -2574,6 +2805,7 @@
 
             <children>
                 <componentref id="myRoom"/>
+                <componentref id="myChair"/>
                 <componentref id="myTable"/>
                 <componentref id="board" />
                 <componentref id="myBed"/>
@@ -2596,6 +2828,22 @@
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
                 <componentref id="allPieces" />
+
+               
+                <componentref id="menu" />
+                <componentref id="estiloA" />
+                <componentref id="estiloB" />
+                <componentref id="estiloC" />
+                <componentref id="estiloAText" />
+                <componentref id="corImage" />
+                <componentref id="player1_1" />
+                <componentref id="player1_2" />
+                <componentref id="player2_1" />
+                <componentref id="player2_2" />
+                <componentref id="diffImage" />
+                <componentref id="difA" />
+                <componentref id="difB" />
+                <componentref id="difC" />
             </children>
         </component>
 
@@ -2618,6 +2866,7 @@
 
             <children>
                 <componentref id="myHome"/>
+                
             </children>
         </component>
 
