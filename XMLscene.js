@@ -15,6 +15,10 @@ class XMLscene extends CGFscene {
         this.lightValues = {};
         this.cameraParser = [];
         this.selectedCamera = "";
+        this.tipo = "";
+        this.player1 = "";
+        this.player2 = "";
+        this.dif = "";
     }
 
 
@@ -67,11 +71,67 @@ class XMLscene extends CGFscene {
                         console.log("Picked with pick id " + customId + " it is in row " + row + " and column " + column);
                         this.game.selectedCell(row-1, column-1);
                     }
+
+                    if(this.pickResults[i][1] == 100){
+                        console.log("estiloA")
+                        this.tipo = "estiloA"
+                        this.graph.components["estiloA"].changeSelectedColor();
+                    } else if(this.pickResults[i][1] == 101){
+                        console.log("estiloB")
+                        this.tipo = "estiloB"
+                        //this.graph.components["estiloB"].activateDif("estiloB");
+                        this.graph.components["estiloB"].changeSelectedColor();
+                    } else if(this.pickResults[i][1] == 102){
+                        this.tipo = "estiloC"
+                        console.log("estiloC")
+                        this.graph.components["estiloC"].changeSelectedColor();
+                    }
+                    else if(this.pickResults[i][1] == 103){
+                        console.log("player 1_1")
+                        this.player1 = "orange"
+                        this.graph.components["player1_1"].changeSelectedColor();
+                    }
+
+                    else if(this.pickResults[i][1] == 107){
+                        console.log("player 1_2")
+                        this.player2 = "brown"
+                        this.graph.components["player1_2"].changeSelectedColor();
+                    }
+
+                    else if(this.pickResults[i][1] == 108){
+                        console.log("player 2_1")
+                        this.player2="orange"
+                        this.graph.components["player2_1"].changeSelectedColor();
+                    }
+
+                    else if(this.pickResults[i][1] == 109){
+                        console.log("player 2_2")
+                        this.player2="brown"
+                        this.graph.components["player2_2"].changeSelectedColor();
+                    }
+
+                    else if(this.pickResults[i][1] == 110){
+                        console.log("difMedia")
+                        this.dif="difMedia"
+                        this.graph.components["difB"].changeSelectedColor();
+                    }
+                    else if(this.pickResults[i][1] == 104){
+                        console.log("difHard")
+                        this.dif="difHard"
+                        this.graph.components["difC"].changeSelectedColor();
+                    }
+                    else if(this.pickResults[i][1] == 105){
+                        console.log("start with: " + this.tipo)
+                        this.graph.components["go"].startGame(this.tipo, this.player1, this.player2, this.dif);
+                    }
+
                 }
 
                 this.pickResults.splice(0,this.pickResults.length);
             }		
         }
+
+
     };
     
 
