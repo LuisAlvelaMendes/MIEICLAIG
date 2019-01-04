@@ -2,7 +2,7 @@
 
     <scene root="root" axis_length="5.0" />
 
-    <views default="reversedHome" >
+    <views default="home" >
 
         <perspective id="Tabuleiro2" near="0.1" far="500" angle="60">
             <from x="48" y="18.8" z="-12.2" />
@@ -2637,10 +2637,10 @@
 
         <component id="corImage">
             <transformation>
-                <translate x="6.48" y="1.73" z="12.2" />
+                <translate x="6.37" y="1.65" z="12.2" />
                 <scale x="0.36" y="0.36" z="0.36" />
                 <rotate axis="y" angle="180" />
-                <rotate axis="z" angle="50" />  
+                <rotate axis="z" angle="48" />  
                 <rotate axis="y" angle="-90" />   
             </transformation>
             <materials>
@@ -2654,7 +2654,7 @@
 
         <component id="player1_1">
             <transformation>
-                <translate x="6.5" y="1.81" z="12.18" />
+                <translate x="6.33" y="1.70" z="12.19" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="50" />   
@@ -2671,7 +2671,7 @@
 
         <component id="player1_2">
             <transformation>
-                <translate x="6.49" y="1.81" z="12.06" />
+                <translate x="6.33" y="1.70" z="12.05" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="50" />   
@@ -2688,7 +2688,7 @@
 
         <component id="player2_1">
             <transformation>
-                <translate x="6.7" y="1.79" z="12.17" />
+                <translate x="6.41" y="1.61" z="12.18" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="50" />   
@@ -2842,6 +2842,9 @@
                 <componentref id="myBottleRight"/>
                 <componentref id="mySphere" />
                 <componentref id="myPiramide"/>
+
+                <componentref id="allPieces"/>
+                <componentref id="board" />
 
                 <componentref id="menu" />
                 <componentref id="estiloA" />

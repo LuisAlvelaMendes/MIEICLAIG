@@ -130,11 +130,17 @@ class Component
 		if(tipo == "" && p1_color == "" && p2_color == ""){
 			alert("Not available game");
 			console.log("Type undefined")
-		} else if(tipo == "estiloC"){
+		} else if(tipo == "estiloA"){
 			console.log("TIPO: " + tipo + " p1: " + p1_color + " p2: " + p2_color + " dif: " + dif)
+			this.scene.game.start("Human vs Human" , "null")
 			this.menuFlag = false;
 		} else if(tipo == "estiloB"){
 			console.log("TIPO: " + tipo + " p1: " + p1_color + " p2: " + p2_color + " dif: " + dif)
+			this.menuFlag = false;
+			this.scene.game.start("Human vs Computer" , dif)
+		} else if(tipo == "estiloC"){
+			console.log("TIPO: " + tipo + " p1: " + p1_color + " p2: " + p2_color + " dif: " + dif)
+			this.scene.game.start("Computer vs Computer" , "null")
 			this.menuFlag = false;
 		}
 		

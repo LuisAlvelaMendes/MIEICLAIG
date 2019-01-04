@@ -36,7 +36,7 @@ class XMLscene extends CGFscene {
         this.cameraRotationActive = false;
 
         this.game = new Cannon(this);
-        this.game.start("Computer vs Computer", "easy");
+        //this.game.start("Computer vs Computer", "easy");
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -53,6 +53,8 @@ class XMLscene extends CGFscene {
 
         this.setPickEnabled(true);
     }
+
+    
 
     logPicking()
     {
@@ -111,13 +113,13 @@ class XMLscene extends CGFscene {
                     }
 
                     else if(this.pickResults[i][1] == 110){
-                        console.log("difMedia")
-                        this.dif="difMedia"
+                        console.log("easy")
+                        this.dif="easy"
                         this.graph.components["difB"].changeSelectedColor();
                     }
                     else if(this.pickResults[i][1] == 104){
-                        console.log("difHard")
-                        this.dif="difHard"
+                        console.log("agressive")
+                        this.dif="agressive"
                         this.graph.components["difC"].changeSelectedColor();
                     }
                     else if(this.pickResults[i][1] == 105){
