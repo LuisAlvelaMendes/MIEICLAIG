@@ -15,6 +15,7 @@ class Component
 	    this.tex = tex; 
 	    this.childrenPrimitives = childrenPrimitives;
 	    this.childrenComponents = childrenComponents;
+	    this.all = 0;
 		this.scene = scene;
 		this.materialCurrentIndex = 0;
 		this.animationsID = anim;
@@ -126,23 +127,23 @@ class Component
 		this.incrementIndex();
 	}
 
-	startGame(tipo, p1_color, p2_color,dif){
+	startGame(tipo,dif){
+
 		if(tipo == "" && p1_color == "" && p2_color == ""){
 			alert("Not available game");
 			console.log("Type undefined")
 		} else if(tipo == "estiloA"){
-			console.log("TIPO: " + tipo + " p1: " + p1_color + " p2: " + p2_color + " dif: " + dif)
+			console.log("TIPO:  " + tipo + "dif: " + dif)
 			this.scene.game.start("Human vs Human" , "null")
-			this.menuFlag = false;
 		} else if(tipo == "estiloB"){
-			console.log("TIPO: " + tipo + " p1: " + p1_color + " p2: " + p2_color + " dif: " + dif)
-			this.menuFlag = false;
+			console.log("TIPO:  " + tipo + "dif: " + dif)
 			this.scene.game.start("Human vs Computer" , dif)
 		} else if(tipo == "estiloC"){
-			console.log("TIPO: " + tipo + " p1: " + p1_color + " p2: " + p2_color + " dif: " + dif)
+			console.log("TIPO:  " + tipo + "dif: " + dif)
 			this.scene.game.start("Computer vs Computer" , "null")
-			this.menuFlag = false;
 		}
+
+		this.scene.menu = false;
 		
 	}
 
@@ -159,6 +160,9 @@ class Component
 	display(board, parentMaterialId, parentTextureId) {		
 
 		// Component Children
+
+		//console.log("MENU: " + this.scene.menu)
+
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.scene.graph.components[this.childrenComponents[i]] != null){
 
@@ -172,13 +176,12 @@ class Component
 					this.applyAnimation();
 				}
 
-				/*if(this.childrenComponents[i] == "diffImage" ){
-					console.log(this.scene.graph.components["diffImage"].diff);
-					console.log("trying")
-				}*/
+				if((this.childrenComponents[i] == "estiloA" || this.childrenComponents[i] == "estiloB" || this.childrenComponents[i] == "estiloC" 
+					|| this.childrenComponents[i] == "difB" || this.childrenComponents[i] == "difC" || this.childrenComponents[i] == "go" ||
+					this.childrenComponents[i] == "menu" || this.childrenComponents[i] == "estiloAText" || this.childrenComponents[i] == "diffImage")
+					 && this.scene.menu == true){
 
-				if(this.menuFlag == true){
-
+					
 					if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
 						this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, this.tex[0]);
 					}
@@ -194,13 +197,32 @@ class Component
 					if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
 						this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], this.tex[0]);
 					}
+
+				} else if(this.childrenComponents[i] != "estiloA" && this.childrenComponents[i] != "estiloB" && this.childrenComponents[i] != "estiloC" 
+					&& this.childrenComponents[i] != "difB" && this.childrenComponents[i] != "difC" && this.childrenComponents[i] != "go" &&
+					this.childrenComponents[i] != "menu" && this.childrenComponents[i] != "estiloAText" && this.childrenComponents[i] != "diffImage"){
+
+				if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
+					this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, this.tex[0]);
 				}
+
+				if(this.mat[0] == "inherit" && this.tex[0] == "inherit"){
+					this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, parentTextureId);
+				}
+
+				if(this.mat[0] != "inherit" && this.tex[0] == "inherit"){
+					this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], parentTextureId);
+				}
+
+				if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
+					this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], this.tex[0]);
+				} }
+				
 
 
 
 				if(this.childrenComponents[i] == "estiloA"){
 					this.scene.registerForPick(101, this.childrenComponents[i]);
-					//console.log("101")
 				}
 				else if(this.childrenComponents[i] == "estiloB"){
 					//console.log("EstiloB")
@@ -224,26 +246,7 @@ class Component
 					this.scene.registerForPick(106, this.childrenComponents[i]);
 				}
 
-				else if(this.childrenComponents[i] == "player1_1"){
-					//console.log("go")
-					this.scene.registerForPick(103, this.childrenComponents[i]);
-				}
-
-				else if(this.childrenComponents[i] == "player1_2"){
-					//console.log("go")
-					this.scene.registerForPick(108, this.childrenComponents[i]);
-				}
-
-				else if(this.childrenComponents[i] == "player2_1"){
-					//console.log("go")
-					this.scene.registerForPick(109, this.childrenComponents[i]);
-				}
-
-				else if(this.childrenComponents[i] == "player2_2"){
-					//console.log("go")
-					this.scene.registerForPick(110, this.childrenComponents[i]);
-				}
-
+		
 
 				this.scene.popMatrix();
 			} 

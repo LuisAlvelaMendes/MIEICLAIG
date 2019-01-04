@@ -51,6 +51,8 @@ class XMLscene extends CGFscene {
         this.deltaTime = 0;
         this.setUpdatePeriod(1000 * (1/FPS));
 
+        this.menu = true;
+
         this.setPickEnabled(true);
     }
 
@@ -89,34 +91,12 @@ class XMLscene extends CGFscene {
                         this.graph.components["estiloC"].changeSelectedColor();
                     }
                     else if(this.pickResults[i][1] == 103){
-                        console.log("player 1_1")
-                        this.player1 = "orange"
-                        this.graph.components["player1_1"].changeSelectedColor();
-                    }
-
-                    else if(this.pickResults[i][1] == 107){
-                        console.log("player 1_2")
-                        this.player2 = "brown"
-                        this.graph.components["player1_2"].changeSelectedColor();
-                    }
-
-                    else if(this.pickResults[i][1] == 108){
-                        console.log("player 2_1")
-                        this.player2="orange"
-                        this.graph.components["player2_1"].changeSelectedColor();
-                    }
-
-                    else if(this.pickResults[i][1] == 109){
-                        console.log("player 2_2")
-                        this.player2="brown"
-                        this.graph.components["player2_2"].changeSelectedColor();
-                    }
-
-                    else if(this.pickResults[i][1] == 110){
                         console.log("easy")
                         this.dif="easy"
                         this.graph.components["difB"].changeSelectedColor();
                     }
+
+                   
                     else if(this.pickResults[i][1] == 104){
                         console.log("agressive")
                         this.dif="agressive"
@@ -124,7 +104,7 @@ class XMLscene extends CGFscene {
                     }
                     else if(this.pickResults[i][1] == 105){
                         console.log("start with: " + this.tipo)
-                        this.graph.components["go"].startGame(this.tipo, this.player1, this.player2, this.dif);
+                        this.graph.components["go"].startGame(this.tipo, this.dif);
                     }
 
                 }
