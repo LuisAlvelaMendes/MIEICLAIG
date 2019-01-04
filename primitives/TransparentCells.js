@@ -151,7 +151,18 @@ class TransparentCells extends CGFobject
             new City(this.scene, 4, "blackCityPiece", this.blackAppearance)
         ]
 
+        this.redPlayerCapturedPieces = [];
+        this.blackPlayerCapturedPieces = [];
+
     };
+
+    giveRedPlayerAPiece(){
+        this.redPlayerCapturedPieces.push(new Piece(this.scene, -1, "blackSoldier", this.blackAppearance));
+    }
+
+    giveBlackPlayerAPiece(){
+        this.blackPlayerCapturedPieces.push(new Piece(this.scene, -1, "redSoldier", this.redAppearance));
+    }
 
     updatePieces(board){
 
@@ -337,6 +348,34 @@ class TransparentCells extends CGFobject
         var xCoord = 3.44;
         var zCoord = 13.75;
         var objectIndex = 0;
+
+        if(this.redPlayerCapturedPieces.length != 0){
+
+            var yIncrement = 0;
+
+            for(var i = 0; i < this.redPlayerCapturedPieces.length; i++){
+                this.scene.pushMatrix();
+                this.scene.translate(3.44, -0.56+yIncrement, 15.75);
+                this.redPlayerCapturedPieces[i].display();
+                this.scene.popMatrix();
+
+                yIncrement += 0.6;
+            }
+        }
+
+        if(this.blackPlayerCapturedPieces.length != 0){
+
+            var yIncrement = 0;
+
+            for(var i = 0; i < this.blackPlayerCapturedPieces.length; i++){
+                this.scene.pushMatrix();
+                this.scene.translate(16.75, -0.56+yIncrement, -2.5);
+                this.blackPlayerCapturedPieces[i].display();
+                this.scene.popMatrix();
+
+                yIncrement += 0.6;
+            }
+        }
 
         for(var i = 0; i < 10; i++){
 

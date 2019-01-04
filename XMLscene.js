@@ -36,7 +36,7 @@ class XMLscene extends CGFscene {
         this.cameraRotationActive = false;
 
         this.game = new Cannon(this);
-        this.game.start("Human vs Computer", "easy");
+        this.game.start("Computer vs Computer", "easy");
 
         this.enableTextures(true);
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -381,6 +381,14 @@ class XMLscene extends CGFscene {
 
     setCannonAnimation(pieceRow, pieceColumn){
         this.graph.setCannonAnimation(pieceRow, pieceColumn);
+    }
+
+    giveRedPlayerAPiece(){
+        this.graph.giveRedPlayerAPiece();
+    }
+
+    giveBlackPlayerAPiece(){
+        this.graph.giveBlackPlayerAPiece();
     }
 
     undo(){
