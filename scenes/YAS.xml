@@ -2517,7 +2517,7 @@
 
         <component id="estiloA">
             <transformation>
-                <translate x="6.09" y="2.06" z="12.35" />
+                <translate x="5.97" y="2.035" z="12.37" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="50" />   
@@ -2534,7 +2534,7 @@
 
         <component id="estiloB">
             <transformation>
-                <translate x="6.10" y="1.95" z="12.36" />
+                <translate x="6.055" y="1.95" z="12.37" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="50" />   
@@ -2551,7 +2551,7 @@
 
         <component id="estiloC">
             <transformation>
-                <translate x="6.15" y="1.85" z="12.37" />
+                <translate x="6.16" y="1.85" z="12.37" />
                 <scale x="0.05" y="0.05" z="0.05" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="50" />   
@@ -2568,10 +2568,10 @@
 
         <component id="estiloAText">
             <transformation>
-                <translate x="6.20" y="1.98" z="12.1" />
+                <translate x="6.04" y="1.96" z="12.1" />
                 <scale x="0.4" y="0.4" z="0.4" />
                 <rotate axis="y" angle="180" />
-                <rotate axis="z" angle="50" />
+                <rotate axis="z" angle="45" />
                 <rotate axis="y" angle="-90" />   
             </transformation>
             <materials>
@@ -2857,7 +2857,7 @@
                 <componentref id="difB" />
                 <componentref id="difC" />
                 <componentref id="go" />
-                
+
             </children>
         </component>
 
