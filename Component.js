@@ -133,13 +133,13 @@ class Component
 			alert("Not available game");
 			console.log("Type undefined")
 		} else if(tipo == "estiloA"){
-			console.log("TIPO:  " + tipo + "dif: " + dif)
+			console.log("TIPO: " + tipo + "  dif: " + dif)
 			this.scene.game.start("Human vs Human" , "null")
 		} else if(tipo == "estiloB"){
-			console.log("TIPO:  " + tipo + "dif: " + dif)
+			console.log("TIPO: " + tipo + "  dif: " + dif)
 			this.scene.game.start("Human vs Computer" , dif)
 		} else if(tipo == "estiloC"){
-			console.log("TIPO:  " + tipo + "dif: " + dif)
+			console.log("TIPO: " + tipo + "  dif: " + dif)
 			this.scene.game.start("Computer vs Computer" , "null")
 		}
 

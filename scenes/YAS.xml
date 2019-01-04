@@ -4,9 +4,9 @@
 
     <views default="home" >
 
-        <perspective id="Tabuleiro2" near="0.1" far="500" angle="60">
-            <from x="48" y="18.8" z="-12.2" />
-            <to x="0" y="10" z="0" />
+        <perspective id="Tabuleiro2" near="0.45" far="500" angle="40">
+            <from x="595.4" y="180" z="390" />
+            <to x="250" y="80" z="390"  />
         </perspective>
 
         <perspective id="Tabuleiro3" near="0.1" far="500" angle="60">
@@ -2823,25 +2823,16 @@
             <children>
                 <componentref id="myRoom"/>
                 <componentref id="myTable"/>
-                <componentref id="myBed"/>
-                <componentref id="myLamp"/>
-                <componentref id="myArmarioL"/>
-                <componentref id="myArmarioR"/>
+
                 <componentref id="myPaiting1"/>
                 <componentref id="myPaiting2"/>
                 <componentref id="myArmarioLong_A"/>
                 <componentref id="myArmarioLong_B"/>
                 <componentref id="myArmarioLong_B_UP"/>
                 <componentref id="parteleira"/>
-                <componentref id="tv"/>
-                <componentref id="tvBack"/>
-                <componentref id="myLamp_L"/>
-                <componentref id="myLamp_R"/>
-                <componentref id="glass"/>
+
                 <componentref id="tapete"/>
                 <componentref id="myBottleRight"/>
-                <componentref id="mySphere" />
-                <componentref id="myPiramide"/>
 
                 <componentref id="allPieces"/>
                 <componentref id="board" />
