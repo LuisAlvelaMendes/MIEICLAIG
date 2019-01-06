@@ -2824,33 +2824,14 @@
                 <componentref id="myRoom"/>
                 <componentref id="myTable"/>
 
-                <componentref id="myPaiting1"/>
-                <componentref id="myPaiting2"/>
-                <componentref id="myArmarioLong_A"/>
-                <componentref id="myArmarioLong_B"/>
-                <componentref id="myArmarioLong_B_UP"/>
-                <componentref id="parteleira"/>
-
-                <componentref id="tapete"/>
-                <componentref id="myBottleRight"/>
-                <componentref id="mySphere" />
-                <componentref id="myPiramide"/>
                 <componentref id="board" />
                 <componentref id="allPieces" />
-
-                <componentref id="allPieces"/>
-                <componentref id="board" />
 
                 <componentref id="menu" />
                 <componentref id="estiloA" />
                 <componentref id="estiloB" />
                 <componentref id="estiloC" />
                 <componentref id="estiloAText" />
-                <!--<componentref id="corImage" />
-                <componentref id="player1_1" />
-                <componentref id="player1_2" />
-                <componentref id="player2_1" />
-                <componentref id="player2_2" />-->
                 <componentref id="diffImage" />
                 <componentref id="difB" />
                 <componentref id="difC" />

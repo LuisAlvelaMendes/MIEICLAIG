@@ -79,33 +79,26 @@ class XMLscene extends CGFscene {
                     }
 
                     if(this.pickResults[i][1] == 100){
-                        console.log("estiloA")
                         this.tipo = "estiloA"
                         this.graph.components["estiloA"].changeSelectedColor();
                     } else if(this.pickResults[i][1] == 101){
-                        console.log("estiloB")
                         this.tipo = "estiloB"
-                        //this.graph.components["estiloB"].activateDif("estiloB");
                         this.graph.components["estiloB"].changeSelectedColor();
                     } else if(this.pickResults[i][1] == 102){
                         this.tipo = "estiloC"
-                        console.log("estiloC")
                         this.graph.components["estiloC"].changeSelectedColor();
                     }
                     else if(this.pickResults[i][1] == 103){
-                        console.log("easy")
                         this.dif="easy"
                         this.graph.components["difB"].changeSelectedColor();
                     }
-
                    
                     else if(this.pickResults[i][1] == 104){
-                        console.log("agressive")
                         this.dif="agressive"
                         this.graph.components["difC"].changeSelectedColor();
                     }
                     else if(this.pickResults[i][1] == 105){
-                        console.log("start with: " + this.tipo)
+                        this.camera = this.cameraParser["reversedHome"];
                         this.graph.components["go"].startGame(this.tipo, this.dif);
                     }
 
@@ -373,6 +366,14 @@ class XMLscene extends CGFscene {
 
     giveBlackPlayerAPiece(){
         this.graph.giveBlackPlayerAPiece();
+    }
+
+    takePieceRed(){
+        this.graph.takePieceRed();
+    }
+
+    takePieceBlack(){
+        this.graph.takePieceBlack();
     }
 
     undo(){

@@ -1583,6 +1583,14 @@ class MySceneGraph {
         this.primitives["myCells"].giveBlackPlayerAPiece();
     }
 
+    takePieceRed(){
+        this.primitives["myCells"].takePieceRed();
+    }
+
+    takePieceBlack(){
+        this.primitives["myCells"].takePieceBlack();
+    }
+
 
     /**
      * Displays the scene, processing each node, starting in the root node.

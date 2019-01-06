@@ -34,8 +34,6 @@ class CircularAnimation extends Animation
             this.atualdist += this.angularVelocity*deltaTime;
             this.atualAngle = this.atualdist/this.radius;
         } else{
-            console.log(this.id);
-            console.log("has ended");
             this.animationReachedLoop = true;
         }
 

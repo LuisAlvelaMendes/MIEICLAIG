@@ -114,11 +114,7 @@ class Component
 	activateDif(estilo){
 		if(estilo == "estiloB" && this.diff == false){
 			this.scene.graph.components["diffImage"].diff = true;
-
-			console.log("TRUE NOW: " + this.scene.graph.components["diffImage"].diff)
-
 		} else if(estilo == "estiloB" && this.diff == true){
-			console.log("ENTROU")
 			this.scene.graph.components["diffImage"].diff=false;
 		}
 	}
@@ -131,20 +127,15 @@ class Component
 
 		if(tipo == "" && p1_color == "" && p2_color == ""){
 			alert("Not available game");
-			console.log("Type undefined")
 		} else if(tipo == "estiloA"){
-			console.log("TIPO: " + tipo + "  dif: " + dif)
-			this.scene.game.start("Human vs Human" , "null")
+			this.scene.game.start("Human vs Human" , "null");
 		} else if(tipo == "estiloB"){
-			console.log("TIPO: " + tipo + "  dif: " + dif)
-			this.scene.game.start("Human vs Computer" , dif)
+			this.scene.game.start("Human vs Computer" , dif);
 		} else if(tipo == "estiloC"){
-			console.log("TIPO: " + tipo + "  dif: " + dif)
-			this.scene.game.start("Computer vs Computer" , "null")
+			this.scene.game.start("Computer vs Computer" , "null");
 		}
 
 		this.scene.menu = false;
-		
 	}
 
 	applyAnimation(){
@@ -158,10 +149,6 @@ class Component
 	};
 
 	display(board, parentMaterialId, parentTextureId) {		
-
-		// Component Children
-
-		//console.log("MENU: " + this.scene.menu)
 
 		for(var i = 0; i < this.childrenComponents.length; i++){
 			if(this.scene.graph.components[this.childrenComponents[i]] != null){
@@ -181,7 +168,6 @@ class Component
 					this.childrenComponents[i] == "menu" || this.childrenComponents[i] == "estiloAText" || this.childrenComponents[i] == "diffImage")
 					 && this.scene.menu == true){
 
-					
 					if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
 						this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, this.tex[0]);
 					}
@@ -202,51 +188,39 @@ class Component
 					&& this.childrenComponents[i] != "difB" && this.childrenComponents[i] != "difC" && this.childrenComponents[i] != "go" &&
 					this.childrenComponents[i] != "menu" && this.childrenComponents[i] != "estiloAText" && this.childrenComponents[i] != "diffImage"){
 
-				if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, this.tex[0]);
-				}
+					if(this.mat[0] == "inherit" && this.tex[0] != "inherit"){
+						this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, this.tex[0]);
+					}
 
-				if(this.mat[0] == "inherit" && this.tex[0] == "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, parentTextureId);
-				}
+					if(this.mat[0] == "inherit" && this.tex[0] == "inherit"){
+						this.scene.graph.components[this.childrenComponents[i]].display(board, parentMaterialId, parentTextureId);
+					}
 
-				if(this.mat[0] != "inherit" && this.tex[0] == "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], parentTextureId);
-				}
+					if(this.mat[0] != "inherit" && this.tex[0] == "inherit"){
+						this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], parentTextureId);
+					}
 
-				if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
-					this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], this.tex[0]);
-				} }
+					if(this.mat[0] != "inherit" && this.tex[0] != "inherit"){
+						this.scene.graph.components[this.childrenComponents[i]].display(board, this.mat[0], this.tex[0]);
+					} 
+				}
 				
-
-
-
 				if(this.childrenComponents[i] == "estiloA"){
 					this.scene.registerForPick(101, this.childrenComponents[i]);
 				}
 				else if(this.childrenComponents[i] == "estiloB"){
-					//console.log("EstiloB")
 					this.scene.registerForPick(102, this.childrenComponents[i]);
-
 				} else if(this.childrenComponents[i] == "estiloC"){
-					//console.log("EstiloC")
 					this.scene.registerForPick(103, this.childrenComponents[i]);
 				}
 
 				else if(this.childrenComponents[i] == "difB"){
-					//console.log("EstiloB")
 					this.scene.registerForPick(104, this.childrenComponents[i]);
-
 				} else if(this.childrenComponents[i] == "difC"){
-					//console.log("EstiloC")
 					this.scene.registerForPick(105, this.childrenComponents[i]);
-
 				} else if(this.childrenComponents[i] == "go"){
-					//console.log("go")
 					this.scene.registerForPick(106, this.childrenComponents[i]);
 				}
-
-		
 
 				this.scene.popMatrix();
 			} 

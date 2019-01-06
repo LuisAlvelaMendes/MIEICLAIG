@@ -158,6 +158,7 @@ class Cannon
             }
 
         );
+
     };
 
     getBoard(){
@@ -1016,6 +1017,7 @@ class Cannon
                         this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
                         this.board[newCoord[0]][newCoord[1]] = this.movesRed[this.movesRed.length - 1][2];
                         this.movesRed.splice(this.movesRed.length - 1);
+                        this.scene.takePieceRed();
                     }
                 }
 
@@ -1059,16 +1061,16 @@ class Cannon
                         // do nothing, can't undo from this side.
                     }
     
-                    // captured a black soldier, trying to undo that (destination was a blackSoldier instead of emptyCell)
+                    // captured a red soldier, trying to undo that (destination was a redSoldier instead of emptyCell)
                     else if(this.movesBlack[this.movesBlack.length - 1][2] == "redSoldier" && this.board[oldCoord[0]][oldCoord[1]] == "emptyCell" && this.board[newCoord[0]][newCoord[1]] == "blackSoldier"){
                         this.board[oldCoord[0]][oldCoord[1]] = this.board[newCoord[0]][newCoord[1]];
                         this.board[newCoord[0]][newCoord[1]] = this.movesBlack[this.movesBlack.length - 1][2];
                         this.movesBlack.splice(this.movesBlack.length - 1);
+                        this.scene.takePieceBlack();
                     }
                 }
 
                 else{
-
                     var directionToReverse = this.movesBlack[this.movesBlack.length - 1][0];
                     var cell1 = this.movesBlack[this.movesBlack.length - 1][1];
                     var cell2 = this.movesBlack[this.movesBlack.length - 1][2];

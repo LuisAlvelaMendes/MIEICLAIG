@@ -107,8 +107,6 @@ class LinearAnimation extends Animation
 
         if(this.destinationPoint >= this.controlPoints.length){
             // means you have reached the end of the animation
-            console.log(this.id);
-            console.log("has ended");
             this.animationReachedLoop = true;
             return;
         }

@@ -164,6 +164,14 @@ class TransparentCells extends CGFobject
         this.blackPlayerCapturedPieces.push(new Piece(this.scene, -1, "redSoldier", this.redAppearance));
     }
 
+    takePieceRed(){
+        this.redPlayerCapturedPieces.splice(this.redPlayerCapturedPieces.length - 1);
+    }
+
+    takePieceBlack(){
+        this.blackPlayerCapturedPieces.splice(this.blackPlayerCapturedPieces.length - 1);
+    }
+
     updatePieces(board){
 
         var tempPieces = [];
@@ -382,7 +390,6 @@ class TransparentCells extends CGFobject
         for(var i = 0; i < 10; i++){
 
             for(var j = 0; j < 10; j++){
-                this.scene.setActiveShader(this.scene.defaultShader);
                 this.scene.pushMatrix();
 
                 this.scene.translate(xCoord, -0.56 , zCoord);
@@ -405,6 +412,7 @@ class TransparentCells extends CGFobject
                 zCoord -= 1.56;
 
                 objectIndex++;
+                this.scene.popMatrix();
             }
 
             xCoord += 1.5;
