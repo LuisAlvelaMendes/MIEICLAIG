@@ -2833,6 +2833,10 @@
 
                 <componentref id="tapete"/>
                 <componentref id="myBottleRight"/>
+                <componentref id="mySphere" />
+                <componentref id="myPiramide"/>
+                <componentref id="board" />
+                <componentref id="allPieces" />
 
                 <componentref id="allPieces"/>
                 <componentref id="board" />

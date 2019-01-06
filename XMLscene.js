@@ -45,6 +45,8 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
+        this.transparencyShader = new CGFshader(this.gl, "scenes/shaders/transparency.vert", "scenes/shaders/transparency.frag");
+
         this.axis = new CGFaxis(this);
         this.materialDefault = new CGFappearance(this);
         this.lastTime = -1;

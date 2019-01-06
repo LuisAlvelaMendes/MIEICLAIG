@@ -376,10 +376,13 @@ class TransparentCells extends CGFobject
                 yIncrement += 0.6;
             }
         }
+        
+        
 
         for(var i = 0; i < 10; i++){
 
             for(var j = 0; j < 10; j++){
+                this.scene.setActiveShader(this.scene.defaultShader);
                 this.scene.pushMatrix();
 
                 this.scene.translate(xCoord, -0.56 , zCoord);
@@ -394,11 +397,11 @@ class TransparentCells extends CGFobject
                 }
 
                 // set coords in objects, obtain object coords in function of their row and column and then make the control points.
+          
                 this.objects[objectIndex].setCoords(xCoord, zCoord);
                 this.objects[objectIndex].material.apply();
                 this.objects[objectIndex].display();
 
-                this.scene.popMatrix();
                 zCoord -= 1.56;
 
                 objectIndex++;
